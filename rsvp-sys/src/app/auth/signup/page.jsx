@@ -3,7 +3,7 @@ import axios from "axios";
 
 export default function Page() {
   const sendInfo = () => {
-    axios.post("/api/auth/signup", { message: "how are you doing" });
+    axios.post("/api/auth/signup", { howYouDoing: "how are you doing" });
   };
   return (
     <div>
