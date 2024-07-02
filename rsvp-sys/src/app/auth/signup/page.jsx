@@ -15,6 +15,7 @@ export default function Page() {
   return (
     <div>
       <button onClick={sendInfo}>Click me</button>
+      <h1> signUp </h1>;
     </div>
   );
 }

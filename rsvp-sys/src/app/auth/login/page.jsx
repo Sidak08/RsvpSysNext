@@ -1,17 +1,30 @@
 "use client";
-import axios from "axios";
+import { useState } from "react";
+import styles from "./style.module.css";
+import Link from "next/link";
 
 export default function Page() {
-  const sendInfo = async () => {
-    const res = await axios.post("/api/auth/login", {
-      email: "sidakSingh318@gmail.com",
-      password: "Pass@123",
-    });
-    console.log("resData", res.data);
-  };
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onSubmit = () => {};
+
   return (
     <div>
-      <button onClick={sendInfo}>Click me</button>
+      <div style={styles.headingDiv}>
+        <h1 id={styles.title}> login </h1>
+        <div id={styles.line}> </div>
+      </div>
+      <div id={styles.inputBoxs}></div>
+      <button id={styles.submitButton} onClick={onSubmit}>
+        submit
+      </button>
+      <h5 className={styles.secondaryLink}>
+        Do Not Have An Account
+        <Link href="/auth/signup" className="underLine">
+          Sign Up
+        </Link>
+      </h5>
     </div>
   );
 }
