@@ -17,9 +17,9 @@ export async function POST(req, res) {
       return NextResponse.json({ success: true });
     } else {
       //console.log("Incorrect password");
-      return NextResponse.json({ success: false, error: "Incorrect password" });
+      return NextResponse.json({ success: false, error: "Incorrect Password" });
     }
   }
   // console.log("User not found");
-  return NextResponse.json({ success: false, error: "User not found" });
+  return NextResponse.json({ success: false, error: "User Not Found" });
 }

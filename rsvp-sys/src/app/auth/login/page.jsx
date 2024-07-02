@@ -3,14 +3,17 @@ import { useState } from "react";
 import styles from "./style.module.css";
 import axios from "axios";
 import Link from "next/link";
+import clsx from "clsx";
 
 export default function Page() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState({ success: true, error: "" });
 
   const onSubmit = () => {
     axios.post("/api/auth/login", { email, password }).then((res) => {
       console.log(res.data);
+      setError(res.data);
     });
   };
 
@@ -27,7 +30,7 @@ export default function Page() {
             type="email"
             className={styles.input}
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value.trim())}
             placeholder="Type In Your Email Address"
           />
         </div>
@@ -64,6 +67,17 @@ export default function Page() {
             Sign Up
           </Link>
         </h5>
+      </div>
+
+      <div id={styles.errorBox}>
+        <h2
+          className={clsx({
+            [styles.error]: error.success === false,
+            [styles.hidden]: error.success === true,
+          })}
+        >
+          *{error.error}
+        </h2>
       </div>
     </>
   );
