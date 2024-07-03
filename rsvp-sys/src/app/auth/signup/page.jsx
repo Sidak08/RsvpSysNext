@@ -103,7 +103,7 @@ export default function Page() {
         <h5 className={styles.secondaryLink}>
           Have An Account{" "}
           <Link href="/auth/login" className={styles.underline}>
-            Sign Up
+            Login
           </Link>
         </h5>
       </div>
