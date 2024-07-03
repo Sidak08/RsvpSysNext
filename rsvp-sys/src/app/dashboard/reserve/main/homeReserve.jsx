@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import BookInfo from ".././bookInfo/homeReserveBookInfo";
 import BookSpot from ".././bookSpot/homeReserveBookSpot";
 import BookShowInfo from ".././bookShowInfo/homeReserveBookShowInfo";
+import ChangeBookInfo from ".././moveBook/homeReserveMoveBook";
+import ChangeTime from ".././moveTime/homeReserveMoveTime";
 
 // ON DELETE RMOVE THE UPCOMING RESERVATIONS
 
@@ -11,6 +13,7 @@ const HomeReserve = ({
   activeNav,
   elementsArray,
   upComingReservations,
+  setUpComingReservations,
   setElementsArray,
 }) => {
   const [animationActive, setAnimationActive] = useState(false);
@@ -45,7 +48,9 @@ const HomeReserve = ({
   const [numNotes, setNumNotes] = useState(1);
 
   const [activeRsvp, setActiveRsvp] = useState(false);
+  const [changeRsvp, setChangeRsvp] = useState(false);
 
+  const [renderChangeTime, setRenderChangeTime] = useState(false);
   useEffect(() => {
     if (
       activeElement !== false &&
@@ -118,6 +123,7 @@ const HomeReserve = ({
             setNumPhone={setNumPhone}
             numNotes={numNotes}
             setNumNotes={setNumNotes}
+            setBookingInfo={setBookingInfo}
           />
         </div>
         <div
@@ -131,7 +137,6 @@ const HomeReserve = ({
           />
         </div>
         <BookInfo
-          info={bookingInfo}
           renderBookInfo={renderBookInfo}
           setRenderBookInfo={setRenderBookInfo}
           activeNav={activeNav}
@@ -147,11 +152,34 @@ const HomeReserve = ({
           setNumPhone={setNumPhone}
           numNotes={numNotes}
           setNumNotes={setNumNotes}
+          info={bookingInfo}
+          setInfo={setBookingInfo}
         />
         <BookShowInfo
           activeRsvp={activeRsvp}
           setActiveRsvp={setActiveRsvp}
           activeNav={activeNav}
+          upComingReservations={upComingReservations}
+          elementsArray={elementsArray}
+          changeRsvp={changeRsvp}
+          setChangeRsvp={setChangeRsvp}
+        />
+        <ChangeBookInfo
+          activeNav={activeNav}
+          changeRsvp={changeRsvp}
+          setChangeRsvp={setChangeRsvp}
+          elementsArray={elementsArray}
+          upComingReservations={upComingReservations}
+          setRenderChangeTime={setRenderChangeTime}
+        />
+        <ChangeTime
+          activeNav={activeNav}
+          elementsArray={elementsArray}
+          upComingReservations={upComingReservations}
+          renderChangeTime={renderChangeTime}
+          setRenderChangeTime={setRenderChangeTime}
+          setElementsArray={setElementsArray}
+          setUpComingReservations={setUpComingReservations}
         />
       </>
     );
@@ -172,7 +200,8 @@ const HomeReserve = ({
           />
         </div>
         <BookInfo
-          info={BookInfo}
+          info={bookingInfo}
+          setInfo={setBookingInfo}
           renderBookInfo={renderBookInfo}
           setRenderBookInfo={setRenderBookInfo}
           activeNav={activeNav}
@@ -193,6 +222,25 @@ const HomeReserve = ({
           activeRsvp={activeRsvp}
           setActiveRsvp={setActiveRsvp}
           activeNav={activeNav}
+          changeRsvp={changeRsvp}
+          setChangeRsvp={setChangeRsvp}
+        />
+        <ChangeBookInfo
+          activeNav={activeNav}
+          changeRsvp={changeRsvp}
+          setChangeRsvp={setChangeRsvp}
+          elementsArray={elementsArray}
+          upComingReservations={upComingReservations}
+          setRenderChangeTime={setRenderChangeTime}
+        />
+        <ChangeTime
+          activeNav={activeNav}
+          elementsArray={elementsArray}
+          upComingReservations={upComingReservations}
+          renderChangeTime={renderChangeTime}
+          setRenderChangeTime={setRenderChangeTime}
+          setElementsArray={setElementsArray}
+          setUpComingReservations={setUpComingReservations}
         />
       </>
     );
@@ -218,7 +266,8 @@ const StatusDiv = ({ info, activeRsvp, setActiveRsvp, id }) => {
             email: reservationItem.email,
             phone: reservationItem.phone,
             notes: reservationItem.notes,
-            id: id,
+            id: reservationItem.id,
+            tableId: id,
           }}
           activeRsvp={activeRsvp}
           setActiveRsvp={setActiveRsvp}
@@ -232,18 +281,7 @@ const TimeSlotDiv = ({ info, activeRsvp, setActiveRsvp }) => {
   const [active, setActive] = useState(false);
 
   useEffect(() => {
-    if (
-      activeRsvp.startTime === info.startTime &&
-      activeRsvp.endTime === info.endTime &&
-      activeRsvp.startDate === info.startDate &&
-      activeRsvp.endDate === info.endDate &&
-      activeRsvp.people === info.people &&
-      activeRsvp.id === info.id &&
-      activeRsvp.name === info.name &&
-      activeRsvp.email === info.email &&
-      activeRsvp.phone === info.phone &&
-      activeRsvp.notes === info.notes
-    ) {
+    if (activeRsvp.id === info.id && activeRsvp.tableId === info.tableId) {
       setActive(true);
     } else {
       setActive(false);
@@ -305,7 +343,8 @@ const UpcomingReservations = ({
               email: reservationItem.email,
               phone: reservationItem.phone,
               notes: reservationItem.notes,
-              id: reservationItem.tableId,
+              tableId: reservationItem.tableId,
+              id: reservationItem.id,
             }}
             activeRsvp={activeRsvp}
             setActiveRsvp={setActiveRsvp}

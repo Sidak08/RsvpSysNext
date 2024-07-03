@@ -1,7 +1,8 @@
 import "./homeReserveBookInfo.css";
 import { useState, useEffect } from "react";
-import { CloseSvg } from "./svg.jsx";
+import { CloseSvg } from "../../components/svg.jsx";
 const BookInfo = ({
+  info,
   renderBookInfo,
   activeNav,
   setBorderRed,
@@ -17,10 +18,9 @@ const BookInfo = ({
   setNumPhone,
   numNotes,
   setNumNotes,
-  setInfo,
-  info,
 }) => {
   const [animate, setAnimate] = useState(false);
+
   useEffect(() => {
     if (renderBookInfo && activeNav === "home") {
       setAnimate(true);
@@ -39,73 +39,18 @@ const BookInfo = ({
   }, [borderRed]);
 
   const handleNumPeopleChange = (e) => {
-    info.people = e.target.value;
-    setInfo(info);
+    const input = e.target.value;
+    info.people = parseInt(input);
   };
-
-  const handleClose = () => {
-    setRenderBookInfo(false);
-  };
-
-  useEffect(() => {
-    if (renderBookInfo === false) {
-      const tmp = {
-        name: [],
-        phone: [],
-        email: [],
-        notes: [],
-        people: 1,
-      };
-      for (let i = 0; i < info.name.length; i++) {
-        tmp.name[i] = "";
-      }
-      for (let i = 0; i < info.phone.length; i++) {
-        tmp.phone[i] = "";
-      }
-      for (let i = 0; i < info.email.length; i++) {
-        tmp.email[i] = "";
-      }
-      for (let i = 0; i < info.notes.length; i++) {
-        tmp.notes[i] = "";
-      }
-      setInfo(tmp);
-    }
-  }, [renderBookInfo]);
-
-  useEffect(() => {
-    const isEmpty = (arr) => {
-      if (arr.length === 0) {
-        return false;
-      }
-      for (let i = 0; i < arr.length; i++) {
-        if (arr[i] !== "") {
-          return false;
-        }
-      }
-      return true;
-    };
-    const tmp = {
-      name: [],
-      phone: [],
-      email: [],
-      notes: [],
-      people: 1,
-    };
-    if (
-      isEmpty(info.name) ||
-      isEmpty(info.email) ||
-      isEmpty(info.phone) ||
-      isEmpty(info.notes)
-    ) {
-      setInfo(tmp);
-    }
-  }, [info]);
 
   return (
     <div
       className={`homeReserveBookInfo ${animate ? "animate" : ""} ${borderRed ? "redBorder" : ""}`}
     >
-      <button onClick={handleClose} className="BookInfoClose">
+      <button
+        onClick={() => setRenderBookInfo(false)}
+        className="BookInfoClose"
+      >
         <CloseSvg />
       </button>
       <div id="homeReserveBookInfoHeader">
@@ -120,53 +65,42 @@ const BookInfo = ({
         count={numName}
         info={info}
         heading="Name"
-        setInfo={setInfo}
       />
       <BookInfoInputBox
         addCounter={setNumEmail}
         count={numEmail}
         info={info}
         heading="Email"
-        setInfo={setInfo}
       />
       <BookInfoInputBox
         addCounter={setNumPhone}
         count={numPhone}
         info={info}
         heading="Phone"
-        setInfo={setInfo}
       />
       <BookInfoInputBox
         addCounter={setNumNotes}
         count={numNotes}
         info={info}
         heading="Notes"
-        setInfo={setInfo}
       />
-      <div id="homeReserveBookInfoPeopleInput1">
+      <div id="homeReserveBookInfoPeopleInput">
         <h4> Number Of People </h4>
-        <input value={info.people} onChange={handleNumPeopleChange} />
+        <input onChange={handleNumPeopleChange} />
       </div>
     </div>
   );
 };
 
-const BookInfoInputBox = ({ addCounter, count, info, heading, setInfo }) => {
-  const handleChange = (e, index) => {
+const BookInfoInputBox = ({ addCounter, count, info, heading }) => {
+  const handleChange = (e, key) => {
     const input = e.target.value;
-    const updatedInfo = { ...info };
-    updatedInfo[heading.toLowerCase()] = [
-      ...updatedInfo[heading.toLowerCase()],
-    ];
-    updatedInfo[heading.toLowerCase()][index] = input;
-    setInfo(updatedInfo);
+    info[heading.toLowerCase()][key] = input;
   };
-
   const inputs = Array.from({ length: count }, (_, index) => (
     <input
       key={index}
       className="homeReserveInputBox"
-      value={info[heading.toLowerCase()][index]}
       onChange={(e) => {
         handleChange(e, index);
       }}

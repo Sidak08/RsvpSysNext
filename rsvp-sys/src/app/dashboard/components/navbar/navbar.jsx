@@ -1,5 +1,5 @@
 import "./navbar.css";
-import { Draw, Edit, Home, Setting } from "./svg.jsx";
+import { Draw, Edit, Home, Setting } from ".././images/svg.jsx";
 import React, { useState } from "react";
 
 const Navbar = ({

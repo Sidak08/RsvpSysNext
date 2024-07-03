@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./homeReserveMoveTime.css";
-import { CloseSvg } from "./svg";
+import { CloseSvg } from "../.././components/images/svg.jsx";
 
 const ChangeTime = ({
   activeNav,

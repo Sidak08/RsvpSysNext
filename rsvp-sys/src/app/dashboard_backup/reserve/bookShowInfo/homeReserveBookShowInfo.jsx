@@ -1,16 +1,8 @@
 import "./homeReserveBookShowInfo.css";
 import { useState, useEffect } from "react";
-import { CloseSvg } from "./svg.jsx";
+import { CloseSvg } from "../../components/svg.jsx";
 
-const BookShowInfo = ({
-  activeRsvp,
-  setActiveRsvp,
-  activeNav,
-  upComingReservations,
-  elementsArray,
-  changeRsvp,
-  setChangeRsvp,
-}) => {
+const BookShowInfo = ({ activeRsvp, setActiveRsvp, activeNav }) => {
   const [animation, setAnimation] = useState(false);
   const [lastActiveRsvp, setLastActiveRsvp] = useState({
     startDate: "",
@@ -37,29 +29,6 @@ const BookShowInfo = ({
       setLastActiveRsvp(activeRsvp);
     }
   }, [activeRsvp]);
-
-  const onDelete = () => {
-    for (let i = 0; i < upComingReservations.length; i++) {
-      if (upComingReservations[i].id === activeRsvp.id) {
-        upComingReservations.splice(i, 1);
-      }
-    }
-    for (let i = 0; i < elementsArray.length; i++) {
-      if (elementsArray[i].id === activeRsvp.tableId) {
-        for (let j = 0; j < elementsArray[i].reservation.length; j++) {
-          if (elementsArray[i].reservation[j].id === activeRsvp.id) {
-            elementsArray[i].reservation.splice(j, 1);
-          }
-        }
-      }
-    }
-    setActiveRsvp(false);
-  };
-
-  const changeRsvpFunc = () => {
-    setChangeRsvp(activeRsvp);
-    setActiveRsvp(false);
-  };
 
   return (
     <div className={`bookShowInfo ${animation ? "animate" : ""}`}>
@@ -88,10 +57,6 @@ const BookShowInfo = ({
           <h4>Number of people:</h4>
           <h4>{lastActiveRsvp.people}</h4>
         </div>
-      </div>
-      <div className="bookShowInfoBtnDiv">
-        <button onClick={changeRsvpFunc}>Change</button>
-        <button onClick={onDelete}>Delete</button>
       </div>
     </div>
   );

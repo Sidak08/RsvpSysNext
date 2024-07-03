@@ -9,6 +9,7 @@ const BookSpot = ({
   setForceRerender,
   bookLength,
   bookingInfo,
+  setBookingInfo,
   renderBookInfo,
   setRenderBookInfo,
   setBorderRed,

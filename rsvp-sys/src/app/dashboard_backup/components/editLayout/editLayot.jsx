@@ -7,7 +7,7 @@ import {
   Chair,
   HighChair,
   Sofa,
-} from "./svg";
+} from ".././svg.jsx";
 
 const EditLayout = ({ active, selectedElement, setSelectedElement }) => {
   if (active === "edit") {

@@ -1,6 +1,6 @@
 import "./homeReserveMoveBook.css";
 import { useState, useEffect } from "react";
-import { CloseSvg } from "./svg.jsx";
+import { CloseSvg } from "../.././components/images/svg.jsx";
 const ChangeBookInfo = ({
   activeNav,
   changeRsvp,

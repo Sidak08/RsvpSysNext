@@ -1,20 +1,21 @@
 "use client";
-import Navbar from "./navbar";
+import Navbar from "./components/navbar/navbar";
 import React, { useEffect, useRef, useState } from "react";
 import "./draw.css";
-// import inActiveDot from "/inActiveDot.svg";
-// import activeDot from "/activeDot.svg";
-// import roundTable from "/public/assets/roundTable.svg";
-// import squareTable from "/public/assets/squareTable.svg";
-// import rectangleTable from "/public/assets/rectangleTable.svg";
-// import chair from "/public/assets/chair.svg";
-// import highChair from "/public/assets/highChair.svg";
-// import sofa from "/public/assets/sofa.svg";
-import Instructions from "./components/instructions/ins.jsx";
+// import inActiveDot from "../assets/inActiveDot.svg";
+// import activeDot from "../assets/activeDot.svg";
+// import roundTable from "../assets/roundTable.svg";
+// import squareTable from "../assets/squareTable.svg";
+// import rectangleTable from "../assets/rectangleTable.svg";
+// import chair from "../assets/chair.svg";
+// import highChair from "../assets/highChair.svg";
+// import sofa from "../assets/sofa.svg";
+import Instructions from "./components/instructions/ins";
 import BottomBar from "./components/bottomBar/bottomBar";
 import EditLayout from "./components/editLayout/editLayot";
 import InfoBox from "./components/infoBox/infoBox";
 import HomeReserve from "./reserve/main/homeReserve";
+import InfoBoxLines from "./components/infoBoxLines/infoBoxLines";
 
 const inActiveDot = "/inActiveDot.svg";
 const activeDot = "/activeDot.svg";
@@ -43,6 +44,7 @@ const Draw = () => {
     setting: { backgroundColor: "#3B3939", color: "white" },
   });
   const [upComingReservation, setUpComingReservation] = useState([]);
+  const [movingLinesArrayPoint, setMovingLinesArrayPoint] = useState(false);
 
   return (
     <div>
@@ -77,6 +79,8 @@ const Draw = () => {
         setMousePosition={setMousePosition}
         resizingObject={resizingObject}
         setResizingObject={setResizingObject}
+        movingLinesArrayPoint={movingLinesArrayPoint}
+        setMovingLinesArrayPoint={setMovingLinesArrayPoint}
       />
       <Instructions active={activeNav} />
       <BottomBar />
@@ -99,6 +103,13 @@ const Draw = () => {
         elementsArray={elementsArray}
         upComingReservations={upComingReservation}
         setElementsArray={setElementsArray}
+        setUpComingReservations={setUpComingReservation}
+      />
+      <InfoBoxLines
+        activeNav={activeNav}
+        linesArray={linesArray}
+        movingLinesArrayPoint={movingLinesArrayPoint}
+        setMovingLinesArrayPoint={setMovingLinesArrayPoint}
       />
     </div>
   );
@@ -125,6 +136,8 @@ const CanvasComponent = ({
   setMousePosition,
   resizingObject,
   setResizingObject,
+  movingLinesArrayPoint,
+  setMovingLinesArrayPoint,
 }) => {
   const activeDotImage = new Image();
   const inActiveDotImage = new Image();
@@ -142,9 +155,6 @@ const CanvasComponent = ({
   const [cursorStyle, setCursorStyle] = useState("grab");
 
   const [movingObject, setMovingObject] = useState(false);
-  const [movingLinesArrayPoint, setMovingLinesArrayPoint] = useState(false);
-
-  const [reRenderScreen, setReRenderScreen] = useState(0);
 
   const genrateId = (ary) => {
     const randomNum = Math.floor(Math.random() * 1000000);
@@ -239,7 +249,9 @@ const CanvasComponent = ({
       }
     }
     if (active === "edit") {
-      setCursorStyle("grab");
+      if (cursorStyle !== "grab") {
+        setCursorStyle("grab");
+      }
       if (selectedElement != false) {
         const infoChart = {
           roundTable: { height: 50, width: 50 },
@@ -295,7 +307,6 @@ const CanvasComponent = ({
           hoverImage.height,
         );
       }
-
       for (let i = 0; i < elementsArray.length; i++) {
         if (
           isNearObject(mousePosition, elementsArray[i], 20) ||
@@ -449,21 +460,36 @@ const CanvasComponent = ({
             if (isMouseDown) {
               setMovingLinesArrayPoint({ i: i, j: j });
               setPanning(false);
-            } else {
-              context.drawImage(
-                activeDotImage,
-                linesArray[i][j].x + offset.x - 7,
-                linesArray[i][j].y + offset.y - 7,
-                14,
-                14,
-              );
             }
+            //changeTheImage
+            context.drawImage(
+              activeDotImage,
+              linesArray[i][j].x + offset.x - 7,
+              linesArray[i][j].y + offset.y - 7,
+              14,
+              14,
+            );
           }
         }
       }
+      if (movingLinesArrayPoint !== false) {
+        context.drawImage(
+          activeDotImage,
+          linesArray[movingLinesArrayPoint.i][movingLinesArrayPoint.j].x +
+            offset.x -
+            7,
+          linesArray[movingLinesArrayPoint.i][movingLinesArrayPoint.j].y +
+            offset.y -
+            7,
+          14,
+          14,
+        );
+      }
     }
     if (active === "draw") {
-      setCursorStyle("default");
+      if (cursorStyle !== "default") {
+        setCursorStyle("default");
+      }
 
       if (keyPress.value === "Escape") {
         setActive("home");
@@ -491,10 +517,7 @@ const CanvasComponent = ({
           draw: { backgroundColor: "#3B3939", color: "white" },
           setting: { backgroundColor: "#3B3939", color: "white" },
         });
-        handleMouseDown({
-          clientX: mousePosition.x,
-          clientY: mousePosition.y,
-        });
+        handleMouseDown({ clientX: mousePosition.x, clientY: mousePosition.y });
         handleMouseUp();
         setKeyPress({ value: false });
         setLastClick({ x: false, y: false });
@@ -532,7 +555,16 @@ const CanvasComponent = ({
                 linesArray[i][j].x !== false &&
                 isNearPoint(mousePosition, linesArray[i][j], 10)
               ) {
-                setMousePosition(linesArray[i][j]);
+                if (
+                  mousePosition.x !== linesArray[i][j].x + offset.x &&
+                  mousePosition.y !== linesArray[i][j].y + offset.y
+                ) {
+                  setMousePosition({
+                    x: linesArray[i][j].x + offset.x,
+                    y: linesArray[i][j].y + offset.y,
+                  });
+                }
+                context.strokeStyle = "red";
               }
             }
           }
@@ -550,38 +582,20 @@ const CanvasComponent = ({
         14,
       );
     }
-    if (active === "edit") {
-      if (keyPress.value === "Backspace") {
-        // if (activeElement !== false) {
-        //   setKeyPress({ value: false });
-        //   elementsArray.splice(activeElement, 1);
-        //   setActiveElement(false);
-        // }
-        // delete later
-      }
-    }
     if (keyPress.value !== false) {
       setKeyPress({ value: false });
     }
   }, [
-    // mousePosition,
-    // active,
-    // lastClick,
-    // activeElement,
-    // keyPress,
-    // initialization,
-    // elementsArray,
-    reRenderScreen,
+    mousePosition,
+    active,
+    lastClick,
+    activeElement,
+    keyPress,
+    initialization,
+    elementsArray,
+    linesArray,
+    movingLinesArrayPoint,
   ]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setReRenderScreen((prev) => prev + 1);
-      //console.log(reRenderScreen);
-    }, 45); // 30 times a second
-
-    return () => clearInterval(interval); // Clean up the interval on component unmount
-  }, []);
 
   useEffect(() => {
     window.addEventListener("keydown", keyPressed);
@@ -619,7 +633,6 @@ const CanvasComponent = ({
       elementsArray[activeElement].y =
         e.clientY - offset.y - elementsArray[activeElement].height / 2;
     }
-
     // NEVER TOUCH THIS RESIZING CODE PLZ also fix the negative heigh | width problem | somewhat fixed those issues
     if (resizingObject !== false && isMouseDown && active == "edit") {
       if (elementsArray[resizingObject].reSize === "n") {
@@ -688,7 +701,7 @@ const CanvasComponent = ({
       // elementsArray[resizingObject].height =
       //   e.clientY - elementsArray[resizingObject].y - offset.y;
     }
-    if (movingLinesArrayPoint !== false) {
+    if (movingLinesArrayPoint !== false && isMouseDown && active == "edit") {
       //moving an dot
       linesArray[movingLinesArrayPoint.i][movingLinesArrayPoint.j].x =
         e.clientX - offset.x;
@@ -775,7 +788,6 @@ const CanvasComponent = ({
         });
         setSelectedElement(false);
       }
-
       for (let i = 0; i < elementsArray.length; i++) {
         if (
           clientX >= elementsArray[i].x + offset.x &&
@@ -790,7 +802,6 @@ const CanvasComponent = ({
           elementsArray[i].selected = false;
         }
       }
-
       for (let i = 0; i < elementsArray.length; i++) {
         if (elementsArray[i].reSize !== false) {
           setResizingObject(i);
@@ -798,7 +809,6 @@ const CanvasComponent = ({
           setMovingObject(false);
         }
       }
-
       const reset = (elementsArray) => {
         for (let i = 0; i < elementsArray.length; i++) {
           if (elementsArray[i].selected === true) return;
@@ -806,8 +816,8 @@ const CanvasComponent = ({
         setActiveElement(false);
         return;
       };
-
       reset(elementsArray);
+      setMovingLinesArrayPoint(false);
     }
   };
   const handleMouseUp = () => {
@@ -815,7 +825,6 @@ const CanvasComponent = ({
     setIsMouseDown(false);
     setResizingObject(false);
     setMovingObject(false);
-    setMovingLinesArrayPoint(false);
   };
   const isNearPoint = (mousePosition, point, radius) => {
     const canvasMouseX = mousePosition.x;

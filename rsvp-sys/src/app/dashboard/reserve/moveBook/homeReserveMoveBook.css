@@ -154,7 +154,7 @@ input:focus {
     color: white;
     font-size: 16px;
     text-align: center;
-    Btn}
+}
 .homeReserveChangeTimeBtn:active {
     background-color: #a45900;
 }
