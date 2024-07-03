@@ -135,6 +135,8 @@ const CanvasComponent = ({
   const [movingObject, setMovingObject] = useState(false);
   const [movingLinesArrayPoint, setMovingLinesArrayPoint] = useState(false);
 
+  const [reRenderScreen, setReRenderScreen] = useState(0);
+
   const genrateId = (ary) => {
     const randomNum = Math.floor(Math.random() * 1000000);
     for (let i = 0; i < ary.length; i++) {
@@ -560,14 +562,23 @@ const CanvasComponent = ({
     //};
     // reccursion();
   }, [
-    mousePosition,
+    // mousePosition,
     // active,
-    lastClick,
+    // lastClick,
     // activeElement,
     // keyPress,
     // initialization,
     // elementsArray,
+    reRenderScreen,
   ]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setReRenderScreen((prev) => prev + 1);
+    }, 300); // 30 times a second
+
+    return () => clearInterval(interval); // Clean up the interval on component unmount
+  }, []);
 
   useEffect(() => {
     window.addEventListener("keydown", keyPressed);
