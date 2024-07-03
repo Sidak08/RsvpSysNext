@@ -157,8 +157,6 @@ const CanvasComponent = ({
   };
 
   useEffect(() => {
-    // const reccursion = () => {
-    // setInterval(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
     context.fillStyle = "#0D0D0D";
@@ -565,11 +563,6 @@ const CanvasComponent = ({
     if (keyPress.value !== false) {
       setKeyPress({ value: false });
     }
-    console.log("a");
-    // reccursion();
-    // }, 3000);
-    //};
-    // reccursion();
   }, [
     // mousePosition,
     // active,
@@ -584,7 +577,8 @@ const CanvasComponent = ({
   useEffect(() => {
     const interval = setInterval(() => {
       setReRenderScreen((prev) => prev + 1);
-    }, 30); // 30 times a second
+      //console.log(reRenderScreen);
+    }, 60); // 30 times a second
 
     return () => clearInterval(interval); // Clean up the interval on component unmount
   }, []);
