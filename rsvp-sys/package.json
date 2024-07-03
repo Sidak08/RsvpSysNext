@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@svgr/webpack": "^8.1.0",
     "axios": "^1.7.2",
     "clsx": "^2.1.1",
     "formik": "^2.4.6",

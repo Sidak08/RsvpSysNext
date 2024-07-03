@@ -2,19 +2,28 @@
 import Navbar from "./navbar";
 import React, { useEffect, useRef, useState } from "react";
 import "./draw.css";
-import inActiveDot from "../assets/inActiveDot.svg";
-import activeDot from "../assets/activeDot.svg";
-import roundTable from "../assets/roundTable.svg";
-import squareTable from "../assets/squareTable.svg";
-import rectangleTable from "../assets/rectangleTable.svg";
-import chair from "../assets/chair.svg";
-import highChair from "../assets/highChair.svg";
-import sofa from "../assets/sofa.svg";
+// import inActiveDot from "/inActiveDot.svg";
+// import activeDot from "/activeDot.svg";
+// import roundTable from "/public/assets/roundTable.svg";
+// import squareTable from "/public/assets/squareTable.svg";
+// import rectangleTable from "/public/assets/rectangleTable.svg";
+// import chair from "/public/assets/chair.svg";
+// import highChair from "/public/assets/highChair.svg";
+// import sofa from "/public/assets/sofa.svg";
 import Instructions from "./components/instructions/ins.jsx";
 import BottomBar from "./components/bottomBar/bottomBar";
 import EditLayout from "./components/editLayout/editLayot";
 import InfoBox from "./components/infoBox/infoBox";
 import HomeReserve from "./reserve/main/homeReserve";
+
+const inActiveDot = "/inActiveDot.svg";
+const activeDot = "/activeDot.svg";
+const roundTable = "/roundTable.svg";
+const squareTable = "/squareTable.svg";
+const rectangleTable = "/rectangleTable.svg";
+const chair = "/chair.svg";
+const highChair = "/highChair.svg";
+const sofa = "/sofa.svg";
 
 const Draw = () => {
   const [activeNav, setActiveNav] = useState("home");
@@ -575,7 +584,7 @@ const CanvasComponent = ({
   useEffect(() => {
     const interval = setInterval(() => {
       setReRenderScreen((prev) => prev + 1);
-    }, 300); // 30 times a second
+    }, 30); // 30 times a second
 
     return () => clearInterval(interval); // Clean up the interval on component unmount
   }, []);
