@@ -11,8 +11,6 @@ export async function POST(req, res) {
   let user = false;
   const data = await req.json();
 
-  console.log("Request Body: 4", data);
-
   const cookieStore = cookies();
   let cookieValue = cookieStore.get("loginInfo")?.value || false;
 
@@ -27,9 +25,7 @@ export async function POST(req, res) {
       console.error("Error in axios call:", error);
     }
 
-    console.log("Cookie Value:", cookieValue, currentUser, "currentUser");
     if (currentUser) {
-      console.log("User is logged in", cookieValue);
       user = await db.collection("users").findOne({ email: cookieValue.email });
 
       return NextResponse.json({

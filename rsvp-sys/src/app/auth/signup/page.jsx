@@ -31,13 +31,11 @@ export default function Page() {
         })
         .then((res) => {
           if (res.data.success === true) {
-            console.log(res.data);
             Cookies.set("loginInfo", JSON.stringify({ email, password }), {
               expires: 30,
             });
             router.push("/dashboard");
           }
-          console.log(res.data, "error");
           const errorStr = Object.keys(res.data.errors)
             .map((key) => {
               return `${res.data.errors[key]}`;

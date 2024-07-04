@@ -15,7 +15,6 @@ export default function Page() {
 
   const onSubmit = () => {
     axios.post("/api/auth/login", { email, password }).then((res) => {
-      console.log(res.data);
       if (res.data.success) {
         Cookies.set("loginInfo", JSON.stringify({ email, password }), {
           expires: 30,

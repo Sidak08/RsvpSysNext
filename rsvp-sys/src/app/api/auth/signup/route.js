@@ -9,18 +9,14 @@ export async function POST(req, res) {
   const client = await clientPromise;
   const db = client.db();
 
-  //console.log("Data:", data);
-
   const validationErrors = validateInputs(data);
 
   if (Object.keys(validationErrors).length > 0) {
-    console.log("Validation errors:", validationErrors, data);
     return NextResponse.json({ success: false, errors: validationErrors });
   } else {
     const user = await db.collection("users").findOne({ email: data.email });
 
     if (user) {
-      console.log("User already exists");
       return NextResponse.json({
         success: false,
         errors: { user: "User already exists" },
@@ -31,16 +27,3 @@ export async function POST(req, res) {
     }
   }
 }
-
-// use full for later
-
-// const users = await db.collection("users").find({}).toArray();
-//
-// const input = {
-//   email: "test@example.com",
-//   password: "password123",
-//   id: 1,
-//   firstName: "John",
-//   lastName: "Doe",
-//   phone: "+1234567890",
-// };

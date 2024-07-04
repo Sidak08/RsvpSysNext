@@ -26,8 +26,6 @@ const InfoBoxLines = ({
 
   const onDeleteClick = () => {
     if (movingLinesArrayPoint !== false) {
-      console.log(movingLinesArrayPoint);
-      console.log(linesArray);
       linesArray[movingLinesArrayPoint.i].splice(movingLinesArrayPoint.j, 1);
       setMovingLinesArrayPoint(false);
     }

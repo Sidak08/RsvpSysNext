@@ -63,7 +63,6 @@ const Draw = () => {
 
   useEffect(() => {
     axios.post("/api/get_data/dashboard", {}).then((res) => {
-      console.log(res);
       setElementsArray(fixElementsArray(res.data.elementsArray));
       setLinesArray(res.data.linesArray);
       setUpComingReservation(res.data.upComingReservations);
@@ -659,11 +658,6 @@ const CanvasComponent = ({
 
     // Function to compare arrays
     function arraysAreEqual(arr1, arr2) {
-      console.log(
-        arr1,
-        JSON.stringify(arr2),
-        JSON.stringify(arr1) === JSON.stringify(arr2),
-      );
       return arr1 === JSON.stringify(arr2);
     }
 
@@ -673,7 +667,6 @@ const CanvasComponent = ({
       !arraysAreEqual(prevLinAry, linesArray) ||
       !arraysAreEqual(preUpComRes, upComingReservation)
     ) {
-      //console.log(elementsArray, "elementsArray", linesArray, "linesArray");
       const data = {
         elementsArray: elementsArray,
         linesArray: linesArray,
@@ -692,7 +685,6 @@ const CanvasComponent = ({
   useEffect(() => {
     const interval = setInterval(() => {
       setCheckUpdate((prev) => prev + 1);
-      //console.log(reRenderScreen);
     }, 5000); // 30 times a second
 
     return () => clearInterval(interval); // Clean up the interval on component unmount
