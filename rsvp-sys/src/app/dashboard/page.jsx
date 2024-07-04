@@ -31,13 +31,47 @@ const Draw = () => {
   const [elementsArray, setElementsArray] = useState([]);
   const [linesArray, setLinesArray] = useState([[{ x: false, y: false }]]);
   const [upComingReservation, setUpComingReservation] = useState([]);
+  const [forceUpdate, setForceUpdate] = useState(0);
+
+  const fixElementsArray = (arr) => {
+    for (let i = 0; i < arr.length; i++) {
+      const image = new Image();
+      switch (arr[i].title) {
+        case "Round Table":
+          image.src = roundTable;
+          break;
+        case "Square Table":
+          image.src = squareTable;
+          break;
+        case "Rectangle Table":
+          image.src = rectangleTable;
+          break;
+        case "Chair":
+          image.src = chair;
+          break;
+        case "High Chair":
+          image.src = highChair;
+          break;
+        case "Sofa":
+          image.src = sofa;
+          break;
+      }
+      arr[i].image = image;
+    }
+    return arr;
+  };
 
   useEffect(() => {
     axios.post("/api/get_data/dashboard", {}).then((res) => {
       console.log(res);
-      setElementsArray(res.data.elementsArray);
+      setElementsArray(fixElementsArray(res.data.elementsArray));
       setLinesArray(res.data.linesArray);
       setUpComingReservation(res.data.upComingReservations);
+      setTimeout(() => {
+        setForceUpdate((prev) => {
+          prev + 1;
+        });
+      }, 1000);
     });
   }, []);
   const [activeNav, setActiveNav] = useState("home");
@@ -94,6 +128,7 @@ const Draw = () => {
         movingLinesArrayPoint={movingLinesArrayPoint}
         setMovingLinesArrayPoint={setMovingLinesArrayPoint}
         upComingReservation={upComingReservation}
+        forceUpdate={forceUpdate}
       />
       <Instructions active={activeNav} />
       <BottomBar />
@@ -152,6 +187,7 @@ const CanvasComponent = ({
   movingLinesArrayPoint,
   setMovingLinesArrayPoint,
   upComingReservation,
+  forceUpdate,
 }) => {
   const activeDotImage = new Image();
   const inActiveDotImage = new Image();
@@ -610,6 +646,7 @@ const CanvasComponent = ({
     elementsArray,
     linesArray,
     movingLinesArrayPoint,
+    forceUpdate,
   ]);
 
   const [prevEleAry, setPrevEleAry] = useState("[]");
