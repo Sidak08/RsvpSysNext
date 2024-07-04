@@ -5,8 +5,10 @@ import axios from "axios";
 import Link from "next/link";
 import clsx from "clsx";
 import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -28,10 +30,14 @@ export default function Page() {
           phone: phone.trim(),
         })
         .then((res) => {
-          console.log(res.data);
-          Cookies.set("loginInfo", JSON.stringify({ email, password }), {
-            expires: 30,
-          });
+          if (res.data.success === true) {
+            console.log(res.data);
+            Cookies.set("loginInfo", JSON.stringify({ email, password }), {
+              expires: 30,
+            });
+            router.push("/dashboard");
+          }
+          console.log(res.data, "error");
           const errorStr = Object.keys(res.data.errors)
             .map((key) => {
               return `${res.data.errors[key]}`;

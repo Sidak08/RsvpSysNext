@@ -23,7 +23,7 @@ export async function POST(req, res) {
       console.log("User already exists");
       return NextResponse.json({
         success: false,
-        error: "User already exists",
+        errors: { user: "User already exists" },
       });
     } else {
       const result = await db.collection("users").insertOne(data);

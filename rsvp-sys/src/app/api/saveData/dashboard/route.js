@@ -1,9 +1,13 @@
 import { NextResponse } from "next/server";
-import axios from "axios";
+import clientPromise from "../../../components/mongodb";
+import validateInputs from "../../../components/validateInput";
 import { cookies } from "next/headers";
 
-export async function middleware(request) {
+export async function POST(req, res) {
+  const client = await clientPromise;
+  const db = client.db();
   let currentUser = false;
+  let user = false;
 
   const cookieStore = cookies();
   let cookieValue = cookieStore.get("loginInfo")?.value || false;
@@ -15,22 +19,19 @@ export async function middleware(request) {
     const baseUrl = request.nextUrl.origin;
     const absoluteUrl = `${baseUrl}/api/auth/login`;
 
-    // Use the absolute URL
+
     try {
       const res = await axios.post(absoluteUrl, cookieValue);
       currentUser = res.data.success;
     } catch (error) {
       console.error("Error in axios call:", error);
     }
+
+    if (currentUser) {
+      user = await db.collection("users").findOne({ cookieValue.email });
+      console.log("User:", user);
+    }
   }
 
-  if (!currentUser && request.nextUrl.pathname.startsWith("/dashboard")) {
-    return NextResponse.redirect(new URL("/auth/login", request.url));
-  }
 
-  return NextResponse.next();
 }
-
-export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
-};
