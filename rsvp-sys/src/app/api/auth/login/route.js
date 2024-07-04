@@ -3,6 +3,7 @@ import clientPromise from "../../../components/mongodb";
 import fixInfo from "../../../components/fixInfoLogin";
 
 export async function POST(req, res) {
+  console.log("Request:", req.body);
   const data = fixInfo(await req.json());
   const client = await clientPromise;
   const db = client.db();
