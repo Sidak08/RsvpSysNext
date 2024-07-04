@@ -28,6 +28,10 @@ export default function Page() {
         })
         .then((res) => {
           console.log(res.data);
+          localStorage.setItem(
+            "currentUser",
+            JSON.stringify({ email, password }),
+          );
           const errorStr = Object.keys(res.data.errors)
             .map((key) => {
               return `${res.data.errors[key]}`;

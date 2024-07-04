@@ -13,6 +13,15 @@ export default function Page() {
   const onSubmit = () => {
     axios.post("/api/auth/login", { email, password }).then((res) => {
       console.log(res.data);
+      if (res.data.success) {
+        localStorage.setItem(
+          "currentUser",
+          JSON.stringify({ email, password }),
+        );
+        // const test = JSON.parse(window.localStorage.getItem("currentUser"));
+        // console.log(test, "test");
+        //window.location.href = "/dashboard";
+      }
       setError(res.data);
     });
   };
