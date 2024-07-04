@@ -4,6 +4,7 @@ import styles from "./style.module.css";
 import axios from "axios";
 import Link from "next/link";
 import clsx from "clsx";
+import Cookies from "js-cookie";
 
 export default function Page() {
   const [email, setEmail] = useState("");
@@ -14,13 +15,9 @@ export default function Page() {
     axios.post("/api/auth/login", { email, password }).then((res) => {
       console.log(res.data);
       if (res.data.success) {
-        localStorage.setItem(
-          "currentUser",
-          JSON.stringify({ email, password }),
-        );
-        // const test = JSON.parse(window.localStorage.getItem("currentUser"));
-        // console.log(test, "test");
-        //window.location.href = "/dashboard";
+        Cookies.set("loginInfo", JSON.stringify({ email, password }), {
+          expires: 30,
+        });
       }
       setError(res.data);
     });

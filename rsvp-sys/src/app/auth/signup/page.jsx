@@ -4,6 +4,7 @@ import styles from "./style.module.css";
 import axios from "axios";
 import Link from "next/link";
 import clsx from "clsx";
+import Cookies from "js-cookie";
 
 export default function Page() {
   const [email, setEmail] = useState("");
@@ -28,10 +29,9 @@ export default function Page() {
         })
         .then((res) => {
           console.log(res.data);
-          localStorage.setItem(
-            "currentUser",
-            JSON.stringify({ email, password }),
-          );
+          Cookies.set("loginInfo", JSON.stringify({ email, password }), {
+            expires: 30,
+          });
           const errorStr = Object.keys(res.data.errors)
             .map((key) => {
               return `${res.data.errors[key]}`;
