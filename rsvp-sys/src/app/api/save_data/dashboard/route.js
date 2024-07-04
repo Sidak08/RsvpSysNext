@@ -2,23 +2,23 @@ import { NextResponse } from "next/server";
 import clientPromise from "../../../components/mongodb";
 import validateInputs from "../../../components/validateInput";
 import { cookies } from "next/headers";
+import axios from "axios";
 
 export async function POST(req, res) {
   const client = await clientPromise;
   const db = client.db();
   let currentUser = false;
   let user = false;
+  const data = await req.json();
+
+  console.log("Request Body: 4", data);
 
   const cookieStore = cookies();
   let cookieValue = cookieStore.get("loginInfo")?.value || false;
 
   if (cookieValue) {
     cookieValue = JSON.parse(cookieValue);
-
-    // Construct absolute URL
-    const baseUrl = request.nextUrl.origin;
-    const absoluteUrl = `${baseUrl}/api/auth/login`;
-
+    const absoluteUrl = `${process.env.BASE_URL}/api/auth/login`; // Ensure BASE_URL is defined
 
     try {
       const res = await axios.post(absoluteUrl, cookieValue);
@@ -27,11 +27,21 @@ export async function POST(req, res) {
       console.error("Error in axios call:", error);
     }
 
+    console.log("Cookie Value:", cookieValue, currentUser, "currentUser");
     if (currentUser) {
-      user = await db.collection("users").findOne({ cookieValue.email });
+      console.log("User is logged in", cookieValue);
+      user = await db.collection("users").findOne({ email: cookieValue.email });
       console.log("User:", user);
+      const works = await db
+        .collection("users")
+        .updateOne(
+          { email: cookieValue.email },
+          { $set: { dashboardData: data } },
+        );
+      console.log("User2:", user);
+      return NextResponse.json({ success: works });
     }
   }
 
-
+  return NextResponse.json({ success: false });
 }

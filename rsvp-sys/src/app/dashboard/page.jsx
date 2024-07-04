@@ -81,6 +81,7 @@ const Draw = () => {
         setResizingObject={setResizingObject}
         movingLinesArrayPoint={movingLinesArrayPoint}
         setMovingLinesArrayPoint={setMovingLinesArrayPoint}
+        upComingReservation={upComingReservation}
       />
       <Instructions active={activeNav} />
       <BottomBar />
@@ -138,6 +139,7 @@ const CanvasComponent = ({
   setResizingObject,
   movingLinesArrayPoint,
   setMovingLinesArrayPoint,
+  upComingReservation,
 }) => {
   const activeDotImage = new Image();
   const inActiveDotImage = new Image();
@@ -155,6 +157,7 @@ const CanvasComponent = ({
   const [cursorStyle, setCursorStyle] = useState("grab");
 
   const [movingObject, setMovingObject] = useState(false);
+  const [checkUpdate, setCheckUpdate] = useState(0);
 
   const genrateId = (ary) => {
     const randomNum = Math.floor(Math.random() * 1000000);
@@ -596,6 +599,30 @@ const CanvasComponent = ({
     linesArray,
     movingLinesArrayPoint,
   ]);
+
+  useEffect(() => {
+    let prevEleAry = [];
+    let prevLinAry = [];
+    //const upComRe = []
+
+    if (
+      prevEleAry.toString() !== elementsArray.toString() ||
+      prevLinAry.toString() !== linesArray.toString()
+    ) {
+      console.log(elementsArray, "elementsArray", linesArray, "linesArray");
+      prevEleAry = { ...elementsArray };
+      prevLinAry = { ...linesArray };
+    }
+  }, [checkUpdate]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCheckUpdate((prev) => prev + 1);
+      //console.log(reRenderScreen);
+    }, 5000); // 30 times a second
+
+    return () => clearInterval(interval); // Clean up the interval on component unmount
+  }, []);
 
   useEffect(() => {
     window.addEventListener("keydown", keyPressed);
