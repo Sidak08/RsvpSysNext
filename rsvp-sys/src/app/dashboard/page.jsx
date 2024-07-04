@@ -16,6 +16,7 @@ import EditLayout from "./components/editLayout/editLayot";
 import InfoBox from "./components/infoBox/infoBox";
 import HomeReserve from "./reserve/main/homeReserve";
 import InfoBoxLines from "./components/infoBoxLines/infoBoxLines";
+import axios from "axios";
 
 const inActiveDot = "/inActiveDot.svg";
 const activeDot = "/activeDot.svg";
@@ -27,12 +28,23 @@ const highChair = "/highChair.svg";
 const sofa = "/sofa.svg";
 
 const Draw = () => {
-  const [activeNav, setActiveNav] = useState("home");
+  const [elementsArray, setElementsArray] = useState([]);
   const [linesArray, setLinesArray] = useState([[{ x: false, y: false }]]);
+  const [upComingReservation, setUpComingReservation] = useState([]);
+
+  useEffect(() => {
+    axios.post("/api/get_data/dashboard", {}).then((res) => {
+      console.log(res);
+      setElementsArray(res.data.elementsArray);
+      setLinesArray(res.data.linesArray);
+      setUpComingReservation(res.data.upComingReservations);
+    });
+  }, []);
+  const [activeNav, setActiveNav] = useState("home");
+
   const [lastClick, setLastClick] = useState({ x: false, y: false });
   const [selectedElement, setSelectedElement] = useState(false);
 
-  const [elementsArray, setElementsArray] = useState([]);
   const [activeElement, setActiveElement] = useState(false);
   const [keyPress, setKeyPress] = useState({ value: false });
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -43,7 +55,7 @@ const Draw = () => {
     draw: { backgroundColor: "#3B3939", color: "white" },
     setting: { backgroundColor: "#3B3939", color: "white" },
   });
-  const [upComingReservation, setUpComingReservation] = useState([]);
+
   const [movingLinesArrayPoint, setMovingLinesArrayPoint] = useState(false);
 
   return (
@@ -600,18 +612,43 @@ const CanvasComponent = ({
     movingLinesArrayPoint,
   ]);
 
-  useEffect(() => {
-    let prevEleAry = [];
-    let prevLinAry = [];
-    //const upComRe = []
+  const [prevEleAry, setPrevEleAry] = useState("[]");
+  const [prevLinAry, setPrevLinAry] = useState('[[{"x":false,"y":false}]]');
+  const [preUpComRes, setPreUpComRes] = useState("[]");
 
+  useEffect(() => {
+    // let prevEleAry = "";
+    // let prevLinAry = "";
+
+    // Function to compare arrays
+    function arraysAreEqual(arr1, arr2) {
+      console.log(
+        arr1,
+        JSON.stringify(arr2),
+        JSON.stringify(arr1) === JSON.stringify(arr2),
+      );
+      return arr1 === JSON.stringify(arr2);
+    }
+
+    // Your main code block
     if (
-      prevEleAry.toString() !== elementsArray.toString() ||
-      prevLinAry.toString() !== linesArray.toString()
+      !arraysAreEqual(prevEleAry, elementsArray) ||
+      !arraysAreEqual(prevLinAry, linesArray) ||
+      !arraysAreEqual(preUpComRes, upComingReservation)
     ) {
-      console.log(elementsArray, "elementsArray", linesArray, "linesArray");
-      prevEleAry = { ...elementsArray };
-      prevLinAry = { ...linesArray };
+      //console.log(elementsArray, "elementsArray", linesArray, "linesArray");
+      const data = {
+        elementsArray: elementsArray,
+        linesArray: linesArray,
+        upComingReservations: upComingReservation,
+      };
+      axios.post("/api/save_data/dashboard", data).then((res) => {
+        console.log(res.body); // DO NOT DELETE
+      });
+
+      setPrevEleAry(JSON.stringify(elementsArray));
+      setPrevLinAry(JSON.stringify(linesArray));
+      setPreUpComRes(JSON.stringify(upComingReservation));
     }
   }, [checkUpdate]);
 
