@@ -38,7 +38,7 @@ export default function Page() {
             type="email"
             className={styles.input}
             value={email}
-            onChange={(e) => setEmail(e.target.value.trim())}
+            onChange={(e) => setEmail(e.target.value.trim().toLowerCase())}
             placeholder="Type In Your Email Address"
           />
         </div>

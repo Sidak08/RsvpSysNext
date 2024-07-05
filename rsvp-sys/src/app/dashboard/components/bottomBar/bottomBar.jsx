@@ -1,4 +1,5 @@
 import "./bottomBar.css";
+
 const BottomBar = () => {
   return (
     <div className="bottomBar">

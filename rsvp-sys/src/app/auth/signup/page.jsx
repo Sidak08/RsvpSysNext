@@ -22,12 +22,22 @@ export default function Page() {
     if (name.trim().split(" ").length === 2) {
       axios
         .post("/api/auth/signup", {
-          email: email.trim(),
+          email: email.trim().toLowerCase(),
           password: password,
           id: Math.floor(Math.random() * 900000000) + 100000000,
           firstName: name.trim().split(" ")[0],
           lastName: name.trim().split(" ")[1],
           phone: phone.trim(),
+          dashboardData: {
+            elementsArray: [],
+            linesArray: [
+              {
+                x: false,
+                y: false,
+              },
+            ],
+            upComingReservations: [],
+          },
         })
         .then((res) => {
           if (res.data.success === true) {
@@ -86,7 +96,7 @@ export default function Page() {
             type="email"
             className={styles.input}
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value.toUpperCase().trim())}
             placeholder="Type In Your Email Address"
           />
         </div>

@@ -26,7 +26,10 @@ export async function POST(req, res) {
     }
 
     if (currentUser) {
-      user = await db.collection("users").findOne({ email: cookieValue.email });
+      user = await db
+        .collection("users")
+        .findOne({ email: cookieValue.email.toLowerCase().trim() });
+      console.log(user);
 
       return NextResponse.json({
         success: true,
