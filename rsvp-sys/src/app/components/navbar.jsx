@@ -1,11 +1,19 @@
+"use client";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import clsx from "clsx";
+import "./navbar.css";
 
 const Navbar = () => {
+  const [renderMobileMenu, setRenderMobileMenu] = useState(false);
+  const onClick = () => {
+    setRenderMobileMenu(!renderMobileMenu);
+    console.log(renderMobileMenu);
+  };
   return (
     <div className="flex flex-row justify-between items-center w-full lg:mt-7 mt-2">
-      <div className="flex flex-row justify-between items-center ml-8 ">
+      <div className="flex flex-row justify-between items-center ml-2 lg:ml-8 ">
         <div className="hidden md:block w-[74px] h-[74.36px] relative">
           <div className="w-[17.18px] h-[17.18px] left-0 top-[54.26px] absolute origin-top-left rotate-[-1.23deg] bg-indigo-900 rounded-full" />
           <div className="w-[17.18px] h-[17.18px] left-[56.46px] top-[54.45px] absolute origin-top-left rotate-[-1.23deg] bg-purple-700 rounded-full" />
@@ -20,7 +28,7 @@ const Navbar = () => {
           <div className="w-[29.47px] h-[11.52px] left-[15.54px] top-[41.30px] absolute origin-top-left rotate-[-59deg] bg-indigo-900 rounded-[23px]" />
         </div>
         {/* Render this element on small screens */}
-        <div className="block md:hidden w-[161px] h-[38px] text-purple-700 text-[38px] font-normal font-['Inika']  ml-[11px]">
+        <div className="block md:hidden w-[161px] h-[38px] text-purple-700 text-[38px] font-normal font-['Inika']  ml-[11px] mb-3">
           QuikSeat
         </div>
 
@@ -50,7 +58,46 @@ const Navbar = () => {
         </div>
       </div>
 
-      <div className="block sm:hidden"> mobile </div>
+      <div className="absolute block md:hidden mr-4 w-full">
+        <button
+          onClick={onClick}
+          className={`${renderMobileMenu ? "hidden" : "fade-in"}`}
+        >
+          <div className="w-[30px] h-[27px] relative">
+            <div className="w-[30px] h-[5px] right-0 top-0 absolute bg-zinc-300 rounded-[5px]" />
+            <div className="w-[30px] h-[5px] right-0 top-[11px] absolute bg-zinc-300 rounded-[5px]" />
+            <div className="w-[30px] h-[5px] right-0 top-[22px] absolute bg-zinc-300 rounded-[5px]" />
+          </div>
+        </button>
+
+        <button
+          onClick={onClick}
+          className={`${renderMobileMenu ? "fade-in" : "hidden"}`}
+        >
+          <div className="absolute">
+            <div className="relative top-0 left-0">
+              <div className="w-[353px] h-[199px] relative">
+                <div className="w-[30px] h-[30px] left-[323px] top-0 absolute">
+                  <div className="w-[36.37px] h-[6.06px] left-0 top-[25.71px] absolute origin-top-left -rotate-45 bg-zinc-300 rounded-[3px]" />
+                  <div className="w-[36.37px] h-[6.06px] left-[4.29px] top-0 absolute origin-top-left rotate-45 bg-zinc-300 rounded-[3px]" />
+                </div>
+                <div className="w-[353px] h-[149px] left-0 top-[50px] absolute bg-neutral-800/opacity-95 rounded-[14px] border-2 border-neutral-700" />
+                <div className="w-[319px] h-0.5 left-[20px] top-[97px] absolute bg-neutral-700 rounded-sm" />
+                <div className="w-[319px] h-0.5 left-[19px] top-[144px] absolute bg-neutral-700 rounded-sm" />
+                <div className="left-[267px] top-[63px] absolute text-white text-[22px] font-normal font-['Inter']">
+                  Pricing
+                </div>
+                <div className="left-[256px] top-[153px] absolute text-white text-[22px] font-normal font-['Inter']">
+                  Contact
+                </div>
+                <div className="left-[226px] top-[108px] absolute text-white text-[22px] font-normal font-['Inter']">
+                  Dashboard
+                </div>
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
     </div>
   );
 };
