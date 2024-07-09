@@ -68,7 +68,7 @@ const Navbar = () => {
           </div>
         </button>
         <div className=" absolute w-[100%]  top-[50px] flex justify-center items-center">
-          <div className="backdrop-blur-sm w-[90%] border-2 border-neutral-700 bg-neutral-800/opacity-95 rounded-[14px] h-[150px] flex flex-col justify-evenly items-end">
+          <div className="backdrop-blur-lg w-[90%] border-2 border-neutral-700 bg-neutral-800 bg-opacity-95 rounded-[14px] h-[150px] flex flex-col justify-evenly items-end">
             <div className="text-white text-[22px] font-normal font-['Inter']  mr-[14px]">
               <Link href={"#pricing"}>Pricing</Link>
             </div>
