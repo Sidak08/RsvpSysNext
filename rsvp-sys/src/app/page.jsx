@@ -17,25 +17,35 @@ export default function Home() {
             Best Tools
           </div>
         </div>
-        <div className="hidden md:block w-full ml-[47px] flex flex-row justify-between items-center">
-          <div className="w-[502px] h-[354px] relative">
-            <div className="left-[5px] top-0 absolute text-white text-[84px] font-normal font-['Inika']">
+        <div className="hidden md:flex w-full pl-[47px] flex-row justify-between items-center">
+          <div className="w-[502px] h-[354px] flex flex-col justify-between items-start">
+            <div className=" text-white text-[84px] font-normal font-['Inika']">
               Best Quality
             </div>
-            <div className="left-[5px] top-[122px] absolute text-white text-[84px] font-normal font-['Inika']">
+            <div className="left-[5px text-white text-[84px] font-normal font-['Inika']">
               Needs
             </div>
-            <div className="left-0 top-[213px] absolute text-indigo-700 text-[108px] font-bold font-['Inika'] underline">
+            <div className=" text-indigo-700 text-[108px] font-bold font-['Inika'] underline">
               Best Tools
             </div>
           </div>
-          <div>
-            <Image
-              src="/images/info.png"
-              width={502}
-              height={354}
-              alt="dashboard-info-pic"
-            />
+          <div className="flex flex-row justify-between items-center mt-24">
+            <div className="rounded-[14px] border-8 border-zinc-800">
+              <Image
+                src="/images/info.png"
+                width={243}
+                height={377}
+                alt="dashboard-info-pic"
+              />
+            </div>
+            <div className="ml-5 rounded-tl-[14px] rounded-bl-[14px] shadow border-l-8 border-t-8 border-b-8 border-zinc-800">
+              <Image
+                src="/images/dashboard.png"
+                alt="dashboard-info-pic"
+                width={420}
+                height={377.35}
+              />
+            </div>
           </div>
         </div>
       </div>
