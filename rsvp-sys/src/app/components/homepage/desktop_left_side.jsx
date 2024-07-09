@@ -3,8 +3,8 @@ import Image from "next/image";
 
 const Desk_left_side = () => {
   return (
-    <div className="flex flex-col justify-evenly items-center w-full">
-      <div className="flex flex-row justify-end items-center w-full ">
+    <div className="flex flex-col justify-evenly items-center w-[60%]">
+      <div className="flex flex-row justify-end items-center w-full">
         <Review />
         <div className="flex flex-col justify-evenly items-center ml-3 m-2 ">
           <Image

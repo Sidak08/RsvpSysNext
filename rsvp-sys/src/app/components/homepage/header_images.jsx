@@ -46,12 +46,13 @@ const Header = () => {
               alt="dashboard-info-pic"
             />
           </div>
-          <div className="ml-5 rounded-tl-[14px] rounded-bl-[14px] shadow border-l-8 border-t-8 border-b-8 border-zinc-800 flex justify-center items-center">
+          <div className="ml-5 rounded-tl-[14px] rounded-bl-[14px] shadow border-l-8 border-t-8 border-b-8 border-zinc-800 flex justify-center items-center h-[377px] w-[377px] overflow-hidden">
             <Image
               src="/images/dashboard.png"
               alt="dashboard-info-pic"
               width={420}
               height={377.35}
+              className="h-full w-full object-cover object-left-top"
             />
           </div>
         </div>

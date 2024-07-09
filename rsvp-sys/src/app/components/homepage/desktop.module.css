@@ -1,0 +1,12 @@
+.bannerText {
+    width: 194px;
+    font-family: Inter;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    background: linear-gradient(285deg, #3bfe00 -2.54%, #7fe797 98.58%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
