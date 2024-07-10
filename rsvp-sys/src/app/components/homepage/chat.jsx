@@ -78,7 +78,7 @@ const Chat = () => {
                 placeHolder={"Street Name"}
                 useState={streetName}
                 setUseState={setStreetName}
-                width={"95%"}
+                width={"90%"}
               />
             </div>
             <div className="w-[50%] flex justify-center items-center">
@@ -86,7 +86,7 @@ const Chat = () => {
                 placeHolder={"City"}
                 useState={setCity}
                 setUseState={city}
-                width={"95%"}
+                width={"90%"}
               />
             </div>
           </div>
@@ -99,7 +99,7 @@ const Chat = () => {
             />
           </div>
           <div className="flex justify-between items-start w-full">
-            <div className="w-[70%] flex justify-center items-center ">
+            <div className="w-[50%] flex justify-center items-center ">
               <InputDiv
                 placeHolder={"Country"}
                 useState={country}
@@ -107,7 +107,7 @@ const Chat = () => {
                 width={"90%"}
               />
             </div>
-            <div className="w-[30%] flex justify-center items-center">
+            <div className="w-[50%] flex justify-center items-center">
               <InputDiv
                 placeHolder={"Postal Code"}
                 useState={setCountry}
@@ -117,7 +117,11 @@ const Chat = () => {
             </div>
           </div>
         </div>
-        <button className="w-[90%] h-[54px] bg-indigo-700 rounded-[14px]"></button>
+        <button className="w-[90%] h-[54px] bg-indigo-700 rounded-[14px] flex justify-center items-center">
+          <div className="w-[219px] text-white text-2xl font-normal font-['Inter'] flex justify-center items-center text-center">
+            Schedule Your Talk
+          </div>
+        </button>
       </div>
     </div>
   );

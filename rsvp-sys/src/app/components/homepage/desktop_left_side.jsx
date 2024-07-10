@@ -1,4 +1,5 @@
 import Review from "./review";
+import Features from "./features";
 import Image from "next/image";
 
 const Desk_left_side = () => {
@@ -23,6 +24,7 @@ const Desk_left_side = () => {
           />
         </div>
       </div>
+      <Features />
     </div>
   );
 };
