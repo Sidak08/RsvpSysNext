@@ -1,10 +1,11 @@
 import Image from "next/image";
 import EcoFreindly from "./eco_freindly";
 import styles from "./desktop.module.css";
+import Chat from "./chat";
 
 const Desk_right_side = () => {
   return (
-    <div className="h-full flex flex-col justify-start items-start w-[40%]">
+    <div className="flex flex-col justify-start items-start w-[40%]">
       <div className="flex flex-row justify-start items-center w-full">
         <Image
           src={"/images/tableBookingInfo.png"}
@@ -21,16 +22,9 @@ const Desk_right_side = () => {
           className="rounded-[14px] border-8 border-zinc-800 mr-3 h-full w-full transform rotate-180"
         />
       </div>
-      <div className="w-[497px] h-[344px] bg-stone-900 rounded-[14px] border-8 border-emerald-500 mt-3 flex flex-col items-center justify-between">
-        <Image
-          src={"/images/banner.png"}
-          width={497}
-          height={344}
-          alt="Eco freindly banner"
-          className="w-[484px] h-[167px] rounded-tl-lg rounded-tr-lg"
-        />
-        <EcoFreindly />
-      </div>
+
+      <EcoFreindly />
+      <Chat />
     </div>
   );
 };
