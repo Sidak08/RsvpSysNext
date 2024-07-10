@@ -98,7 +98,6 @@ const Review = () => {
 };
 
 const RanReview = ({ num }) => {
-  console.log(num);
   switch (num) {
     case 1:
       return <ReviewOne />;
