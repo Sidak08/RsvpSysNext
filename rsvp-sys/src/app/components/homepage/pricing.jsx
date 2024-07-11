@@ -1,7 +1,32 @@
+"use client";
 import styles from "./desktop.module.css";
 import Image from "next/image";
+import { useState } from "react";
 
 const PricingDiv = () => {
+  const [rate, setRate] = useState("yearly");
+  const [price, setPrice] = useState({
+    premium: 29.99,
+    essential: 22.99,
+  });
+  const priceChart = {
+    yearly: {
+      premium: 29.99,
+      essential: 22.99,
+    },
+    monthly: {
+      premium: 39.99,
+      essential: 32.99,
+    },
+  };
+  const changeMonthly = () => {
+    setPrice(priceChart.monthly);
+    setRate("monthly");
+  };
+  const changeYearly = () => {
+    setPrice(priceChart.yearly);
+    setRate("yearly");
+  };
   const freeInfo = {
     emails: 30,
     sms: false,
@@ -38,12 +63,15 @@ const PricingDiv = () => {
     <div className="w-full flex flex-col justify-evenly items-center">
       <div className={styles.priceHeader}>A Perfect Price For You</div>
       <div className={"flex justify-evenly items-start w-full mt-[70px]"}>
-        <div className={"flex flex-col justify-between h-[750px] items-center"}>
-          <div className="w-[236px] h-[70px] bg-stone-900 rounded-[14px] border-2 border-indigo-700 flex justify-evenly items-center">
+        <div className={"flex flex-col justify-between h-[830px] items-center"}>
+          <button
+            onClick={changeMonthly}
+            className={`w-[236px] h-[70px] rounded-[14px] border-2 border-indigo-700 flex justify-evenly items-center ${rate === "monthly" ? "bg-indigo-700" : "bg-stone-900"}`}
+          >
             <div className="text-white text-[38px] font-black font-['Inter'] text-center">
               Monthly
             </div>
-          </div>
+          </button>
           <PriceBox
             title={"Free"}
             price={false}
@@ -53,37 +81,48 @@ const PricingDiv = () => {
         </div>
         <PriceBox
           title={"Premium"}
-          price={29.99}
+          price={price.premium}
           discription={premiumInfo.discription}
           info={premiumInfo}
         />
-        <div className={"flex flex-col justify-between h-[750px] items-center"}>
-          <div className="w-[236px] h-[70px] bg-stone-900 rounded-[14px] border-2 border-indigo-700 flex justify-evenly items-center">
+        <div className={"flex flex-col justify-between h-[830px] items-center"}>
+          <button
+            onClick={changeYearly}
+            className={`w-[236px] h-[70px] rounded-[14px] border-2 border-indigo-700 flex justify-evenly items-center ${rate === "yearly" ? "bg-indigo-700" : "bg-stone-900"} relative`}
+          >
             <div className="text-white text-[38px] font-black font-['Inter'] text-center">
               Yearly
             </div>
-          </div>
+            <Image
+              src="/discount.svg"
+              width={113}
+              height={35}
+              alt="discount tag"
+              className="absolute top-[-30px] right-[-30px]"
+            />
+          </button>
           <PriceBox
             title={"Essential"}
-            price={22.99}
+            price={price.essential}
             discription={essentialInfo.discription}
             info={essentialInfo}
           />
         </div>
       </div>
+      <CustomPlan />
     </div>
   );
 };
 const PriceBox = ({ title, price, discription, info }) => {
   return (
-    <div className="max-w-[331px] w-[90%] h-[635px] flex flex-col justify-evenly items-center bg-stone-900 rounded-[14px] shadow border-2 border-neutral-700">
+    <div className="max-w-[356px] w-[90%] h-[690px] flex flex-col justify-evenly items-center bg-stone-900 rounded-[14px] shadow border-2 border-neutral-700">
       <div className="w-full h-[50px] flex flex-col justify-evenly items-center">
-        <div className="w-full">
+        <div className="w-full mr-2">
           <span className="text-white text-[32px] font-bold font-['Inter'] ml-[40px]">
             {title}{" "}
           </span>
-          <span className="text-white text-[32px] font-normal font-['Inter']">
-            {price ? `-$${price}` : ""}
+          <span className="text-white text-[32px] font-normal font-['Inter'] text-center">
+            {price ? `- $${price}` : ""}
           </span>
         </div>
         <div className="w-[90%] h-0.5 bg-neutral-700 rounded-[20px]" />
@@ -100,10 +139,14 @@ const PriceBox = ({ title, price, discription, info }) => {
         <SmallBox title={"Booking Widget"} check={info.bookingWidget} />
         <SmallBox title={"Deposit & Prepayment"} check={info.deposit} />
       </div>
+      <button className="w-[90%] h-[68px] bg-indigo-700 rounded-[14px] flex justify-center items-center text-center">
+        <div className="w-[145.20px] text-white text-2xl font-semibold font-['Inter'] text-center">
+          Get Started
+        </div>
+      </button>
     </div>
   );
 };
-
 const SmallBox = ({ title, check }) => {
   return (
     <div className="w-[90%] h-[50px] bg-stone-900 flex flex-col justify-evenly items-center">
@@ -132,6 +175,40 @@ const SmallBox = ({ title, check }) => {
         )}
       </div>
       <div className="w-[90%] h-0.5 bg-neutral-700 rounded-[20px]" />
+    </div>
+  );
+};
+const CustomPlan = () => {
+  return (
+    <div className="w-[1147px] h-[370px] bg-stone-900 rounded-[14px] border-2 border-neutral-700 flex justify-evenly items-center mt-[70px]">
+      <div className="flex justify-evenly items-center flex-col w-[700px] h-full">
+        <div>
+          <div className="text-white text-[58px] font-bold font-['Inter']">
+            Custom Plan
+          </div>
+          <div className="w-[662px] h-0.5 bg-neutral-700" />
+        </div>
+        <div className="w-[610px]">
+          <span className="text-white text-4xl font-light font-['Inter']">
+            Contact us and will find a{" "}
+          </span>
+          <span className="text-indigo-600 text-4xl font-bold font-['Inter']">
+            plan for you
+          </span>
+          <span className="text-white text-4xl font-light font-['Inter']">
+            {" "}
+            that has the all features you need at a price you want
+          </span>
+        </div>
+      </div>
+      <div className="w-[425px] h-[335px] rounded-2xl shadow">
+        <Image
+          src={"/images/tigerPrint.png"}
+          height={335}
+          width={425}
+          alt="custom plan background tiger print"
+        />
+      </div>
     </div>
   );
 };
