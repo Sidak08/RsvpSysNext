@@ -4,10 +4,16 @@ import { useState } from "react";
 const Features = () => {
   const [activeBtn, setActiveBtn] = useState(1);
   const textBox = [
-    {
-      title: "Charge A Fee - Refundable",
-      text: "Have you guest charged a small fees when they a reservers online. This fee is automatically refunded once your guest shows up or cancels in the correct time period. ",
-    },
+    [
+      {
+        title: "Charge A Fee - Refundable",
+        text: "Have you guest charged a small fees when they a reservers online. This fee is automatically refunded once your guest shows up or cancels in the correct time period. ",
+      },
+      {
+        title: "Send Reminders - Automatic",
+        text: "Send automatic reminders to there email or phone number 10 minuets before there reservation starts. ",
+      },
+    ],
   ];
   return (
     <div className="w-[90%] h-[448px] bg-stone-900 rounded-[14px] border-2 border-neutral-700 flex justify-evenly items-center">
@@ -18,7 +24,7 @@ const Features = () => {
             Is On Schedule{" "}
           </div>
         </div>
-        <TextBox />
+        <TextBox text={textBox[0]} />
       </div>
       <div className="w-[28%] h-[422px] bg-[#232222] rounded-[14px] border-2 border-neutral-700 flex flex-col items-center justify-evenly">
         <Button
@@ -83,9 +89,24 @@ const Button = ({ text, color, border, id, setActiveBtn }) => {
 };
 
 const TextBox = ({ text }) => {
+  console.log("text", text);
   return (
-    <div className="w-full h-[320px]">
-      <div className=" bg-neutral-800 rounded-[14px] border-2 border-neutral-700 p-5"></div>
+    <div className="w-full h-[320px] flex flex-col justify-evenly items-center">
+      <InnerTextBox text={text[0]} />
+      <InnerTextBox text={text[1]} />
+    </div>
+  );
+};
+
+const InnerTextBox = ({ text }) => {
+  return (
+    <div className=" bg-neutral-800 rounded-[14px] border-2 border-neutral-700 p-5 flex flex-col justify-evenly items-start">
+      <div className="text-white text-lg font-semibold font-['Inter']">
+        {text.title}
+      </div>
+      <div className="w-[433px] text-white text-base font-normal font-['Inter'] mt-2 ml-4">
+        {text.text}
+      </div>
     </div>
   );
 };
