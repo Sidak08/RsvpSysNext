@@ -5,6 +5,7 @@ import Review from "./components/homepage/review";
 import Desk_left_side from "./components/homepage/desktop_left_side";
 import Desk_right_side from "./components/homepage/desktop_right_side";
 import PricingDiv from "./components/homepage/pricing";
+import Footer from "./components/homepage/footer";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
         <Desk_right_side />
       </div>
       <PricingDiv />
+      <Footer />
     </main>
   );
 }

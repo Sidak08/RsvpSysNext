@@ -180,7 +180,7 @@ const SmallBox = ({ title, check }) => {
 };
 const CustomPlan = () => {
   return (
-    <div className="w-[1147px] h-[370px] bg-stone-900 rounded-[14px] border-2 border-neutral-700 flex justify-evenly items-center mt-[70px]">
+    <div className="w-[1147px] h-[370px] bg-stone-900 rounded-[14px] border-2 border-neutral-700 flex justify-evenly items-center mt-[70px] mb-[64px]">
       <div className="flex justify-evenly items-center flex-col w-[700px] h-full">
         <div>
           <div className="text-white text-[58px] font-bold font-['Inter']">
@@ -201,13 +201,19 @@ const CustomPlan = () => {
           </span>
         </div>
       </div>
-      <div className="w-[425px] h-[335px] rounded-2xl shadow">
+      <div className="w-[425px] h-[335px] rounded-2xl shadow relative flex justify-center items-center ">
         <Image
           src={"/images/tigerPrint.png"}
           height={335}
           width={425}
           alt="custom plan background tiger print"
+          className="absolute top-0 left-0 rounded-2xl"
         />
+        <div className="w-[326px] h-[100px] bg-indigo-700 rounded-[14px] shadow flex justify-center items-center  z-10">
+          <div className="text-white text-[42px] font-normal font-['Inter']">
+            Contact Now
+          </div>
+        </div>
       </div>
     </div>
   );
