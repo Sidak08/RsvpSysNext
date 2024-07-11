@@ -10,3 +10,16 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+.customerTitle {
+    font-family: Inter;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    background: linear-gradient(90deg, #29f1e3 -13.49%, #4924c5 114.46%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    width: 100%;
+    margin-left: 24px;
+}

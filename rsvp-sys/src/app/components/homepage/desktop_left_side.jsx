@@ -1,6 +1,7 @@
 import Review from "./review";
 import Features from "./features";
 import Image from "next/image";
+import Customer from "./customer_everything";
 
 const Desk_left_side = () => {
   return (
@@ -25,6 +26,7 @@ const Desk_left_side = () => {
         </div>
       </div>
       <Features />
+      <Customer />
     </div>
   );
 };

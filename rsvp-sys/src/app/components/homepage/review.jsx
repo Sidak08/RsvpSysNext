@@ -54,43 +54,43 @@ const Review = () => {
           onClick={() => {
             handleClick(1);
           }}
-          className={`w-[25.20px] h-[28.17px] ${num === 1 ? "bg-stone-500" : "bg-neutral-700"} rounded-full`}
+          className={`w-[25.20px] h-[28.17px] ${num === 1 ? "bg-indigo-700" : "bg-neutral-700"} rounded-full`}
         />
         <button
           onClick={() => {
             handleClick(2);
           }}
-          className={`w-[25.20px] h-[28.17px] ${num === 2 ? "bg-stone-500" : "bg-neutral-700"} rounded-full`}
+          className={`w-[25.20px] h-[28.17px] ${num === 2 ? "bg-indigo-700" : "bg-neutral-700"} rounded-full`}
         />
         <button
           onClick={() => {
             handleClick(3);
           }}
-          className={`w-[25.20px] h-[28.17px] ${num === 3 ? "bg-stone-500" : "bg-neutral-700"} rounded-full`}
+          className={`w-[25.20px] h-[28.17px] ${num === 3 ? "bg-indigo-700" : "bg-neutral-700"} rounded-full`}
         />
         <button
           onClick={() => {
             handleClick(4);
           }}
-          className={`w-[25.20px] h-[28.17px] ${num === 4 ? "bg-stone-500" : "bg-neutral-700"} rounded-full`}
+          className={`w-[25.20px] h-[28.17px] ${num === 4 ? "bg-indigo-700" : "bg-neutral-700"} rounded-full`}
         />
         <button
           onClick={() => {
             handleClick(5);
           }}
-          className={`w-[25.20px] h-[28.17px] ${num === 5 ? "bg-stone-500" : "bg-neutral-700"} rounded-full`}
+          className={`w-[25.20px] h-[28.17px] ${num === 5 ? "bg-indigo-700" : "bg-neutral-700"} rounded-full`}
         />
         <button
           onClick={() => {
             handleClick(6);
           }}
-          className={`w-[25.20px] h-[28.17px] ${num === 6 ? "bg-stone-500" : "bg-neutral-700"} rounded-full`}
+          className={`w-[25.20px] h-[28.17px] ${num === 6 ? "bg-indigo-700" : "bg-neutral-700"} rounded-full`}
         />
         <button
           onClick={() => {
             handleClick(7);
           }}
-          className={`w-[25.20px] h-[28.17px] ${num === 7 ? "bg-stone-500" : "bg-neutral-700"} rounded-full`}
+          className={`w-[25.20px] h-[28.17px] ${num === 7 ? "bg-indigo-700" : "bg-neutral-700"} rounded-full`}
         />
       </div>
     </div>
