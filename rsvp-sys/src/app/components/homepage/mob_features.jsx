@@ -1,16 +1,105 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
+import React from "react";
+import "./global.css";
+
+const useIsVisible = (ref) => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (ref.current) {
+        const rect = ref.current.getBoundingClientRect();
+        const isVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
+        setIsVisible(isVisible);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Initial check
+
+    return () => window.removeEventListener("scroll", handleScroll);
+    console.log(isVisible);
+  }, [ref]);
+
+  return isVisible;
+};
 
 const MobFeatures = () => {
+  const [activeBtn, setActiveBtn] = useState(1);
+
   return (
     <>
-      <Features />
+      <ButtonBox activeBtn={activeBtn} setActiveBtn={setActiveBtn} />
+      <Features activeBtn={activeBtn} setActiveBtn={setActiveBtn} />
     </>
   );
 };
 
-const Features = () => {
-  const [activeBtn, setActiveBtn] = useState(1);
+const ButtonBox = ({ activeBtn, setActiveBtn }) => {
+  const myRef = useRef(null);
+  const buttonRefs = useRef([]);
+
+  useEffect(() => {
+    if (buttonRefs.current[activeBtn - 1]) {
+      buttonRefs.current[activeBtn - 1].scrollIntoView({
+        behavior: "smooth",
+        block: "nearest", // Prevent vertical scrolling
+        inline: "center", // Center horizontally
+      });
+    }
+  }, [activeBtn]);
+
+  return (
+    <div
+      ref={myRef}
+      className="mb-[20px] w-[90%] pl-[20mb-[15px] h-[80px] snap-x snap-mandatory bg-[#232222] rounded-[14px] border-2 border-neutral-700 flex items-center justify-evenly overflow-x-scroll scrollbar-hide"
+    >
+      {[
+        "Reduce No Show",
+        "Build Relationships",
+        "Manage Reservation",
+        "Less Downtime",
+        "Increase Outreach",
+      ].map((text, index) => (
+        <Button
+          key={index}
+          text={text}
+          color={activeBtn === index + 1 ? "#3F12D7" : "#353232"}
+          border={activeBtn === index + 1 ? "indigo-700" : "neutral-700"}
+          id={index + 1}
+          setActiveBtn={setActiveBtn}
+          ref={(el) => (buttonRefs.current[index] = el)}
+        />
+      ))}
+    </div>
+  );
+};
+
+const Button = React.forwardRef(
+  ({ text, color, border, id, setActiveBtn }, ref) => {
+    const onClick = () => {
+      setActiveBtn(id);
+    };
+
+    return (
+      <div className="snap-start flex flex-row items-center justify-center">
+        <div className="w-[10px] h-2" />
+        <button
+          ref={ref}
+          className={` mr-[10px] min-w-[155px] w-[90%] h-[60px] bg-${color === "#3F12D7" ? "indigo-700" : "neutral-100"} rounded-[14px] shadow border-2 border-${border} flex justify-center items-center`}
+          onClick={onClick}
+        >
+          <div className="text-white text-base font-light font-['Inter'] text-center">
+            {text}
+          </div>
+        </button>
+      </div>
+    );
+  },
+);
+
+const Features = ({ activeBtn, setActiveBtn }) => {
   const textBox = [
     [
       {
@@ -72,8 +161,8 @@ const Features = () => {
   }, []);
 
   return (
-    <div className="w-[90%] bg-stone-900 rounded-[14px] border-2 border-neutral-700 flex justify-evenly items-center">
-      <div className="w-full flex flex-col justify-evenly items-center">
+    <div className="w-[90%] bg-stone-900 rounded-[14px] border-2 border-neutral-700 flex justify-evenly items-center pb-[20px] pt-[20px] pl-[10px]">
+      <div className="w-full flex flex-col justify-evenly items-center ">
         <div className="w-full">
           <div className="text-white text-[28px] font-bold font-['Inter'] ml-4">
             Make Sure Everything <br />
@@ -86,71 +175,7 @@ const Features = () => {
   );
 };
 
-const ButtonBox = () => {
-  return (
-    <div className="w-[28%] h-[422px] bg-[#232222] rounded-[14px] border-2 border-neutral-700 flex flex-col items-center justify-evenly">
-      <Button
-        text="Reduce No Show"
-        color={`${activeBtn === 1 ? "#3F12D7" : "#353232"}`}
-        border={`${activeBtn === 1 ? "indigo-700" : "neutral-700"}`}
-        id={1}
-        setActiveBtn={setActiveBtn}
-      />
-      <Button
-        text="Build Relationships"
-        color={`${activeBtn === 2 ? "#3F12D7" : "#353232"}`}
-        border={`${activeBtn === 2 ? "indigo-700" : "neutral-700"}`}
-        id={2}
-        setActiveBtn={setActiveBtn}
-      />
-      <Button
-        text="Manage Reservation"
-        color={`${activeBtn === 3 ? "#3F12D7" : "#353232"}`}
-        border={`${activeBtn === 3 ? "indigo-700" : "neutral-700"}`}
-        id={3}
-        setActiveBtn={setActiveBtn}
-      />
-      <Button
-        text="Less Downtime"
-        color={`${activeBtn === 4 ? "#3F12D7" : "#353232"}`}
-        border={`${activeBtn === 4 ? "indigo-700" : "neutral-700"}`}
-        id={4}
-        setActiveBtn={setActiveBtn}
-      />
-      <Button
-        text="Increase Outreach"
-        color={`${activeBtn === 5 ? "#3F12D7" : "#353232"}`}
-        border={`${activeBtn === 5 ? "indigo-700" : "neutral-700"}`}
-        id={5}
-        setActiveBtn={setActiveBtn}
-      />
-    </div>
-  );
-};
-
-const Button = ({ text, color, border, id, setActiveBtn }) => {
-  if (color === "#3F12D7") {
-    color = "indigo-700";
-  } else if (color === "#353232") {
-    color = "neutral-100";
-  }
-  const onClick = () => {
-    setActiveBtn(id);
-  };
-  return (
-    <button
-      className={`w-[90%] h-[60px] bg-${color} rounded-[14px] shadow border-2 border-${border} flex justify-center items-center`}
-      onClick={onClick}
-    >
-      <div className="text-white text-base font-light font-['Inter'] text-center">
-        {text}
-      </div>
-    </button>
-  );
-};
-
 const TextBox = ({ text }) => {
-  console.log("text", text);
   return (
     <div className="w-full flex flex-col justify-evenly items-center">
       <InnerTextBox text={text[0]} />

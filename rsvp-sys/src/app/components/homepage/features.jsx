@@ -137,7 +137,6 @@ const Button = ({ text, color, border, id, setActiveBtn }) => {
 };
 
 const TextBox = ({ text }) => {
-  console.log("text", text);
   return (
     <div className="w-full h-[320px] flex flex-col justify-evenly items-center">
       <InnerTextBox text={text[0]} />

@@ -1,7 +1,7 @@
 import Image from "next/image";
 const Header = () => {
   return (
-    <div className="w-full">
+    <div className="w-full overflow-x-hidden">
       <div className="mt-5 flex flex-col justify-center items-center md:hidden">
         <div className="flex flex-col justify-between items-start">
           <div className=" text-white text-[64px] font-normal font-['Inika']">
