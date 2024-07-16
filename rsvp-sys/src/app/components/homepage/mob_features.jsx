@@ -40,16 +40,6 @@ const ButtonBox = ({ activeBtn, setActiveBtn }) => {
   const buttonRefs = useRef([]);
   const [scrollPosition, setScrollPosition] = useScrollPosition();
 
-  // useEffect(() => {
-  //   console.log(scrollPosition);
-  //   if (scrollPosition <= 300) {
-  //     const interval = setInterval(() => {
-  //       setActiveBtn((prevNum) => (prevNum === 5 ? 1 : prevNum + 1));
-  //     }, 3000); // 3000 milliseconds = 3 seconds
-  //     return () => clearInterval(interval);
-  //   }
-  // }, []);
-
   useEffect(() => {
     const handleScroll = () => {
       setScrollPosition(window.scrollY);
@@ -62,7 +52,7 @@ const ButtonBox = ({ activeBtn, setActiveBtn }) => {
   }, []);
 
   useEffect(() => {
-    if (scrollPosition <= 300) {
+    if (scrollPosition <= 350) {
       const interval = setInterval(() => {
         setActiveBtn((prevNum) => (prevNum === 5 ? 1 : prevNum + 1));
       }, 3000); // 3000 milliseconds = 3 seconds
@@ -85,7 +75,7 @@ const ButtonBox = ({ activeBtn, setActiveBtn }) => {
   return (
     <div
       ref={myRef}
-      className="mb-[20px] w-[90%] pl-[20px] mb-[15px] h-[80px] snap-x snap-mandatory bg-[#232222] rounded-[14px] border-2 border-neutral-700 flex items-center justify-evenly overflow-x-scroll scrollbar-hide"
+      className="mb-[15px] w-[90%] pl-[20px] mb-[15px] h-[80px] snap-x snap-mandatory bg-[#232222] rounded-[14px] border-2 border-neutral-700 flex items-center justify-evenly overflow-x-scroll scrollbar-hide"
     >
       {[
         "Reduce No Show",
@@ -213,7 +203,7 @@ const TextBox = ({ text }) => {
 
 const InnerTextBox = ({ text }) => {
   return (
-    <div className=" bg-neutral-800 rounded-[14px] border-2 border-neutral-700 p-4 flex flex-col justify-evenly items-start w-[100%] mt-[20px]">
+    <div className=" bg-neutral-800 rounded-[14px] border-2 border-neutral-700 p-3 flex flex-col justify-evenly items-start w-[95%] mt-[20px]">
       <div className="text-white text-lg font-semibold font-['Inter']">
         {text.title}
       </div>

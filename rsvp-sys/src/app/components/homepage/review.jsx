@@ -33,15 +33,15 @@ const Review = () => {
   }, [num]);
 
   return (
-    <div className="w-[382px] h-[604px] bg-stone-900 rounded-[14px] border-2 border-neutral-700 flex flex-col justify-evenly items-center">
+    <div className="md:mt-6 mt-4 mb-6 w-[90%] max-w-[382px] h-[604px] bg-stone-900 rounded-[14px] border-2 border-neutral-700 flex flex-col justify-evenly items-center">
       <div className="w-[95%] flex flex-col  items-start">
         <div className="w-[249.96px] h-[49.58px] text-white text-[32px] font-normal font-['Inter']">
           Some Reviews
         </div>
-        <div className="w-[356px] h-[2.25px] bg-neutral-700 rounded-[22px]" />
+        <div className="w-[95%] h-[2.25px] bg-neutral-700 rounded-[22px]" />
       </div>
-      <div>
-        <div className="w-[356.80px] h-[423.70px]  bg-neutral-800 rounded-[14px] shadow border border-neutral-700 flex flex-col justify-evenly items-center">
+      <div className="flex w-full justify-center items-center">
+        <div className="w-[95%] h-[423.70px]  bg-neutral-800 rounded-[14px] shadow border border-neutral-700 flex flex-col justify-evenly items-center">
           <div className="text-white text-2xl font-extrabold font-['Inter'] leading-[23px] w-full pl-[12px] mt-[10px]">
             {title}
           </div>
@@ -125,7 +125,7 @@ const RanReview = ({ num }) => {
 
 const ReviewOne = () => {
   return (
-    <div className="w-[321.53px] h-[350.46px] pl-2">
+    <div className="w-[95%] h-[350.46px] pl-2">
       <span className="text-white text-[17px] font-normal font-['Inter'] leading-[23px]">
         Implementing QuickSeat has been a{" "}
       </span>

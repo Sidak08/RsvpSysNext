@@ -1,7 +1,7 @@
 import styles from "./desktop.module.css";
 const Customer = () => {
   return (
-    <div className="w-[90%] h-[349px] bg-stone-900 rounded-[14px] border-2 border-neutral-700 flex flex-col justify-evenly items-center mt-[25px]">
+    <div className="w-[90%]  bg-stone-900 rounded-[14px] border-2 border-neutral-700 flex flex-col justify-evenly items-center mt-[25px]">
       <div className="w-full flex flex-col justify-evenly items-center">
         <div className={styles.customerTitle}>Customer Is Everything</div>
         <div className="w-full text-right text-white text-[40px] font-medium font-['Inter'] mr-[24px] mt-[24px]">
