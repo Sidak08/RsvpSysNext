@@ -1,33 +1,32 @@
 "use client";
+
 import { useRef, useState, useEffect } from "react";
 import React from "react";
 import "./global.css";
 
-const useIsVisible = (ref) => {
-  const [isVisible, setIsVisible] = useState(false);
+const useScrollPosition = () => {
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  const handleScroll = () => {
+    const position = window.pageYOffset;
+    setScrollPosition(position);
+    //console.log(position);
+  };
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (ref.current) {
-        const rect = ref.current.getBoundingClientRect();
-        const isVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
-        setIsVisible(isVisible);
-      }
-    };
-
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Initial check
 
-    return () => window.removeEventListener("scroll", handleScroll);
-    console.log(isVisible);
-  }, [ref]);
+    // Clean up the event listener on unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
-  return isVisible;
+  return [scrollPosition, setScrollPosition];
 };
 
 const MobFeatures = () => {
   const [activeBtn, setActiveBtn] = useState(1);
-
   return (
     <>
       <ButtonBox activeBtn={activeBtn} setActiveBtn={setActiveBtn} />
@@ -39,9 +38,42 @@ const MobFeatures = () => {
 const ButtonBox = ({ activeBtn, setActiveBtn }) => {
   const myRef = useRef(null);
   const buttonRefs = useRef([]);
+  const [scrollPosition, setScrollPosition] = useScrollPosition();
+
+  // useEffect(() => {
+  //   console.log(scrollPosition);
+  //   if (scrollPosition <= 300) {
+  //     const interval = setInterval(() => {
+  //       setActiveBtn((prevNum) => (prevNum === 5 ? 1 : prevNum + 1));
+  //     }, 3000); // 3000 milliseconds = 3 seconds
+  //     return () => clearInterval(interval);
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollPosition(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (scrollPosition <= 300) {
+      const interval = setInterval(() => {
+        setActiveBtn((prevNum) => (prevNum === 5 ? 1 : prevNum + 1));
+      }, 3000); // 3000 milliseconds = 3 seconds
+
+      return () => clearInterval(interval);
+    }
+  }, [scrollPosition]);
 
   useEffect(() => {
     if (buttonRefs.current[activeBtn - 1]) {
+      //console.log(scrollPosition);
       buttonRefs.current[activeBtn - 1].scrollIntoView({
         behavior: "smooth",
         block: "nearest", // Prevent vertical scrolling
@@ -53,7 +85,7 @@ const ButtonBox = ({ activeBtn, setActiveBtn }) => {
   return (
     <div
       ref={myRef}
-      className="mb-[20px] w-[90%] pl-[20mb-[15px] h-[80px] snap-x snap-mandatory bg-[#232222] rounded-[14px] border-2 border-neutral-700 flex items-center justify-evenly overflow-x-scroll scrollbar-hide"
+      className="mb-[20px] w-[90%] pl-[20px] mb-[15px] h-[80px] snap-x snap-mandatory bg-[#232222] rounded-[14px] border-2 border-neutral-700 flex items-center justify-evenly overflow-x-scroll scrollbar-hide"
     >
       {[
         "Reduce No Show",
@@ -87,7 +119,9 @@ const Button = React.forwardRef(
         <div className="w-[10px] h-2" />
         <button
           ref={ref}
-          className={` mr-[10px] min-w-[155px] w-[90%] h-[60px] bg-${color === "#3F12D7" ? "indigo-700" : "neutral-100"} rounded-[14px] shadow border-2 border-${border} flex justify-center items-center`}
+          className={` mr-[10px] min-w-[155px] w-[90%] h-[60px] bg-${
+            color === "#3F12D7" ? "indigo-700" : "neutral-100"
+          } rounded-[14px] shadow border-2 border-${border} flex justify-center items-center`}
           onClick={onClick}
         >
           <div className="text-white text-base font-light font-['Inter'] text-center">
@@ -152,13 +186,6 @@ const Features = ({ activeBtn, setActiveBtn }) => {
       },
     ],
   ];
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveBtn((prevNum) => (prevNum === 5 ? 1 : prevNum + 1));
-    }, 3000); // 2000 milliseconds = 2 seconds
-
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <div className="w-[90%] bg-stone-900 rounded-[14px] border-2 border-neutral-700 flex justify-evenly items-center pb-[20px] pt-[20px] pl-[10px]">
@@ -186,7 +213,7 @@ const TextBox = ({ text }) => {
 
 const InnerTextBox = ({ text }) => {
   return (
-    <div className=" bg-neutral-800 rounded-[14px] border-2 border-neutral-700 p-4 flex flex-col justify-evenly items-start w-[100%] mt-[20px] w-[93%]">
+    <div className=" bg-neutral-800 rounded-[14px] border-2 border-neutral-700 p-4 flex flex-col justify-evenly items-start w-[100%] mt-[20px]">
       <div className="text-white text-lg font-semibold font-['Inter']">
         {text.title}
       </div>
