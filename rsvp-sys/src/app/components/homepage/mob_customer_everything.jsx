@@ -1,16 +1,13 @@
 import styles from "./desktop.module.css";
 const Customer = () => {
   return (
-    <div className="w-[90%]  bg-stone-900 rounded-[14px] border-2 border-neutral-700 flex flex-col justify-evenly items-center mt-[25px]">
-      <div className="w-full flex flex-col justify-evenly items-center">
+    <div className="w-[90%] bg-stone-900 rounded-[14px] border-2 border-neutral-700 flex flex-col justify-evenly items-center mt-[25px]">
+      <div className="w-full flex flex-col justify-evenly items-center mt-[15px]">
         <div className={styles.customerTitle}>Customer Is Everything</div>
-        <div className="w-full text-right text-white text-[40px] font-medium font-['Inter'] mr-[24px] mt-[24px]">
-          So We Can Always Make It Work
-        </div>
       </div>
-      <div className="flex justify-evenly items-center w-full">
-        <div className="flex justify-center items-center w-[50%]">
-          <div className="w-[90%] h-[174px] bg-zinc-800 rounded-[14px] border-2 border-neutral-700 flex flex-col justify-evenly items-center">
+      <div className="flex flex-col justify-evenly items-center w-full h-[370px]">
+        <div className="flex justify-center items-center w-[100%]">
+          <div className="w-[93%] p-3 bg-zinc-800 rounded-[14px] border-2 border-neutral-700 flex flex-col justify-evenly items-center">
             <div className="flex flex-col justify-evenly items-start">
               <div className="text-white text-2xl font-semibold font-['Inter']">
                 Pricing
@@ -23,8 +20,8 @@ const Customer = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center items-center w-[50%]">
-          <div className="w-[90%] h-[174px] bg-zinc-800 rounded-[14px] border-2 border-neutral-700 flex flex-col justify-evenly items-center">
+        <div className="flex justify-center items-center w-[100%]">
+          <div className="w-[93%] p-3 bg-zinc-800 rounded-[14px] border-2 border-neutral-700 flex flex-col justify-evenly items-center">
             <div className="flex flex-col justify-evenly items-start">
               <div className="text-white text-2xl font-semibold font-['Inter']">
                 Features

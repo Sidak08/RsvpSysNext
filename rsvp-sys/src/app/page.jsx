@@ -12,6 +12,8 @@ import MobFeatures from "./components/homepage/mob_features";
 import Review from "./components/homepage/review";
 import EcoFreindly from "./components/homepage/eco_freindly";
 import Customer from "./components/homepage/mob_customer_everything";
+import Chat from "./components/homepage/chat.jsx";
+import MobPricingDiv from "./components/homepage/mob_pricing";
 
 export default function Home() {
   // State to track whether the component has been mounted
@@ -34,6 +36,8 @@ export default function Home() {
       {isMounted && isMobile ? <Review /> : <></>}
       {isMounted && isMobile ? <EcoFreindly /> : <></>}
       {isMounted && isMobile ? <Customer /> : <></>}
+      {isMounted && isMobile ? <Chat /> : <></>}
+      {isMounted && isMobile ? <MobPricingDiv /> : <></>}
       <div className="w-full flex flex-row justify-between items-start">
         {isMounted && !isMobile ? <Desk_left_side /> : <></>}
         {isMounted && !isMobile ? <Desk_right_side /> : <></>}
