@@ -11,7 +11,7 @@ import Footer from "./components/homepage/footer";
 import MobFeatures from "./components/homepage/mob_features";
 import Review from "./components/homepage/review";
 import EcoFreindly from "./components/homepage/eco_freindly";
-import Customer from "./components/homepage/customer_everything";
+import Customer from "./components/homepage/mob_customer_everything";
 
 export default function Home() {
   // State to track whether the component has been mounted
