@@ -75,7 +75,7 @@ const ButtonBox = ({ activeBtn, setActiveBtn }) => {
   return (
     <div
       ref={myRef}
-      className="mb-[15px] w-[90%] pl-[20px] mb-[15px] h-[80px] snap-x snap-mandatory bg-[#232222] rounded-[14px] border-2 border-neutral-700 flex items-center justify-evenly overflow-x-scroll scrollbar-hide"
+      className="mb-[15px] w-[90%] pl-[20px] h-[80px] snap-x snap-mandatory bg-[#232222] rounded-[14px] border-2 border-neutral-700 flex items-center justify-evenly overflow-x-scroll scrollbar-hide"
     >
       {[
         "Reduce No Show",

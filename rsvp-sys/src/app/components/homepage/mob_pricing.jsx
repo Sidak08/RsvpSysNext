@@ -75,7 +75,10 @@ const MobPricingDiv = () => {
   };
 
   return (
-    <div className="w-full flex flex-col justify-evenly items-center">
+    <section
+      className="w-full flex flex-col justify-evenly items-center"
+      id="pricing"
+    >
       <div className={styles.priceHeaderMob}>A Perfect Price For You</div>
       <SubTimeBox
         changeYearly={changeYearly}
@@ -90,7 +93,7 @@ const MobPricingDiv = () => {
       />
       <div
         className={
-          "flex justify-evenly items-start w-full mt-[20px] overflow-x-scroll snap-x snap-mandatory hide-scrollbar"
+          "flex justify-evenly items-start w-full mt-[20px] overflow-x-scroll snap-x snap-mandatory scrollbar-hide"
         }
       >
         <PriceBox
@@ -116,7 +119,7 @@ const MobPricingDiv = () => {
         />
       </div>
       <CustomPlan />
-    </div>
+    </section>
   );
 };
 
@@ -223,7 +226,7 @@ const PlanBox = ({ scrollToRef, premiumRef, essentialRef, freeRef }) => {
     scrollToRef(ref);
   };
   return (
-    <div className="overflow-x-scroll snap-x snap-mandatory hide-scrollbar w-[90%] h-[77px] bg-stone-900 rounded-[14px] border-2 border-neutral-700 mt-3 flex justify-start items-center -mb-[8px]">
+    <div className="overflow-x-scroll scrollbar-hide snap-x snap-mandatory w-[90%] h-[77px] bg-stone-900 rounded-[14px] border-2 border-neutral-700 mt-3 flex justify-start items-center -mb-[8px]">
       <button
         className={`mx-2 snap-center w-[131px] h-[60px] ${curRef === freeRef ? "bg-indigo-700" : "bg-zinc-800 shadow border-2 border-neutral-700"} rounded-[14px] shadow flex justify-center items-center`}
         onClick={() => {

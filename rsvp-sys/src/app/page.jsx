@@ -15,6 +15,8 @@ import Customer from "./components/homepage/mob_customer_everything";
 import Chat from "./components/homepage/chat.jsx";
 import MobPricingDiv from "./components/homepage/mob_pricing";
 import MobFooter from "./components/homepage/mob_footer";
+import "./components/homepage/global.css";
+import "./globals.css";
 
 export default function Home() {
   // State to track whether the component has been mounted
@@ -30,7 +32,7 @@ export default function Home() {
 
   // Render content only if the component has been mounted
   return (
-    <main className="flex flex-col justify-between items-center">
+    <main className="flex flex-col justify-between items-center overflow-x-clip scrollbar-hide">
       <Navbar />
       <Header />
       {isMounted && isMobile ? <MobFeatures /> : <></>}
