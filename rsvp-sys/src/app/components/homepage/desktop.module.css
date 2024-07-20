@@ -35,3 +35,17 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+.priceHeaderMob {
+    margin-top: 54px;
+    font-family: Inter;
+    font-size: 84px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    background: linear-gradient(92deg, #2c0aa2 -0.31%, #249dc5 94.37%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: left;
+    margin-left: 5%;
+}

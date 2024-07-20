@@ -1,7 +1,8 @@
 "use client";
 import styles from "./desktop.module.css";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import React from "react";
 
 const MobPricingDiv = () => {
   const [rate, setRate] = useState("yearly");
@@ -60,95 +61,96 @@ const MobPricingDiv = () => {
       "All the tools you will need to start you journey packed in one sweet deal.",
   };
 
-  // <button
-  //   onClick={changeMonthly}
-  //   className={`w-[236px] h-[70px] rounded-[14px] border-2 border-indigo-700 flex justify-evenly items-center ${rate === "monthly" ? "bg-indigo-700" : "bg-stone-900"}`}
-  // >
-  //   <div className="text-white text-[38px] font-black font-['Inter'] text-center">
-  //     Monthly
-  //   </div>
-  // </button>
-  // <button
-  //   onClick={changeYearly}
-  //   className={`w-[236px] h-[70px] rounded-[14px] border-2 border-indigo-700 flex justify-evenly items-center ${rate === "yearly" ? "bg-indigo-700" : "bg-stone-900"} relative`}
-  // >
-  //   <div className="text-white text-[38px] font-black font-['Inter'] text-center">
-  //     Yearly
-  //   </div>
-  //   <Image
-  //     src="/discount.svg"
-  //     width={113}
-  //     height={35}
-  //     alt="discount tag"
-  //     className="absolute top-[-30px] right-[-30px]"
-  //   />
-  // </button>
-  //
+  const premiumRef = useRef(null);
+  const essentialRef = useRef(null);
+  const freeRef = useRef(null);
+
+  const scrollToRef = (ref) => {
+    ref.current.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+
   return (
-    <div className="w-[310%] flex flex-col justify-evenly items-center">
-      <div className={styles.priceHeader}>A Perfect Price For You</div>
+    <div className="w-full flex flex-col justify-evenly items-center">
+      <div className={styles.priceHeaderMob}>A Perfect Price For You</div>
+      <SubTimeBox
+        changeYearly={changeYearly}
+        changeMonthly={changeMonthly}
+        rate={rate}
+      />
+      <button onClick={() => scrollToRef(premiumRef)}>Premium</button>
       <div
         className={
-          "flex justify-evenly items-start w-full mt-[70px] overflow-x-scroll"
+          "flex justify-evenly items-start w-full mt-[20px] overflow-x-scroll snap-x snap-mandatory hide-scrollbar"
         }
       >
         <PriceBox
-          title={"Premium"}
-          price={price.premium}
-          discription={premiumInfo.discription}
-          info={premiumInfo}
+          ref={freeRef}
+          title={"Free"}
+          price={false}
+          discription={freeInfo.discription}
+          info={freeInfo}
         />
+
         <PriceBox
+          ref={essentialRef}
           title={"Essential"}
           price={price.essential}
           discription={essentialInfo.discription}
           info={essentialInfo}
         />
         <PriceBox
-          title={"Free"}
-          price={false}
-          discription={freeInfo.discription}
-          info={freeInfo}
+          ref={premiumRef}
+          title={"Premium"}
+          price={price.premium}
+          discription={premiumInfo.discription}
+          info={premiumInfo}
         />
       </div>
-      {/* <CustomPlan /> */}
     </div>
   );
 };
-const PriceBox = ({ title, price, discription, info }) => {
-  return (
-    <div className="max-w-[356px] w-[90%] h-[690px] flex flex-col justify-evenly items-center bg-stone-900 rounded-[14px] shadow border-2 border-neutral-700">
-      <div className="w-full h-[50px] flex flex-col justify-evenly items-center">
-        <div className="w-full mr-2">
-          <span className="text-white text-[32px] font-bold font-['Inter'] ml-[40px]">
-            {title}{" "}
-          </span>
-          <span className="text-white text-[32px] font-normal font-['Inter'] text-center">
-            {price ? `- $${price}` : ""}
-          </span>
+
+// eslint-disable-next-line react/display-name
+const PriceBox = React.forwardRef(
+  ({ title, price, discription, info }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className="snap-center min-w-[90%] h-[690px] flex flex-col justify-evenly items-center bg-stone-900 rounded-[14px] shadow border-2 border-neutral-700 mx-[5%]"
+      >
+        <div className="w-full h-[50px] flex flex-col justify-evenly items-center">
+          <div className="w-full mr-2">
+            <span className="text-white text-[32px] font-bold font-['Inter'] ml-[40px]">
+              {title}{" "}
+            </span>
+            <span className="text-white text-[32px] font-normal font-['Inter'] text-center">
+              {price ? `- $${price}` : ""}
+            </span>
+          </div>
+          <div className="w-[90%] h-0.5 bg-neutral-700 rounded-[20px]" />
         </div>
-        <div className="w-[90%] h-0.5 bg-neutral-700 rounded-[20px]" />
-      </div>
-      <div className="w-[90%] text-white text-[22px] font-normal font-['Inter']">
-        {discription}
-      </div>
-      <div className="w-full h-[400px] flex flex-col justify-evenly items-center">
-        <SmallBox title={"Reminder Emails"} check={info.emails} />
-        <SmallBox title={"Reminder Text SMS"} check={info.sms} />
-        <SmallBox title={"Online Reservations"} check={info.onlineRsvp} />
-        <SmallBox title={"Waitlist Management"} check={info.waitlistMange} />
-        <SmallBox title={"Table Management"} check={info.tableMange} />
-        <SmallBox title={"Booking Widget"} check={info.bookingWidget} />
-        <SmallBox title={"Deposit & Prepayment"} check={info.deposit} />
-      </div>
-      <button className="w-[90%] h-[68px] bg-indigo-700 rounded-[14px] flex justify-center items-center text-center">
-        <div className="w-[145.20px] text-white text-2xl font-semibold font-['Inter'] text-center">
-          Get Started
+        <div className="w-[90%] text-white text-[22px] font-normal font-['Inter']">
+          {discription}
         </div>
-      </button>
-    </div>
-  );
-};
+        <div className="w-full h-[400px] flex flex-col justify-evenly items-center">
+          <SmallBox title={"Reminder Emails"} check={info.emails} />
+          <SmallBox title={"Reminder Text SMS"} check={info.sms} />
+          <SmallBox title={"Online Reservations"} check={info.onlineRsvp} />
+          <SmallBox title={"Waitlist Management"} check={info.waitlistMange} />
+          <SmallBox title={"Table Management"} check={info.tableMange} />
+          <SmallBox title={"Booking Widget"} check={info.bookingWidget} />
+          <SmallBox title={"Deposit & Prepayment"} check={info.deposit} />
+        </div>
+        <button className="w-[90%] h-[68px] bg-indigo-700 rounded-[14px] flex justify-center items-center text-center">
+          <div className="w-[145.20px] text-white text-2xl font-semibold font-['Inter'] text-center">
+            Get Started
+          </div>
+        </button>
+      </div>
+    );
+  },
+);
+
 const SmallBox = ({ title, check }) => {
   return (
     <div className="w-[90%] h-[50px] bg-stone-900 flex flex-col justify-evenly items-center">
@@ -180,6 +182,38 @@ const SmallBox = ({ title, check }) => {
     </div>
   );
 };
+
+const SubTimeBox = ({ changeMonthly, changeYearly, rate }) => {
+  return (
+    <div className="w-[90%] h-[77px] bg-stone-900 rounded-[14px] border-2 border-neutral-700 mt-3 flex justify-start items-center">
+      <button
+        className={`mx-4 w-[131px] h-[60px] ${rate === "yearly" ? "bg-indigo-700" : "bg-zinc-800 shadow border-2 border-neutral-700"} rounded-[14px] shadow flex justify-center items-center`}
+        onClick={changeYearly}
+      >
+        <div className="w-[139px] text-center text-white text-xl font-light font-['Inter'] flex justify-center items-center">
+          Yearly
+        </div>
+      </button>
+      <button
+        className={`w-[131px] h-[60px] ${rate === "monthly" ? "bg-indigo-700" : "bg-zinc-800 shadow border-2 border-neutral-700"} rounded-[14px] shadow flex justify-center items-center`}
+        onClick={changeMonthly}
+      >
+        <div className="w-[139px] text-center text-white text-xl font-light font-['Inter'] flex justify-center items-center">
+          Monthly
+        </div>
+      </button>
+    </div>
+  );
+};
+const PlanBox = ({ scrollToRef, premiumRef, essentialRef, freeRef }) => {
+  const [curRef, setCurRef] = useState(freeRef);
+  return (
+    <div className="w-[90%] h-[77px] bg-stone-900 rounded-[14px] border-2 border-neutral-700 mt-3 flex justify-start items-center">
+      {" "}
+    </div>
+  );
+};
+
 // const CustomPlan = () => {
 //   return (
 //     <div className="w-[1147px] h-[370px] bg-stone-900 rounded-[14px] border-2 border-neutral-700 flex justify-evenly items-center mt-[70px] mb-[64px]">
@@ -220,4 +254,5 @@ const SmallBox = ({ title, check }) => {
 //     </div>
 //   );
 // };
+
 export default MobPricingDiv;
