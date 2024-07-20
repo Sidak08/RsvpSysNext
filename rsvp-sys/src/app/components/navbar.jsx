@@ -39,7 +39,7 @@ const Navbar = () => {
       </div>
 
       <div className="w-[350px] flex justify-between items-center mr-4 hidden md:flex">
-        <Link href="/chat">
+        <Link href="#chat">
           <div className="text-white text-[22px] font-normal font-['Inika']">
             Chat
           </div>
@@ -50,7 +50,7 @@ const Navbar = () => {
           </div>
         </Link>
         <div className="w-[130px] h-[50px] bg-indigo-700 rounded-[10px] flex justify-center items-center">
-          <Link href="/pricing">
+          <Link href="#pricing">
             <div className="text-white text-2xl font-normal font-['Inika']">
               Pricing
             </div>
@@ -78,7 +78,7 @@ const Navbar = () => {
             </div>
             <div className="w-[90%] h-0.5 bg-neutral-700 rounded-sm  mr-[14px]" />
             <div className="text-white text-[22px] font-normal font-['Inter']  mr-[14px]">
-              <Link href={"#contactus"}>Contact</Link>
+              <Link href={"#chat"}>Contact</Link>
             </div>
           </div>
         </div>

@@ -5,7 +5,7 @@ import Chat from "./chat";
 
 const Desk_right_side = () => {
   return (
-    <div className="flex flex-col justify-start items-start w-[40%] overflow-x-hidden">
+    <div className="flex flex-col justify-start items-start w-[40%] overflow-x-hidden mt-5">
       <div className="flex flex-row justify-start items-center w-full">
         <Image
           src={"/images/tableBookingInfo.png"}

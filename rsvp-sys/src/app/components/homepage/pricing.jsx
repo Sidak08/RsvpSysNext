@@ -60,7 +60,10 @@ const PricingDiv = () => {
       "All the tools you will need to start you journey packed in one sweet deal.",
   };
   return (
-    <div className="w-full flex flex-col justify-evenly items-center">
+    <section
+      id="pricing"
+      className="w-full flex flex-col justify-evenly items-center"
+    >
       <div className={styles.priceHeader}>A Perfect Price For You</div>
       <div className={"flex justify-evenly items-start w-full mt-[70px]"}>
         <div className={"flex flex-col justify-between h-[830px] items-center"}>
@@ -110,7 +113,7 @@ const PricingDiv = () => {
         </div>
       </div>
       <CustomPlan />
-    </div>
+    </section>
   );
 };
 const PriceBox = ({ title, price, discription, info }) => {

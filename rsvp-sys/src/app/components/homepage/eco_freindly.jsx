@@ -6,7 +6,7 @@ import { useMediaQuery } from "react-responsive";
 const EcoFreindly = () => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
   return (
-    <div className="md:-mt-10 w-[90%] h-[350px] bg-stone-900 rounded-[14px] border-8 border-emerald-500 lg:mt-3 flex flex-col items-center justify-between">
+    <div className="max-w-[484px] md:-mt-10 w-[90%] h-[350px] bg-stone-900 rounded-[14px] border-8 border-emerald-500 lg:mt-3 flex flex-col items-center justify-between">
       <Image
         src={"/images/banner.png"}
         width={495}

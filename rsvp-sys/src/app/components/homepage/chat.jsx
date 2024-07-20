@@ -12,7 +12,10 @@ const Chat = () => {
   const [country, setCountry] = useState("");
 
   return (
-    <div className="w-[90%] bg-indigo-700 rounded-[14px] border-8 border-indigo-700 mt-9 ">
+    <section
+      id="chat"
+      className="max-w-[500px] w-[90%] bg-indigo-700 rounded-[14px] border-8 border-indigo-700 mt-9 "
+    >
       <div className="w-full p-3 bg-stone-900 rounded-[14px] border border-zinc-800 flex flex-col justify-evenly items-center">
         <div className="w-[95%]">
           <div className="text-white text-4xl font-normal font-['Inter']">
@@ -123,7 +126,7 @@ const Chat = () => {
           </div>
         </button>
       </div>
-    </div>
+    </section>
   );
 };
 

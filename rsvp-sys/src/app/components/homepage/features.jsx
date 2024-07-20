@@ -64,7 +64,7 @@ const Features = () => {
   }, []);
 
   return (
-    <div className="w-[90%] h-[448px] bg-stone-900 rounded-[14px] border-2 border-neutral-700 flex justify-evenly items-center">
+    <div className="w-[90%] min-h-[448px] bg-stone-900 rounded-[14px] border-2 border-neutral-700 flex justify-evenly items-center">
       <div className="w-[68%] h-[422px] flex flex-col justify-evenly items-center">
         <div className="w-full">
           <div className="text-white text-[28px] font-bold font-['Inter'] ml-4">
@@ -138,7 +138,7 @@ const Button = ({ text, color, border, id, setActiveBtn }) => {
 
 const TextBox = ({ text }) => {
   return (
-    <div className="w-full h-[320px] flex flex-col justify-evenly items-center">
+    <div className="w-full flex flex-col justify-evenly items-center">
       <InnerTextBox text={text[0]} />
       <InnerTextBox text={text[1]} />
     </div>
@@ -147,11 +147,11 @@ const TextBox = ({ text }) => {
 
 const InnerTextBox = ({ text }) => {
   return (
-    <div className=" bg-neutral-800 rounded-[14px] border-2 border-neutral-700 p-4 flex flex-col justify-evenly items-start">
+    <div className="mb-2 bg-neutral-800 rounded-[14px] border-2 border-neutral-700 p-4 flex flex-col justify-evenly items-start">
       <div className="text-white text-lg font-semibold font-['Inter']">
         {text.title}
       </div>
-      <div className="w-[433px] text-white text-base font-normal font-['Inter'] mt-2 ml-4">
+      <div className="text-white text-base font-normal font-['Inter'] mt-2 ml-4">
         {text.text}
       </div>
     </div>
