@@ -3,6 +3,7 @@ import styles from "./desktop.module.css";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import React from "react";
+import "./global.css";
 
 const MobPricingDiv = () => {
   const [rate, setRate] = useState("yearly");
@@ -66,7 +67,11 @@ const MobPricingDiv = () => {
   const freeRef = useRef(null);
 
   const scrollToRef = (ref) => {
-    ref.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    ref.current.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+      inline: "center",
+    });
   };
 
   return (
@@ -77,7 +82,12 @@ const MobPricingDiv = () => {
         changeMonthly={changeMonthly}
         rate={rate}
       />
-      <button onClick={() => scrollToRef(premiumRef)}>Premium</button>
+      <PlanBox
+        scrollToRef={scrollToRef}
+        premiumRef={premiumRef}
+        essentialRef={essentialRef}
+        freeRef={freeRef}
+      />
       <div
         className={
           "flex justify-evenly items-start w-full mt-[20px] overflow-x-scroll snap-x snap-mandatory hide-scrollbar"
@@ -90,7 +100,6 @@ const MobPricingDiv = () => {
           discription={freeInfo.discription}
           info={freeInfo}
         />
-
         <PriceBox
           ref={essentialRef}
           title={"Essential"}
@@ -106,6 +115,7 @@ const MobPricingDiv = () => {
           info={premiumInfo}
         />
       </div>
+      <CustomPlan />
     </div>
   );
 };
@@ -187,7 +197,7 @@ const SubTimeBox = ({ changeMonthly, changeYearly, rate }) => {
   return (
     <div className="w-[90%] h-[77px] bg-stone-900 rounded-[14px] border-2 border-neutral-700 mt-3 flex justify-start items-center">
       <button
-        className={`mx-4 w-[131px] h-[60px] ${rate === "yearly" ? "bg-indigo-700" : "bg-zinc-800 shadow border-2 border-neutral-700"} rounded-[14px] shadow flex justify-center items-center`}
+        className={`mx-2 mr-4 w-[131px] h-[60px] ${rate === "yearly" ? "bg-indigo-700" : "bg-zinc-800 shadow border-2 border-neutral-700"} rounded-[14px] shadow flex justify-center items-center`}
         onClick={changeYearly}
       >
         <div className="w-[139px] text-center text-white text-xl font-light font-['Inter'] flex justify-center items-center">
@@ -205,54 +215,86 @@ const SubTimeBox = ({ changeMonthly, changeYearly, rate }) => {
     </div>
   );
 };
+
 const PlanBox = ({ scrollToRef, premiumRef, essentialRef, freeRef }) => {
   const [curRef, setCurRef] = useState(freeRef);
+  const setScrolltoRef = (ref) => {
+    setCurRef(ref);
+    scrollToRef(ref);
+  };
   return (
-    <div className="w-[90%] h-[77px] bg-stone-900 rounded-[14px] border-2 border-neutral-700 mt-3 flex justify-start items-center">
-      {" "}
+    <div className="overflow-x-scroll snap-x snap-mandatory hide-scrollbar w-[90%] h-[77px] bg-stone-900 rounded-[14px] border-2 border-neutral-700 mt-3 flex justify-start items-center -mb-[8px]">
+      <button
+        className={`mx-2 snap-center w-[131px] h-[60px] ${curRef === freeRef ? "bg-indigo-700" : "bg-zinc-800 shadow border-2 border-neutral-700"} rounded-[14px] shadow flex justify-center items-center`}
+        onClick={() => {
+          setScrolltoRef(freeRef);
+        }}
+      >
+        <div className="w-[139px] text-center text-white text-xl font-light font-['Inter'] flex justify-center items-center">
+          Free
+        </div>
+      </button>
+      <button
+        className={`mx-2 snap-center w-[131px] h-[60px] ${curRef === essentialRef ? "bg-indigo-700" : "bg-zinc-800 shadow border-2 border-neutral-700"} rounded-[14px] shadow flex justify-center items-center`}
+        onClick={() => {
+          setScrolltoRef(essentialRef);
+        }}
+      >
+        <div className="w-[139px] text-center text-white text-xl font-light font-['Inter'] flex justify-center items-center">
+          Essential
+        </div>
+      </button>
+      <button
+        className={`mx-2 snap-center w-[131px] h-[60px] ${curRef === premiumRef ? "bg-indigo-700" : "bg-zinc-800 shadow border-2 border-neutral-700"} rounded-[14px] shadow flex justify-center items-center`}
+        onClick={() => {
+          setScrolltoRef(premiumRef);
+        }}
+      >
+        <div className="w-[139px] text-center text-white text-xl font-light font-['Inter'] flex justify-center items-center">
+          Premium
+        </div>
+      </button>
     </div>
   );
 };
 
-// const CustomPlan = () => {
-//   return (
-//     <div className="w-[1147px] h-[370px] bg-stone-900 rounded-[14px] border-2 border-neutral-700 flex justify-evenly items-center mt-[70px] mb-[64px]">
-//       <div className="flex justify-evenly items-center flex-col w-[700px] h-full">
-//         <div>
-//           <div className="text-white text-[58px] font-bold font-['Inter']">
-//             Custom Plan
-//           </div>
-//           <div className="w-[662px] h-0.5 bg-neutral-700" />
-//         </div>
-//         <div className="w-[610px]">
-//           <span className="text-white text-4xl font-light font-['Inter']">
-//             Contact us and will find a{" "}
-//           </span>
-//           <span className="text-indigo-600 text-4xl font-bold font-['Inter']">
-//             plan for you
-//           </span>
-//           <span className="text-white text-4xl font-light font-['Inter']">
-//             {" "}
-//             that has the all features you need at a price you want
-//           </span>
-//         </div>
-//       </div>
-//       <div className="w-[425px] h-[335px] rounded-2xl shadow relative flex justify-center items-center ">
-//         <Image
-//           src={"/images/tigerPrint.png"}
-//           height={335}
-//           width={425}
-//           alt="custom plan background tiger print"
-//           className="absolute top-0 left-0 rounded-2xl"
-//         />
-//         <div className="w-[326px] h-[100px] bg-indigo-700 rounded-[14px] shadow flex justify-center items-center  z-10">
-//           <div className="text-white text-[42px] font-normal font-['Inter']">
-//             Contact Now
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
+const CustomPlan = () => {
+  return (
+    <div className="w-[90%] h-[448px] bg-stone-900 rounded-[14px] border-2 border-neutral-700 mt-[26px] flex flex-col items-center justify-evenly">
+      <div className="flex flex-col items-center justify-evenly">
+        <div className="w-[307px] text-white text-[46px] font-bold font-['Inter']">
+          Custom Plan
+        </div>
+        <div className="w-[332.11px] h-0.5 bg-neutral-700" />
+      </div>
+      <div className="w-[90%]">
+        <span className="text-white text-2xl font-light font-['Inter']">
+          Contact us and will find a{" "}
+        </span>
+        <span className="text-indigo-600 text-2xl font-bold font-['Inter']">
+          plan for you
+        </span>
+        <span className="text-white text-2xl font-light font-['Inter']">
+          {" "}
+          that has the all features you need at a price you want
+        </span>
+      </div>
+      <div className="relative">
+        <Image
+          src={"/images/tigerPrint.png"}
+          height={200}
+          width={318}
+          alt="custom plan background tiger print"
+          className="rounded-2xl h-[200px] min-w-[90%] object-cover"
+        />
+        <div className="flex justify-center items-center w-[244.50px] h-[57.31px] bg-indigo-700 rounded-[14px] shadow absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <div className="w-[244px] h-[58px] text-center text-white text-[32px] font-normal font-['Inter']">
+            Contact Now
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default MobPricingDiv;
