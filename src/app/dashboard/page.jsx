@@ -27,12 +27,28 @@ const chair = "/chair.svg";
 const highChair = "/highChair.svg";
 const sofa = "/sofa.svg";
 
-class CustomImage()e {
+class CustomImage {
   constructor() {
     if (typeof window !== "undefined") {
-      return new window.CustomImage()();
+      return new window.CustomImage();
     } else {
-      return {};
+      return {
+        src: "",
+        onload: null,
+        onerror: null,
+        width: 0,
+        height: 0,
+        alt: "",
+        complete: false,
+        naturalWidth: 0,
+        naturalHeight: 0,
+        addEventListener: function () {},
+        removeEventListener: function () {},
+        setAttribute: function () {},
+        getAttribute: function () {},
+        removeAttribute: function () {},
+        dispatchEvent: function () {},
+      };
     }
   }
 }
@@ -45,7 +61,7 @@ const Draw = () => {
 
   const fixElementsArray = (arr) => {
     for (let i = 0; i < arr.length; i++) {
-      const image = new CustomImage()();
+      const image = new CustomImage();
       switch (arr[i].title) {
         case "Round Table":
           image.src = roundTable;
@@ -198,9 +214,9 @@ const CanvasComponent = ({
   upComingReservation,
   forceUpdate,
 }) => {
-  const activeDotImage = new CustomImage()();
-  const inActiveDotImage = new CustomImage()();
-  const HoverEditImage = new CustomImage()();
+  const activeDotImage = new CustomImage();
+  const inActiveDotImage = new CustomImage();
+  const HoverEditImage = new CustomImage();
   activeDotImage.src = activeDot;
   inActiveDotImage.src = inActiveDot;
 
@@ -437,9 +453,9 @@ const CanvasComponent = ({
           setCursorStyle("nw-resize");
         } else if (
           mousePosition.x - 6 <=
-          elementsArray[i].x + offset.x + elementsArray[i].width &&
+            elementsArray[i].x + offset.x + elementsArray[i].width &&
           mousePosition.x + 6 >=
-          elementsArray[i].x + offset.x + elementsArray[i].width &&
+            elementsArray[i].x + offset.x + elementsArray[i].width &&
           mousePosition.y - 6 <= elementsArray[i].y + offset.y &&
           mousePosition.y + 6 >= elementsArray[i].y + offset.y
         ) {
@@ -447,13 +463,13 @@ const CanvasComponent = ({
           elementsArray[i].reSize = "ne";
         } else if (
           mousePosition.x - 6 <=
-          elementsArray[i].x + offset.x + elementsArray[i].width &&
+            elementsArray[i].x + offset.x + elementsArray[i].width &&
           mousePosition.x + 6 >=
-          elementsArray[i].x + offset.x + elementsArray[i].width &&
+            elementsArray[i].x + offset.x + elementsArray[i].width &&
           mousePosition.y - 6 <=
-          elementsArray[i].y + offset.y + elementsArray[i].height &&
+            elementsArray[i].y + offset.y + elementsArray[i].height &&
           mousePosition.y + 6 >=
-          elementsArray[i].y + offset.y + elementsArray[i].height
+            elementsArray[i].y + offset.y + elementsArray[i].height
         ) {
           setCursorStyle("se-resize");
           elementsArray[i].reSize = "se";
@@ -461,9 +477,9 @@ const CanvasComponent = ({
           mousePosition.x - 6 <= elementsArray[i].x + offset.x &&
           mousePosition.x + 6 >= elementsArray[i].x + offset.x &&
           mousePosition.y - 6 <=
-          elementsArray[i].y + offset.y + elementsArray[i].height &&
+            elementsArray[i].y + offset.y + elementsArray[i].height &&
           mousePosition.y + 6 >=
-          elementsArray[i].y + offset.y + elementsArray[i].height
+            elementsArray[i].y + offset.y + elementsArray[i].height
         ) {
           setCursorStyle("sw-resize");
           elementsArray[i].reSize = "sw";
@@ -472,25 +488,25 @@ const CanvasComponent = ({
           mousePosition.x + 6 >= elementsArray[i].x + offset.x &&
           mousePosition.y >= elementsArray[i].y + offset.y &&
           mousePosition.y <=
-          elementsArray[i].y + offset.y + elementsArray[i].height
+            elementsArray[i].y + offset.y + elementsArray[i].height
         ) {
           setCursorStyle("w-resize");
           elementsArray[i].reSize = "w";
         } else if (
           mousePosition.x - 6 <=
-          elementsArray[i].x + offset.x + elementsArray[i].width &&
+            elementsArray[i].x + offset.x + elementsArray[i].width &&
           mousePosition.x + 6 >=
-          elementsArray[i].x + offset.x + elementsArray[i].width &&
+            elementsArray[i].x + offset.x + elementsArray[i].width &&
           mousePosition.y >= elementsArray[i].y + offset.y &&
           mousePosition.y <=
-          elementsArray[i].y + offset.y + elementsArray[i].height
+            elementsArray[i].y + offset.y + elementsArray[i].height
         ) {
           setCursorStyle("e-resize");
           elementsArray[i].reSize = "e";
         } else if (
           mousePosition.x >= elementsArray[i].x + offset.x &&
           mousePosition.x <=
-          elementsArray[i].x + offset.x + elementsArray[i].width &&
+            elementsArray[i].x + offset.x + elementsArray[i].width &&
           mousePosition.y - 6 <= elementsArray[i].y + offset.y &&
           mousePosition.y + 6 >= elementsArray[i].y + offset.y
         ) {
@@ -499,11 +515,11 @@ const CanvasComponent = ({
         } else if (
           mousePosition.x >= elementsArray[i].x + offset.x &&
           mousePosition.x <=
-          elementsArray[i].x + offset.x + elementsArray[i].width &&
+            elementsArray[i].x + offset.x + elementsArray[i].width &&
           mousePosition.y - 6 <=
-          elementsArray[i].y + offset.y + elementsArray[i].height &&
+            elementsArray[i].y + offset.y + elementsArray[i].height &&
           mousePosition.y + 6 >=
-          elementsArray[i].y + offset.y + elementsArray[i].height
+            elementsArray[i].y + offset.y + elementsArray[i].height
         ) {
           setCursorStyle("s-resize");
           elementsArray[i].reSize = "s";
@@ -536,11 +552,11 @@ const CanvasComponent = ({
         context.drawImage(
           activeDotImage,
           linesArray[movingLinesArrayPoint.i][movingLinesArrayPoint.j].x +
-          offset.x -
-          7,
+            offset.x -
+            7,
           linesArray[movingLinesArrayPoint.i][movingLinesArrayPoint.j].y +
-          offset.y -
-          7,
+            offset.y -
+            7,
           14,
           14,
         );
