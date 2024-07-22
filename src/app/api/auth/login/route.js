@@ -3,6 +3,7 @@ import clientPromise from "../../../components/mongodb";
 import fixInfo from "../../../components/fixInfoLogin";
 
 export async function POST(req, res) {
+  console.info("came to login");
   const data = fixInfo(await req.json());
   const client = await clientPromise;
   const db = client.db();
@@ -10,6 +11,7 @@ export async function POST(req, res) {
   const user = await db.collection("users").findOne({ email: data.email });
 
   if (user) {
+    console.info(user);
     console.log(user);
     if (data.password === user.password) {
       return NextResponse.json({ success: true });
