@@ -1,7 +1,10 @@
 "use client";
 import styles from "./desktop.module.css";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation"; // For Next.js 13+ App Router
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const PricingDiv = () => {
   const [rate, setRate] = useState("yearly");
@@ -117,6 +120,34 @@ const PricingDiv = () => {
   );
 };
 const PriceBox = ({ title, price, discription, info }) => {
+  const router = useRouter();
+
+  const handleClick = async () => {
+    const cookieStore = Cookies;
+    let cookieValue = cookieStore.get("loginInfo") || false;
+    let userLoggedIn = false;
+
+    console.log(cookieValue);
+    if (cookieValue) {
+      cookieValue = JSON.parse(cookieValue);
+      console.log(cookieValue, 2);
+      const absoluteUrl = `/api/auth/login`;
+      // Use the absolute URL
+      try {
+        const res = await axios.post(absoluteUrl, cookieValue);
+        console.log(res, "r");
+        userLoggedIn = res.data.success;
+      } catch (error) {
+        console.error("Error in axios call:", error);
+      }
+    }
+    if (userLoggedIn) {
+      router.push("https://buy.stripe.com/9AQ8zM7atgK69AQ3ce");
+    } else {
+      router.push("/auth/login");
+    }
+  };
+
   return (
     <div className="max-w-[356px] w-[90%] h-[690px] flex flex-col justify-evenly items-center bg-stone-900 rounded-[14px] shadow border-2 border-neutral-700">
       <div className="w-full h-[50px] flex flex-col justify-evenly items-center">
@@ -142,7 +173,10 @@ const PriceBox = ({ title, price, discription, info }) => {
         <SmallBox title={"Booking Widget"} check={info.bookingWidget} />
         <SmallBox title={"Deposit & Prepayment"} check={info.deposit} />
       </div>
-      <button className="w-[90%] h-[68px] bg-indigo-700 rounded-[14px] flex justify-center items-center text-center">
+      <button
+        className="w-[90%] h-[68px] bg-indigo-700 rounded-[14px] flex justify-center items-center text-center"
+        onClick={handleClick}
+      >
         <div className="w-[145.20px] text-white text-2xl font-semibold font-['Inter'] text-center">
           Get Started
         </div>
