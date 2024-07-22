@@ -21,7 +21,7 @@ export default function Page() {
   const sendInfo = () => {
     if (name.trim().split(" ").length === 2) {
       axios
-        .post("/api/auth/signup", {
+        .post(`/api/auth/signup`, {
           email: email.trim().toLowerCase(),
           password: password,
           id: Math.floor(Math.random() * 900000000) + 100000000,

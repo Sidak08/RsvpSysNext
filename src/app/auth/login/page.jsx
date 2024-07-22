@@ -14,7 +14,7 @@ export default function Page() {
   const [error, setError] = useState({ success: true, error: "" });
 
   const onSubmit = () => {
-    axios.post("/api/auth/login", { email, password }).then((res) => {
+    axios.post(`/api/auth/login`, { email, password }).then((res) => {
       if (res.data.success) {
         Cookies.set("loginInfo", JSON.stringify({ email, password }), {
           expires: 30,
