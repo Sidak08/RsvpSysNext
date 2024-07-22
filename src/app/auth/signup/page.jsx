@@ -46,12 +46,14 @@ export default function Page() {
             });
             router.push("/dashboard");
           }
-          const errorStr = Object.keys(res.data.errors)
-            .map((key) => {
-              return `${res.data.errors[key]}`;
-            })
-            .join(" ");
-          setError({ success: res.data.success, errors: errorStr });
+          if (Object.keys(res.data.errors).length > 0) {
+            const errorStr = Object.keys(res.data.errors)
+              .map((key) => {
+                return `${res.data.errors[key]}`;
+              })
+              .join(" ");
+            setError({ success: res.data.success, errors: errorStr });
+          }
         });
     } else {
       setError({
@@ -96,7 +98,7 @@ export default function Page() {
             type="email"
             className={styles.input}
             value={email}
-            onChange={(e) => setEmail(e.target.value.toUpperCase().trim())}
+            onChange={(e) => setEmail(e.target.value.toLowerCase().trim())}
             placeholder="Type In Your Email Address"
           />
         </div>

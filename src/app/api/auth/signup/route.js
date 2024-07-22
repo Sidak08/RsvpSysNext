@@ -22,6 +22,11 @@ export async function POST(req, res) {
         errors: { user: "User already exists" },
       });
     } else {
+      data.subscription = {
+        plan: "free",
+        product: "free",
+        interval: "free",
+      };
       const result = await db.collection("users").insertOne(data);
       return NextResponse.json({ success: true });
     }
