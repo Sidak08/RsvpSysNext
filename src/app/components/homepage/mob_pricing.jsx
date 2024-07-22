@@ -4,6 +4,9 @@ import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import React from "react";
 import "./global.css";
+import { useRouter } from "next/navigation"; // For Next.js 13+ App Router
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const MobPricingDiv = () => {
   const [rate, setRate] = useState("yearly");
@@ -102,6 +105,7 @@ const MobPricingDiv = () => {
           price={false}
           discription={freeInfo.discription}
           info={freeInfo}
+          plan={rate}
         />
         <PriceBox
           ref={essentialRef}
@@ -109,6 +113,7 @@ const MobPricingDiv = () => {
           price={price.essential}
           discription={essentialInfo.discription}
           info={essentialInfo}
+          plan={rate}
         />
         <PriceBox
           ref={premiumRef}
@@ -116,6 +121,7 @@ const MobPricingDiv = () => {
           price={price.premium}
           discription={premiumInfo.discription}
           info={premiumInfo}
+          plan={rate}
         />
       </div>
       <CustomPlan />
@@ -125,7 +131,48 @@ const MobPricingDiv = () => {
 
 // eslint-disable-next-line react/display-name
 const PriceBox = React.forwardRef(
-  ({ title, price, discription, info }, ref) => {
+  ({ title, price, discription, info, plan }, ref) => {
+    const router = useRouter();
+
+    const handleClick = async () => {
+      const cookieStore = Cookies;
+      let cookieValue = cookieStore.get("loginInfo") || false;
+      let userLoggedIn = false;
+
+      console.log(cookieValue);
+      if (cookieValue) {
+        cookieValue = JSON.parse(cookieValue);
+        console.log(cookieValue, 2);
+        const absoluteUrl = `/api/auth/login`;
+        // Use the absolute URL
+        try {
+          const res = await axios.post(absoluteUrl, cookieValue);
+          userLoggedIn = res.data.success;
+        } catch (error) {
+          console.error("Error in axios call:", error);
+        }
+      }
+      if (userLoggedIn) {
+        if (title === "Free") {
+          router.push("/dashboard");
+        } else if (title === "Essential") {
+          if (plan === "monthly") {
+            router.push("https://buy.stripe.com/9AQ8zM7atgK69AQ3ce");
+          } else if (plan === "yearly") {
+            router.push("https://buy.stripe.com/6oEcQ22UdbpMbIY4gh");
+          }
+        } else if (title === "Premium") {
+          if (plan === "monthly") {
+            router.push("https://buy.stripe.com/aEUdU67atbpM8wM4gk");
+          } else if (plan === "yearly") {
+            router.push("https://buy.stripe.com/eVabLY3Yh8dA8wMeUZ");
+          }
+        }
+      } else {
+        router.push("/auth/login");
+      }
+    };
+
     return (
       <div
         ref={ref}
@@ -154,7 +201,10 @@ const PriceBox = React.forwardRef(
           <SmallBox title={"Booking Widget"} check={info.bookingWidget} />
           <SmallBox title={"Deposit & Prepayment"} check={info.deposit} />
         </div>
-        <button className="w-[90%] h-[68px] bg-indigo-700 rounded-[14px] flex justify-center items-center text-center">
+        <button
+          className="w-[90%] h-[68px] bg-indigo-700 rounded-[14px] flex justify-center items-center text-center"
+          onClick={handleClick}
+        >
           <div className="w-[145.20px] text-white text-2xl font-semibold font-['Inter'] text-center">
             Get Started
           </div>
