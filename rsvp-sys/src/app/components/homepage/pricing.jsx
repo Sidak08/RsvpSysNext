@@ -83,6 +83,7 @@ const PricingDiv = () => {
             price={false}
             discription={freeInfo.discription}
             info={freeInfo}
+            plan={rate}
           />
         </div>
         <PriceBox
@@ -90,6 +91,7 @@ const PricingDiv = () => {
           price={price.premium}
           discription={premiumInfo.discription}
           info={premiumInfo}
+          plan={rate}
         />
         <div className={"flex flex-col justify-between h-[830px] items-center"}>
           <button
@@ -112,6 +114,7 @@ const PricingDiv = () => {
             price={price.essential}
             discription={essentialInfo.discription}
             info={essentialInfo}
+            plan={rate}
           />
         </div>
       </div>
@@ -119,7 +122,7 @@ const PricingDiv = () => {
     </section>
   );
 };
-const PriceBox = ({ title, price, discription, info }) => {
+const PriceBox = ({ title, price, discription, info, plan }) => {
   const router = useRouter();
 
   const handleClick = async () => {
@@ -135,14 +138,27 @@ const PriceBox = ({ title, price, discription, info }) => {
       // Use the absolute URL
       try {
         const res = await axios.post(absoluteUrl, cookieValue);
-        console.log(res, "r");
         userLoggedIn = res.data.success;
       } catch (error) {
         console.error("Error in axios call:", error);
       }
     }
     if (userLoggedIn) {
-      router.push("https://buy.stripe.com/9AQ8zM7atgK69AQ3ce");
+      if (title === "Free") {
+        router.push("/dashboard");
+      } else if (title === "Essential") {
+        if (plan === "monthly") {
+          router.push("https://buy.stripe.com/9AQ8zM7atgK69AQ3ce");
+        } else if (plan === "yearly") {
+          router.push("https://buy.stripe.com/6oEcQ22UdbpMbIY4gh");
+        }
+      } else if (title === "Premium") {
+        if (plan === "monthly") {
+          router.push("https://buy.stripe.com/aEUdU67atbpM8wM4gk");
+        } else if (plan === "yearly") {
+          router.push("https://buy.stripe.com/eVabLY3Yh8dA8wMeUZ");
+        }
+      }
     } else {
       router.push("/auth/login");
     }
