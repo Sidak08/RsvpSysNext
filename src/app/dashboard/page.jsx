@@ -30,7 +30,7 @@ const sofa = "/sofa.svg";
 class CustomImage {
   constructor() {
     if (typeof window !== "undefined") {
-      return new window.CustomImage();
+      return new Image();
     } else {
       return {
         src: "",
