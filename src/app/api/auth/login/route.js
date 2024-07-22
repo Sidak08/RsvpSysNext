@@ -11,10 +11,13 @@ export async function POST(req, res) {
 
   if (user) {
     if (data.password === user.password) {
+      client.close();
       return NextResponse.json({ success: true });
     } else {
+      client.close();
       return NextResponse.json({ success: false, error: "Incorrect Password" });
     }
   }
+  client.close();
   return NextResponse.json({ success: false, error: "User Not Found" });
 }

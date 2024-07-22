@@ -53,6 +53,7 @@ export async function POST(req, res) {
       }
     }
 
+    client.close();
     return NextResponse.json({ status: "success", event: event.type });
   } catch (err) {
     console.log(err);

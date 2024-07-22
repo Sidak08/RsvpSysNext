@@ -17,6 +17,7 @@ export async function POST(req, res) {
     const user = await db.collection("users").findOne({ email: data.email });
 
     if (user) {
+      client.close();
       return NextResponse.json({
         success: false,
         errors: { user: "User already exists" },
@@ -28,6 +29,7 @@ export async function POST(req, res) {
         interval: "free",
       };
       const result = await db.collection("users").insertOne(data);
+      client.close();
       return NextResponse.json({ success: true });
     }
   }
