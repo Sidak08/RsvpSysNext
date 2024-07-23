@@ -19,8 +19,11 @@ export default function Page() {
         Cookies.set("loginInfo", JSON.stringify({ email, password }), {
           expires: 30,
         });
+        console.log("send to dashboard");
+
         router.push("/dashboard");
       }
+      console.log(res.data.success);
       setError(res.data);
     });
   };
