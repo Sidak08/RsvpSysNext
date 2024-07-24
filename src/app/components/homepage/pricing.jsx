@@ -160,7 +160,7 @@ const PriceBox = ({ title, price, discription, info, plan }) => {
         }
       }
     } else {
-      router.push("/auth/login");
+      router.push(`/auth/login?redirect=${title}-${plan}`);
     }
   };
 
