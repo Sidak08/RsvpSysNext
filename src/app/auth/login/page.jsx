@@ -5,10 +5,13 @@ import axios from "axios";
 import Link from "next/link";
 import clsx from "clsx";
 import Cookies from "js-cookie";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function Page() {
+  const searchParams = useSearchParams();
   const router = useRouter();
+  const redirect = searchParams.get("redirect");
+  const link = searchParams.get("link");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState({ success: true, error: "" });
@@ -20,11 +23,14 @@ export default function Page() {
           expires: 30,
         });
         console.log("send to dashboard");
-
-        router.push("/dashboard");
+        if (redirect && link) {
+          router.push(decodeURIComponent(link));
+        } else {
+          router.push("/dashboard");
+        }
+        console.log(res.data.success);
+        setError(res.data);
       }
-      console.log(res.data.success);
-      setError(res.data);
     });
   };
 

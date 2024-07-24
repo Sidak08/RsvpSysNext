@@ -152,6 +152,7 @@ const PriceBox = React.forwardRef(
           console.error("Error in axios call:", error);
         }
       }
+      let link = "/dashboard";
       if (userLoggedIn) {
         if (title === "Free") {
           router.push("/dashboard");
@@ -169,7 +170,23 @@ const PriceBox = React.forwardRef(
           }
         }
       } else {
-        router.push(`/auth/login?redirect=${title}-${plan}`);
+        if (title === "Essential") {
+          if (plan === "monthly") {
+            link = "https://buy.stripe.com/9AQ8zM7atgK69AQ3ce";
+          } else if (plan === "yearly") {
+            link = "https://buy.stripe.com/6oEcQ22UdbpMbIY4gh";
+          }
+        } else if (title === "Premium") {
+          if (plan === "monthly") {
+            link = "https://buy.stripe.com/aEUdU67atbpM8wM4gk";
+          } else if (plan === "yearly") {
+            link = "https://buy.stripe.com/eVabLY3Yh8dA8wMeUZ";
+          }
+        }
+
+        router.push(
+          `/auth/login?redirect=true&link=${encodeURIComponent(link)}`,
+        );
       }
     };
 
@@ -250,7 +267,7 @@ const SubTimeBox = ({ changeMonthly, changeYearly, rate }) => {
   return (
     <div className="w-[90%] h-[77px] bg-stone-900 rounded-[14px] border-2 border-neutral-700 mt-3 flex justify-start items-center">
       <button
-        className={`mx-2 mr-4 w-[131px] h-60px] ${rate === "yearly" ? "bg-indigo-700" : "bg-zinc-800 shadow border-2 border-neutral-700"} rounded-[14px] shadow flex justify-center items-center`}
+        className={`mx-2 mr-4 w-[131px] h-[60px] ${rate === "yearly" ? "bg-indigo-700" : "bg-zinc-800 shadow border-2 border-neutral-700"} rounded-[14px] shadow flex justify-center items-center`}
         onClick={changeYearly}
       >
         <div className="w-[139px] text-center text-white text-xl font-light font-['Inter'] flex justify-center items-center">
@@ -258,7 +275,7 @@ const SubTimeBox = ({ changeMonthly, changeYearly, rate }) => {
         </div>
       </button>
       <button
-        className={`w-[131px] -[60px] ${rate === "monthly" ? "bg-indigo-700" : "bg-zinc-800 shadow border-2 border-neutral-700"} rounded-[14px] shadow flex justify-center items-center`}
+        className={`w-[131px] h-[60px] ${rate === "monthly" ? "bg-indigo-700" : "bg-zinc-800 shadow border-2 border-neutral-700"} rounded-[14px] shadow flex justify-center items-center`}
         onClick={changeMonthly}
       >
         <div className="w-[139px] text-center text-white text-xl font-light font-['Inter'] flex justify-center items-center">
@@ -278,7 +295,7 @@ const PlanBox = ({ scrollToRef, premiumRef, essentialRef, freeRef }) => {
   return (
     <div className="overflow-x-scroll scrollbar-hide snap-x snap-mandatory w-[90%] h-[77px] bg-stone-900 rounded-[14px] border-2 border-neutral-700 mt-3 flex justify-start items-center -mb-[8px]">
       <button
-        className={`mx - 2 snap - center w - [131px] h - [60px] ${curRef === freeRef ? "bg-indigo-700" : "bg-zinc-800 shadow border-2 border-neutral-700"} rounded - [14px] shadow flex justify - center items - center`}
+        className={`mx-2 snap-center w-[131px] h-[60px] ${curRef === freeRef ? "bg-indigo-700" : "bg-zinc-800 shadow border-2 border-neutral-700"} rounded-[14px] shadow flex justify-center items-center`}
         onClick={() => {
           setScrolltoRef(freeRef);
         }}
@@ -288,7 +305,7 @@ const PlanBox = ({ scrollToRef, premiumRef, essentialRef, freeRef }) => {
         </div>
       </button>
       <button
-        className={`mx - 2 snap - center w - [131px] h - [60px] ${curRef === essentialRef ? "bg-indigo-700" : "bg-zinc-800 shadow border-2 border-neutral-700"} rounded - [14px] shadow flex justify - center items - center`}
+        className={`mx-2 snap-center w-[131px] h-[60px] ${curRef === essentialRef ? "bg-indigo-700" : "bg-zinc-800 shadow border-2 border-neutral-700"} rounded-[14px] shadow flex justify-center items-center`}
         onClick={() => {
           setScrolltoRef(essentialRef);
         }}
@@ -298,7 +315,7 @@ const PlanBox = ({ scrollToRef, premiumRef, essentialRef, freeRef }) => {
         </div>
       </button>
       <button
-        className={`mx - 2 snap - center w - [131px] h - [60px] ${curRef === premiumRef ? "bg-indigo-700" : "bg-zinc-800 shadow border-2 border-neutral-700"} rounded - [14px] shadow flex justify - center items - center`}
+        className={`mx-2 snap-center w-[131px] h-[60px] ${curRef === premiumRef ? "bg-indigo-700" : "bg-zinc-800 shadow border-2 border-neutral-700"} rounded-[14px] shadow flex justify-center items-center`}
         onClick={() => {
           setScrolltoRef(premiumRef);
         }}

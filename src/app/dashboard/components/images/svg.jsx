@@ -240,6 +240,27 @@ const CloseSvg = () => {
   );
 };
 
+function Back({ backgroundColor, color }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill="currentColor"
+      stroke="color"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      className="feather feather-arrow-left"
+      viewBox="0 0 24 24"
+    >
+      <circle cx="28" cy="28" r="28" fill={backgroundColor}></circle>;
+      <path d="M19 12L5 12"></path>
+      <path d="M12 19L5 12 12 5"></path>
+    </svg>
+  );
+}
+
 export {
   Draw,
   Edit,
@@ -253,4 +274,5 @@ export {
   HighChair,
   Sofa,
   CloseSvg,
+  Back,
 };

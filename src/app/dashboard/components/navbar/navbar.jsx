@@ -1,5 +1,5 @@
 import "./navbar.css";
-import { Draw, Edit, Home, Setting } from ".././images/svg.jsx";
+import { Draw, Edit, Home, Setting, Back } from ".././images/svg.jsx";
 import React, { useState } from "react";
 
 const Navbar = ({
@@ -83,6 +83,31 @@ const Navbar = ({
         </button>
       </div>
       <div id="lowerDiv">
+        {/* <button
+          onClick={() => {
+            setColor({
+              home: { backgroundColor: "#3B3939", color: "white" },
+              edit: { backgroundColor: "#3B3939", color: "white" },
+              draw: { backgroundColor: "#3B3939", color: "white" },
+              setting: { backgroundColor: "white", color: "#3B3939" },
+            });
+            setActive("setting");
+            setLastClick({ x: false, y: false });
+            if (
+              linesArray[linesArray.length - 1][
+                linesArray[linesArray.length - 1].length - 1
+              ].x != false
+            ) {
+              linesArray.push([{ x: false, y: false }]);
+            }
+          }}
+        >
+          <Back
+            backgroundColor={color.setting.backgroundColor}
+            color={color.setting.color}
+          />
+        </button> */}
+
         <button
           onClick={() => {
             setColor({

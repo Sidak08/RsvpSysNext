@@ -143,6 +143,7 @@ const PriceBox = ({ title, price, discription, info, plan }) => {
         console.error("Error in axios call:", error);
       }
     }
+    let link = "/dashboard";
     if (userLoggedIn) {
       if (title === "Free") {
         router.push("/dashboard");
@@ -160,7 +161,21 @@ const PriceBox = ({ title, price, discription, info, plan }) => {
         }
       }
     } else {
-      router.push(`/auth/login?redirect=${title}-${plan}`);
+      if (title === "Essential") {
+        if (plan === "monthly") {
+          link = "https://buy.stripe.com/9AQ8zM7atgK69AQ3ce";
+        } else if (plan === "yearly") {
+          link = "https://buy.stripe.com/6oEcQ22UdbpMbIY4gh";
+        }
+      } else if (title === "Premium") {
+        if (plan === "monthly") {
+          link = "https://buy.stripe.com/aEUdU67atbpM8wM4gk";
+        } else if (plan === "yearly") {
+          link = "https://buy.stripe.com/eVabLY3Yh8dA8wMeUZ";
+        }
+      }
+
+      router.push(`/auth/login?redirect=true&link=${encodeURIComponent(link)}`);
     }
   };
 
