@@ -1,6 +1,6 @@
 #headingDiv {
     height: 70px;
-    width: 480px;
+    width: 90%;
 }
 #title {
     font-size: 44px;
@@ -12,7 +12,7 @@
     background-color: #ffffff;
 }
 #inputBoxs {
-    width: 450px;
+    width: 90%;
     height: 395px;
     display: flex;
     flex-direction: column;
@@ -24,7 +24,7 @@
 }
 .inputBox {
     height: 90px;
-    width: 450px;
+    width: 100%;
 }
 .inputBox:nth-child(2) {
     margin-top: 10px;
@@ -34,7 +34,7 @@
 }
 .input {
     height: 50px;
-    width: 450px;
+    width: 100%;
     border: 1px solid #464444;
     background-color: #212121;
     border-radius: 6px;
@@ -56,7 +56,7 @@
 }
 #submitBtn {
     height: 50px;
-    width: 450px;
+    width: 90%;
     background-color: #320db1;
     color: #ffffff;
     font-size: 20px;
@@ -65,12 +65,12 @@
     cursor: pointer;
 }
 #btmText {
-    width: 450px;
+    width: 90%;
     /* margin-bottom: 70px; */
 }
 
 #errorBox {
-    width: 450px;
+    width: 90%;
     display: flex;
     justify-content: flex-end;
 }

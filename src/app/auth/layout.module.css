@@ -8,7 +8,8 @@
 }
 #main {
     height: 650px;
-    width: 510px;
+    max-width: 510px;
+    width: 90%;
     background-color: #1b1a1a;
     border-radius: 15px;
     display: flex;

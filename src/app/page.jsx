@@ -16,6 +16,7 @@ import Customer from "./components/homepage/mob_customer_everything";
 import Chat from "./components/homepage/chat.jsx";
 import MobPricingDiv from "./components/homepage/mob_pricing";
 import MobFooter from "./components/homepage/mob_footer";
+import MobCharityBanner from "./components/homepage/mob_charityEventBanner";
 import "./components/homepage/global.css";
 import "./globals.css";
 
@@ -36,6 +37,7 @@ export default function Home() {
     <main className="flex flex-col justify-between items-center overflow-x-clip scrollbar-hide">
       <Navbar />
       {isMounted && !isMobile ? <CharityBanner /> : <></>}
+      {isMounted && isMobile ? <MobCharityBanner /> : <></>}
       <Header />
       {isMounted && isMobile ? <MobFeatures /> : <></>}
       {isMounted && isMobile ? <Review /> : <></>}
