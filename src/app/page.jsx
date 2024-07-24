@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import Navbar from "./components/navbar";
+import CharityBanner from "./components/homepage/charityEventBanner";
 import Header from "./components/homepage/header_images";
 import Desk_left_side from "./components/homepage/desktop_left_side";
 import Desk_right_side from "./components/homepage/desktop_right_side";
@@ -34,6 +35,7 @@ export default function Home() {
   return (
     <main className="flex flex-col justify-between items-center overflow-x-clip scrollbar-hide">
       <Navbar />
+      {isMounted && !isMobile ? <CharityBanner /> : <></>}
       <Header />
       {isMounted && isMobile ? <MobFeatures /> : <></>}
       {isMounted && isMobile ? <Review /> : <></>}
