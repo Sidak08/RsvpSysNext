@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import styles from "./style.module.css";
 import axios from "axios";
 import Link from "next/link";
@@ -7,7 +7,7 @@ import clsx from "clsx";
 import Cookies from "js-cookie";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function Page() {
+function LoginPageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const redirect = searchParams.get("redirect");
@@ -22,13 +22,11 @@ export default function Page() {
         Cookies.set("loginInfo", JSON.stringify({ email, password }), {
           expires: 30,
         });
-        console.log("send to dashboard");
         if (redirect && link) {
           router.push(decodeURIComponent(link));
         } else {
           router.push("/dashboard");
         }
-        console.log(res.data.success);
         setError(res.data);
       }
     });
@@ -99,3 +97,13 @@ export default function Page() {
     </>
   );
 }
+
+function Page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LoginPageContent />
+    </Suspense>
+  );
+}
+
+export default Page;
