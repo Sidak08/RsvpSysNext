@@ -244,19 +244,40 @@ function Back({ backgroundColor, color }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      fill="currentColor"
-      stroke="color"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2"
-      className="feather feather-arrow-left"
-      viewBox="0 0 24 24"
+      width="56"
+      height="56"
+      fill="none"
+      viewBox="0 0 56 56"
     >
-      <circle cx="28" cy="28" r="28" fill={backgroundColor}></circle>;
-      <path d="M19 12L5 12"></path>
-      <path d="M12 19L5 12 12 5"></path>
+      <circle cx="28" cy="28" r="28" fill={backgroundColor}></circle>
+      <path
+        stroke={color}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M35 28H21M28 35l-7-7 7-7"
+      ></path>
+    </svg>
+  );
+}
+
+function Booking({ backgroundColor, color }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="56"
+      height="56"
+      fill="none"
+      viewBox="0 0 56 56"
+    >
+      <circle cx="28" cy="28" r="28" fill={backgroundColor}></circle>
+      <path
+        stroke={color}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M33 18H21a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V20a2 2 0 00-2-2zM27 34h.01"
+      ></path>
     </svg>
   );
 }
@@ -275,4 +296,5 @@ export {
   Sofa,
   CloseSvg,
   Back,
+  Booking,
 };

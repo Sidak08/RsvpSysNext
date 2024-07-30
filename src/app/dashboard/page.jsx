@@ -112,7 +112,9 @@ const Draw = () => {
     home: { backgroundColor: "white", color: "#3B3939" },
     edit: { backgroundColor: "#3B3939", color: "white" },
     draw: { backgroundColor: "#3B3939", color: "white" },
+    booking: { backgroundColor: "#3B3939", color: "white" },
     setting: { backgroundColor: "#3B3939", color: "white" },
+    back: { backgroundColor: "#3B3939", color: "white" },
   });
 
   const [movingLinesArrayPoint, setMovingLinesArrayPoint] = useState(false);
