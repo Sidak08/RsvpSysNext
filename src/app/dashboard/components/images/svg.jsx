@@ -282,6 +282,60 @@ function Booking({ backgroundColor, color }) {
   );
 }
 
+function ToggleOn() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="40"
+      height="40"
+      fill="none"
+      viewBox="0 0 40 40"
+    >
+      <path
+        stroke="#84FF00"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M26.667 8.333H13.333C6.89 8.333 1.667 13.557 1.667 20S6.89 31.667 13.333 31.667h13.334c6.443 0 11.666-5.224 11.666-11.667S33.11 8.333 26.667 8.333z"
+      ></path>
+      <path
+        stroke="#84FF00"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M26.667 25a5 5 0 100-10 5 5 0 000 10z"
+      ></path>
+    </svg>
+  );
+}
+
+function ToogleOff() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="40"
+      height="40"
+      fill="none"
+      viewBox="0 0 40 40"
+    >
+      <path
+        stroke="red"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M26.667 8.333H13.333C6.89 8.333 1.667 13.557 1.667 20S6.89 31.667 13.333 31.667h13.334c6.443 0 11.666-5.224 11.666-11.667S33.11 8.333 26.667 8.333z"
+      ></path>
+      <path
+        stroke="red"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M13.333 25a5 5 0 100-10 5 5 0 000 10z"
+      ></path>
+    </svg>
+  );
+}
+
 export {
   Draw,
   Edit,
@@ -297,4 +351,6 @@ export {
   CloseSvg,
   Back,
   Booking,
+  ToggleOn,
+  ToogleOff,
 };
