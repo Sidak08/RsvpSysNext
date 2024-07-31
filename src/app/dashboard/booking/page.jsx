@@ -44,7 +44,7 @@ export default function Booking() {
           <div className="text-white text-[32px] font-semibold font-['Inter']">
             URL - Link For Your Customers To Book
           </div>
-          <div className="flex items-center justify-evenly mt-3 w-[55%]">
+          <div className="flex items-center justify-evenly mt-3 w-[60%]">
             <div className="w-[90%] max-w-[550px] h-[50px] bg-[#292929] rounded-[13px] flex items-center justify-start pl-3 text-[22px] font-light font-['Inter']">
               {url}
             </div>
@@ -55,6 +55,22 @@ export default function Booking() {
             >
               <Image src="/copy.svg" width={24} height={24} alt="copy button" />
             </button>
+            <button
+              className="bg-[#292929] rounded-[13px] h-[50px] w-[50px] flex items-center justify-center"
+              onClick={copyToClipboard}
+            >
+              <Image
+                src="/externalLink.svg"
+                width={24}
+                height={24}
+                alt="copy button"
+              />
+            </button>
+          </div>
+        </div>
+        <div className="w-[90%] h-[60%] bg-[#393939]/70 rounded-[13px] flex items-center justify-center">
+          <div className="text-white text-[42px] font-normal font-['Inter']">
+            Coming Soon
           </div>
         </div>
       </div>
