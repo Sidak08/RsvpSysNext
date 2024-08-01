@@ -3,8 +3,11 @@ import styles from "./booking.module.css";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function Booking() {
+  const router = useRouter();
+
   const [url, setUrl] = useState("loading");
   useEffect(() => {
     axios.post(`/api/get_data/booking`, {}).then((res) => {
@@ -23,6 +26,12 @@ export default function Booking() {
       .catch((err) => {
         console.error("Failed to copy text: ", err);
       });
+  };
+
+  const externalLink = () => {
+    if (url !== "loading") {
+      router.push(url);
+    }
   };
 
   return (
@@ -57,7 +66,7 @@ export default function Booking() {
             </button>
             <button
               className="bg-[#292929] rounded-[13px] h-[50px] w-[50px] flex items-center justify-center"
-              onClick={copyToClipboard}
+              onClick={externalLink}
             >
               <Image
                 src="/externalLink.svg"
