@@ -92,6 +92,7 @@ const Draw = ({ children }) => {
       setElementsArray(fixElementsArray(res.data.elementsArray));
       setLinesArray(res.data.linesArray);
       setUpComingReservation(res.data.upComingReservations);
+
       setTimeout(() => {
         setForceUpdate((prev) => {
           prev + 1;
@@ -669,6 +670,8 @@ const CanvasComponent = ({
     if (keyPress.value !== false) {
       setKeyPress({ value: false });
     }
+
+    console.log(elementsArray, upComingReservation);
   }, [
     mousePosition,
     active,
