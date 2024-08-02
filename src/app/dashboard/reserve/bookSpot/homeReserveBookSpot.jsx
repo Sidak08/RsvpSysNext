@@ -60,7 +60,9 @@ const BookSpot = ({
 
       if (
         (bookTime >= elementStartTime && bookTime <= elementEndTime) ||
-        (bookEndTime >= elementStartTime && bookEndTime <= elementEndTime)
+        (bookEndTime >= elementStartTime && bookEndTime <= elementEndTime) ||
+        (bookTime <= elementStartTime && bookEndTime >= elementEndTime) ||
+        (bookTime >= elementStartTime && bookEndTime <= elementEndTime)
       ) {
         return false;
       }

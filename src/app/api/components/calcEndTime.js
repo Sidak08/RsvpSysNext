@@ -1,4 +1,5 @@
-export default calculateEndTime = (startTime, startDate, stayLength) => {
+const calculateEndTime = (startTime, startDate, stayLength) => {
+  console.log(4, startTime, startDate, stayLength);
   startTime =
     parseInt(startTime.split(":")[0]) * 60 + parseInt(startTime.split(":")[1]);
 
@@ -21,3 +22,5 @@ export default calculateEndTime = (startTime, startDate, stayLength) => {
     };
   }
 };
+
+export default calculateEndTime;

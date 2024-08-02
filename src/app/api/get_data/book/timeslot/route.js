@@ -3,6 +3,9 @@ import calcEndTime from "@/app/api/components/calcEndTime";
 import changeDateIntoMin from "@/app/api/components/changeDateIntoMin";
 import checkAvailability from "@/app/api/components/checkAval";
 
+const startTime = "18:20";
+const startDate = "2024-08-02";
+
 const tables = [
   {
     reservation: [],
@@ -11,90 +14,15 @@ const tables = [
   {
     reservation: [
       {
-        name: [],
-        number: [],
-        email: [],
-        phone: [],
-        notes: [],
-        startTime: "18:13",
-        endTime: "20:13",
-        startDate: "2024-07-30",
-        endDate: "2024-07-30",
-        people: 1,
+        startTime: "20:21",
+        endTime: "21:21",
+        startDate: "2024-08-02",
+        endDate: "2024-08-02",
         tableId: 95311,
         id: 520487,
       },
-      {
-        name: [],
-        number: [],
-        email: [],
-        phone: [],
-        notes: [],
-        startTime: "19:36",
-        endTime: "21:36",
-        startDate: "2024-08-01",
-        endDate: "2024-08-01",
-        people: 1,
-        tableId: 95311,
-        id: 547730,
-      },
-      {
-        name: [],
-        number: [],
-        email: [],
-        phone: [],
-        notes: [],
-        startTime: "19:36",
-        endTime: "21:36",
-        startDate: "2024-08-09",
-        endDate: "2024-08-09",
-        people: 1,
-        tableId: 95311,
-        id: 307444,
-      },
     ],
     id: 95311,
-  },
-  {
-    reservation: [],
-    id: 583444,
-  },
-  {
-    reservation: [],
-    id: 178201,
-  },
-  {
-    reservation: [
-      {
-        name: [],
-        number: [],
-        email: [],
-        phone: [],
-        notes: [],
-        startTime: "19:36",
-        endTime: "21:36",
-        startDate: "2024-08-09",
-        endDate: "2024-08-09",
-        people: 1,
-        tableId: 765816,
-        id: 480694,
-      },
-      {
-        name: [],
-        number: [],
-        email: [],
-        phone: [],
-        notes: [],
-        startTime: "19:36",
-        endTime: "21:36",
-        startDate: "2024-08-14",
-        endDate: "2024-08-14",
-        people: 1,
-        tableId: 765816,
-        id: 428635,
-      },
-    ],
-    id: 765816,
   },
 ];
 
@@ -105,6 +33,47 @@ export async function POST(req, res) {
   });
 }
 
-function getClosestTimeSlots(tables, bookingTime) {}
+function getClosestTimeSlots(tables, bookingTime, bookingDate) {
+  const stayLenght = 120;
+  const avalBookSpot = [];
+  const { endTime, endDate } = calcEndTime(
+    bookingTime,
+    bookingDate,
+    stayLenght,
+  );
+  console.log(3, endTime, endDate);
 
-console.log(getClosestTimeSlots(tables, "18:20"));
+  for (let i = 0; i < tables.length; i++) {
+    const { opp, elementStartTime, elementEndTime } = checkAvailability(
+      bookingTime,
+      bookingDate,
+      endTime,
+      endDate,
+      changeDateIntoMin,
+      tables[i].reservation,
+    );
+    if (opp) {
+      avalBookSpot.push({
+        tableId: tables[i].id,
+        bookingTime,
+        bookingDate,
+        endTime,
+        endDate,
+      });
+    } else {
+    }
+  }
+
+  const recurr = (
+    bookingTime,
+    bookingDate,
+    endTime,
+    endDate,
+    tables,
+    avalBookSpot,
+  ) => {};
+
+  console.log(avalBookSpot);
+}
+
+console.log(getClosestTimeSlots(tables, startTime, startDate));
