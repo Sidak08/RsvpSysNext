@@ -4,7 +4,7 @@ import changeDateIntoMin from "@/app/api/components/changeDateIntoMin";
 import checkAvailability from "@/app/api/components/checkAval";
 import calculateEndTime from "@/app/api/components/calcEndTime";
 
-const startTime = "18:20";
+const startTime = "08:20";
 const startDate = "2024-08-02";
 
 const tables = [
@@ -15,8 +15,8 @@ const tables = [
   {
     reservation: [
       {
-        startTime: "18:21",
-        endTime: "21:21",
+        startTime: "08:21",
+        endTime: "11:21",
         startDate: "2024-08-02",
         endDate: "2024-08-02",
         tableId: 95311,
@@ -92,78 +92,51 @@ const recurr = (
   avalBookSpot,
   stayLenght,
 ) => {
-  // console.log(
-  //   7,
-  //   bookingTime,
-  //   bookingDate,
-  //   endTime,
-  //   endDate,
-  //   tables,
-  //   avalBookSpot,
-  // );
-  // console.log(avalBookSpot);
-  track = track - 1;
-  if (track === 0) {
-    console.log("kill");
-    return;
-  }
-  let {
-    opp,
-    elementStartTime,
-    elementStartDate,
-    elementEndTime,
-    elementEndDate,
-  } = checkAvailability(
-    bookingTime,
-    bookingDate,
-    endTime,
-    endDate,
-    changeDateIntoMin,
-    tables,
-  );
-  // console.log(
-  //   6,
-  //   checkAvailability(
-  //     bookingTime,
-  //     bookingDate,
-  //     endTime,
-  //     endDate,
-  //     changeDateIntoMin,
-  //     tables,
-  //   ),
-  //   opp,
-  //   elementStartTime,
-  //   elementStartDate,
-  //   elementEndTime,
-  //   elementEndDate,
-  // );
-  if (opp) {
-    avalBookSpot.push({
-      tableId: tables.id,
+  for (let i = 0; i < track; i++) {
+    let {
+      opp,
+      elementStartTime,
+      elementStartDate,
+      elementEndTime,
+      elementEndDate,
+    } = checkAvailability(
       bookingTime,
       bookingDate,
       endTime,
       endDate,
-    });
-    console.log("found");
-  } else if (!opp) {
-    console.log("orignal", bookingTime, bookingDate, endTime, endDate);
-    // console.log(5, elementEndTime, elementEndDate);
-    ({ endTime, endDate } = calculateEndTime(
-      elementEndTime,
-      elementEndDate,
-      stayLenght,
-    ));
-    console.log("new", elementEndTime, elementEndDate, endTime, endDate);
-    recurr(
-      elementEndTime,
-      elementEndDate,
-      endTime,
-      endDate,
+      changeDateIntoMin,
       tables,
-      avalBookSpot,
-      stayLenght,
     );
+    if (opp) {
+      avalBookSpot.push({
+        tableId: tables.id,
+        bookingTime,
+        bookingDate,
+        endTime,
+        endDate,
+      });
+      console.log("found");
+      break;
+    } else {
+      console.log("original", bookingTime, bookingDate, endTime, endDate);
+
+      // Calculate new endTime and endDate
+      ({ endTime, endDate } = calculateEndTime(
+        elementEndTime,
+        elementEndDate,
+        stayLenght,
+      ));
+
+      console.log(
+        "calc",
+        calculateEndTime(elementEndTime, elementEndDate, stayLenght),
+      );
+
+      bookingTime = elementEndTime;
+      bookingDate = elementEndDate;
+
+      console.log("new", bookingTime, bookingDate, endTime, endDate);
+    }
   }
 };
 
