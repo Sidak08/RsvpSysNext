@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import calcEndTime from "@/app/api/components/calcEndTime";
 import changeDateIntoMin from "@/app/api/components/changeDateIntoMin";
 import checkAvailability from "@/app/api/components/checkAval";
+import calculateEndTime from "@/app/api/components/calcEndTime";
 
 const startTime = "18:20";
 const startDate = "2024-08-02";
@@ -14,7 +15,7 @@ const tables = [
   {
     reservation: [
       {
-        startTime: "20:21",
+        startTime: "18:21",
         endTime: "21:21",
         startDate: "2024-08-02",
         endDate: "2024-08-02",
@@ -41,10 +42,16 @@ function getClosestTimeSlots(tables, bookingTime, bookingDate) {
     bookingDate,
     stayLenght,
   );
-  console.log(3, endTime, endDate);
+  // console.log(3, endTime, endDate);
 
   for (let i = 0; i < tables.length; i++) {
-    const { opp, elementStartTime, elementEndTime } = checkAvailability(
+    const {
+      opp,
+      elementStartTime,
+      elementStartDate,
+      elementEndTime,
+      elementEndDate,
+    } = checkAvailability(
       bookingTime,
       bookingDate,
       endTime,
@@ -61,19 +68,103 @@ function getClosestTimeSlots(tables, bookingTime, bookingDate) {
         endDate,
       });
     } else {
+      recurr(
+        bookingTime,
+        bookingDate,
+        endTime,
+        endDate,
+        tables[i].reservation,
+        avalBookSpot,
+        stayLenght,
+      );
     }
   }
+  // console.log(avalBookSpot);
+}
 
-  const recurr = (
+let track = 4;
+const recurr = (
+  bookingTime,
+  bookingDate,
+  endTime,
+  endDate,
+  tables,
+  avalBookSpot,
+  stayLenght,
+) => {
+  // console.log(
+  //   7,
+  //   bookingTime,
+  //   bookingDate,
+  //   endTime,
+  //   endDate,
+  //   tables,
+  //   avalBookSpot,
+  // );
+  // console.log(avalBookSpot);
+  track = track - 1;
+  if (track === 0) {
+    console.log("kill");
+    return;
+  }
+  let {
+    opp,
+    elementStartTime,
+    elementStartDate,
+    elementEndTime,
+    elementEndDate,
+  } = checkAvailability(
     bookingTime,
     bookingDate,
     endTime,
     endDate,
+    changeDateIntoMin,
     tables,
-    avalBookSpot,
-  ) => {};
-
-  console.log(avalBookSpot);
-}
+  );
+  // console.log(
+  //   6,
+  //   checkAvailability(
+  //     bookingTime,
+  //     bookingDate,
+  //     endTime,
+  //     endDate,
+  //     changeDateIntoMin,
+  //     tables,
+  //   ),
+  //   opp,
+  //   elementStartTime,
+  //   elementStartDate,
+  //   elementEndTime,
+  //   elementEndDate,
+  // );
+  if (opp) {
+    avalBookSpot.push({
+      tableId: tables.id,
+      bookingTime,
+      bookingDate,
+      endTime,
+      endDate,
+    });
+    console.log("found");
+  } else if (!opp) {
+    console.log("orignal", bookingTime, bookingDate, endTime, endDate);
+    // console.log(5, elementEndTime, elementEndDate);
+    ({ endTime, endDate } = calculateEndTime(
+      elementEndTime,
+      elementEndDate,
+      stayLenght,
+    ));
+    console.log("new", elementEndTime, elementEndDate, endTime, endDate);
+    recurr(
+      elementEndTime,
+      elementEndDate,
+      endTime,
+      endDate,
+      tables,
+      avalBookSpot,
+      stayLenght,
+    );
+  }
+};
 
 console.log(getClosestTimeSlots(tables, startTime, startDate));

@@ -8,7 +8,7 @@ const checkAvailability = (
   changeDateIntoMinutes,
   rsvpAry,
 ) => {
-  console.log(1, bookDate, bookEndDate);
+  // console.log(1, bookDate, bookEndDate);
   bookTime =
     parseInt(bookTime.split(":")[0]) * 60 +
     parseInt(bookTime.split(":")[1]) +
@@ -21,7 +21,7 @@ const checkAvailability = (
   const tmpRsvpList = rsvpAry;
 
   for (let i = 0; i < tmpRsvpList.length; i++) {
-    console.log(2, [i], bookDate, bookEndDate);
+    // console.log(2, [i], bookDate, bookEndDate);
     const element = tmpRsvpList[i];
     const elementStartTime =
       parseInt(element.startTime.split(":")[0]) * 60 +
@@ -39,11 +39,19 @@ const checkAvailability = (
     ) {
       return {
         opp: false,
-        startTime: elementStartTime,
-        endTime: elementEndTime,
+        elementStartTime: element.startTime,
+        elementStartDate: element.startDate,
+        elementEndTime: element.endTime,
+        elementEndDate: element.endDate,
       };
     }
   }
-  return { opp: true, startTime: false, endTime: false };
+  return {
+    opp: true,
+    elementStartTime: false,
+    elementStartDate: false,
+    elementEndTime: false,
+    elementEndDate: false,
+  };
 };
 export default checkAvailability;
