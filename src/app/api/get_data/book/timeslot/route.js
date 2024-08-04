@@ -35,14 +35,13 @@ export async function POST(req, res) {
 }
 
 function getClosestTimeSlots(tables, bookingTime, bookingDate) {
-  const stayLenght = 120;
-  const avalBookSpot = [];
+  const stayLength = 120;
+  const availableBookingSpots = [];
   const { endTime, endDate } = calcEndTime(
     bookingTime,
     bookingDate,
-    stayLenght,
+    stayLength,
   );
-  // console.log(3, endTime, endDate);
 
   for (let i = 0; i < tables.length; i++) {
     const {
@@ -60,7 +59,7 @@ function getClosestTimeSlots(tables, bookingTime, bookingDate) {
       tables[i].reservation,
     );
     if (opp) {
-      avalBookSpot.push({
+      availableBookingSpots.push({
         tableId: tables[i].id,
         bookingTime,
         bookingDate,
@@ -74,12 +73,14 @@ function getClosestTimeSlots(tables, bookingTime, bookingDate) {
         endTime,
         endDate,
         tables[i].reservation,
-        avalBookSpot,
-        stayLenght,
+        availableBookingSpots,
+        stayLength,
       );
     }
   }
-  // console.log(avalBookSpot);
+
+  console.log(availableBookingSpots);
+  return availableBookingSpots;
 }
 
 let track = 4;
@@ -88,9 +89,9 @@ const recurr = (
   bookingDate,
   endTime,
   endDate,
-  tables,
-  avalBookSpot,
-  stayLenght,
+  reservations,
+  availableBookingSpots,
+  stayLength,
 ) => {
   for (let i = 0; i < track; i++) {
     let {
@@ -105,11 +106,11 @@ const recurr = (
       endTime,
       endDate,
       changeDateIntoMin,
-      tables,
+      reservations,
     );
     if (opp) {
-      avalBookSpot.push({
-        tableId: tables.id,
+      availableBookingSpots.push({
+        tableId: reservations.tableId,
         bookingTime,
         bookingDate,
         endTime,
@@ -121,16 +122,15 @@ const recurr = (
       console.log("original", bookingTime, bookingDate, endTime, endDate);
 
       // Calculate new endTime and endDate
-      ({ endTime, endDate } = calculateEndTime(
+      const newEndTimeDate = calculateEndTime(
         elementEndTime,
         elementEndDate,
-        stayLenght,
-      ));
-
-      console.log(
-        "calc",
-        calculateEndTime(elementEndTime, elementEndDate, stayLenght),
+        stayLength,
       );
+      endTime = newEndTimeDate.endTime;
+      endDate = newEndTimeDate.endDate;
+
+      console.log("calc", newEndTimeDate);
 
       bookingTime = elementEndTime;
       bookingDate = elementEndDate;
