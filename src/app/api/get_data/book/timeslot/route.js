@@ -15,8 +15,8 @@ const tables = [
   {
     reservation: [
       {
-        startTime: "08:21",
-        endTime: "11:21",
+        startTime: "07:21",
+        endTime: "08:30",
         startDate: "2024-08-02",
         endDate: "2024-08-02",
         tableId: 95311,
@@ -75,11 +75,11 @@ function getClosestTimeSlots(tables, bookingTime, bookingDate) {
         tables[i].reservation,
         availableBookingSpots,
         stayLength,
+        tables[i].id,
       );
     }
   }
-
-  console.log(availableBookingSpots);
+  // console.log(availableBookingSpots);
   return availableBookingSpots;
 }
 
@@ -92,6 +92,7 @@ const recurr = (
   reservations,
   availableBookingSpots,
   stayLength,
+  id,
 ) => {
   for (let i = 0; i < track; i++) {
     let {
@@ -110,7 +111,7 @@ const recurr = (
     );
     if (opp) {
       availableBookingSpots.push({
-        tableId: reservations.tableId,
+        tableId: id,
         bookingTime,
         bookingDate,
         endTime,
@@ -121,19 +122,20 @@ const recurr = (
     } else {
       console.log("original", bookingTime, bookingDate, endTime, endDate);
 
-      // Calculate new endTime and endDate
       const newEndTimeDate = calculateEndTime(
         elementEndTime,
         elementEndDate,
-        stayLength,
+        stayLength + 1,
       );
       endTime = newEndTimeDate.endTime;
       endDate = newEndTimeDate.endDate;
 
       console.log("calc", newEndTimeDate);
 
-      bookingTime = elementEndTime;
-      bookingDate = elementEndDate;
+      const tmp = calculateEndTime(elementEndTime, elementEndDate, 1);
+
+      bookingTime = tmp.endTime;
+      bookingDate = tmp.endDate;
 
       console.log("new", bookingTime, bookingDate, endTime, endDate);
     }
