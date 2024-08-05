@@ -1,0 +1,11 @@
+.dateTimeInput::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* Inverts the color */
+}
+
+.dateTimeInput::-ms-expand {
+    display: none;
+}
+
+.dateTimeInput:focus {
+    outline: none;
+}

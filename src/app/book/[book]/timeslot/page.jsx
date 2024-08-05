@@ -1,29 +1,54 @@
 "use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import styles from "./style.module.css";
+import { useRouter } from "next/navigation";
 
 export default function Page({ params }) {
-  const [bookTimeSlot, setBookTimeSlot] = useState({
-    firstTime: "loading",
-    secondTime: "loading",
-    thirdTime: "loading",
-  });
+  const getCurrTime = () => {
+    const now = new Date();
+    const formattedTime = now.toTimeString().split(" ")[0].slice(0, 5); // HH:MM
+    const formattedDate = now.toISOString().split("T")[0]; // YYYY-MM-DD
+    return { time: formattedTime, date: formattedDate };
+  };
+
+  const [bookTimeSlot, setBookTimeSlot] = useState([
+    { bookingTime: "loading" },
+    { bookingTime: "loading" },
+    { bookingTime: "loading" },
+  ]);
+
+  const { time: currTime, date: currDate } = getCurrTime();
 
   const [selectedTime, setSelectedTime] = useState({
-    bookingTime: "17:00 - 21:00",
-    bookingDate: "2024-08-02",
+    bookingTime: currTime,
+    bookingDate: currDate,
     url: params.book,
   });
 
-  useEffect(() => {
+  const changeDate = (date) => {
+    setSelectedTime({
+      bookingDate: date,
+      bookingTime: selectedTime.bookingTime,
+      url: params.book,
+    });
+  };
+
+  const changeTime = (time) => {
+    setSelectedTime({
+      bookingDate: selectedTime.bookingDate,
+      bookingTime: time,
+      url: params.book,
+    });
+  };
+
+  const findTime = () => {
     axios.post(`/api/get_data/book/timeslot`, selectedTime).then((res) => {
       if (res.data.success) {
         setBookTimeSlot(res.data.availableBookingSpots);
       }
     });
-  }, [selectedTime]);
-
-  const findTime = () => {};
+  };
 
   return (
     <div className="flex items-center justify-center w-full h-[100vh]">
@@ -43,16 +68,19 @@ export default function Page({ params }) {
           </div>
           <div className="flex md:flex-row flex-col justify-evenly items-center w-full px-2">
             <BookTime
-              time={bookTimeSlot.firstTime}
+              time={bookTimeSlot[0]}
               setBookTime={setSelectedTime}
+              url={params.book}
             />
             <BookTime
-              time={bookTimeSlot.firstTime}
+              time={bookTimeSlot[1]}
               setBookTime={setSelectedTime}
+              url={params.book}
             />
             <BookTime
-              time={bookTimeSlot.firstTime}
+              time={bookTimeSlot[2]}
               setBookTime={setSelectedTime}
+              url={params.book}
             />
           </div>
         </div>
@@ -67,7 +95,24 @@ export default function Page({ params }) {
               </div>
               <div className="w-[90%] h-[7px] bg-[#d9d9d9]" />
             </div>
-            <input className="w-[90%] h-[38px] bg-[#313131]" type="calender" />
+            <div className="w-[90%] h-[38px] bg-[#313131]">
+              <input
+                type="date"
+                className={`w-[50%] h-full bg-[#313131] px-3 ${styles.dateTimeInput}`}
+                value={selectedTime.bookingDate}
+                onChange={(e) => {
+                  changeDate(e.target.value);
+                }}
+              />
+              <input
+                type="time"
+                className={`w-[50%] h-full bg-[#313131] px-3 ${styles.dateTimeInput}`}
+                value={selectedTime.bookingTime}
+                onChange={(e) => {
+                  changeTime(e.target.value);
+                }}
+              />
+            </div>
           </div>
           <button
             className="w-[90%] md:w-[40%] h-[50px] bg-[#3f12d7] rounded-[13px] flex items-center justify-center"
@@ -83,20 +128,24 @@ export default function Page({ params }) {
   );
 }
 
-const BookTime = ({ time, setBookTime }) => {
+const BookTime = ({ time, setBookTime, url }) => {
+  const router = useRouter();
+
   return (
     <div className="w-[90%] h-[88px] bg-[#313131] rounded-[10px] m-2 flex flex-col item-center justify-between">
       <div className="h-[50%] w-full flex items-center justify-center">
         {" "}
         <div className="text-white text-xl font-bold font-['Inika']">
           {" "}
-          {time}{" "}
+          {time.bookingTime} | {time.bookingDate}
         </div>
       </div>
       <button
         className="h-[50%] w-full bg-[#3f12d7] rounded-[10px] flex items-center justify-center"
         onClick={() => {
-          setBookTime(time);
+          router.push(
+            `/book/${url}/info/?time=${encodeURIComponent(time.bookingTime)}&date=${encodeURIComponent(time.bookingDate)}&id=${encodeURIComponent(time.tableId)}`,
+          );
         }}
       >
         <div className="text-white text-xl font-bold font-['Inika'] text-center">
