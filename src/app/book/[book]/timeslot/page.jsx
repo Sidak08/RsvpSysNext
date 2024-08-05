@@ -134,9 +134,7 @@ const BookTime = ({ time, setBookTime, url }) => {
   return (
     <div className="w-[90%] h-[88px] bg-[#313131] rounded-[10px] m-2 flex flex-col item-center justify-between">
       <div className="h-[50%] w-full flex items-center justify-center">
-        {" "}
         <div className="text-white text-xl font-bold font-['Inika']">
-          {" "}
           {time.bookingTime} | {time.bookingDate}
         </div>
       </div>

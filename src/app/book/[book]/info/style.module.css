@@ -1,0 +1,23 @@
+.dateTimeInput::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* Inverts the color */
+}
+
+.dateTimeInput::-ms-expand {
+    display: none;
+}
+
+.dateTimeInput:focus {
+    outline: none;
+}
+#errorBox {
+    width: 90%;
+    display: flex;
+    justify-content: flex-end;
+}
+.error {
+    color: red;
+    font-size: 22px;
+}
+.hidden {
+    display: none;
+}
