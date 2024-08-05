@@ -11,8 +11,8 @@ export async function POST(req, res) {
   const user = await db.collection("users").findOne({ email: data.email });
 
   if (user) {
-    console.info(user);
-    console.log(user);
+    // console.info(user);
+    // console.log(user);
     if (data.password === user.password) {
       return NextResponse.json({ success: true });
     } else {

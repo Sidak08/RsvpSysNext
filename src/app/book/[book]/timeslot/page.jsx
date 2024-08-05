@@ -1,18 +1,27 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Page({ params }) {
-  {
-    params.book;
-  }
-
   const [bookTimeSlot, setBookTimeSlot] = useState({
-    firstTime: "17:00 - 21:00",
-    secondTime: "17:00 - 21:00",
-    thirdTime: "17:00 - 21:00",
+    firstTime: "loading",
+    secondTime: "loading",
+    thirdTime: "loading",
   });
 
-  const [selectedTime, setSelectedTime] = useState("17:00 - 21:00");
+  const [selectedTime, setSelectedTime] = useState({
+    bookingTime: "17:00 - 21:00",
+    bookingDate: "2024-08-02",
+    url: params.book,
+  });
+
+  useEffect(() => {
+    axios.post(`/api/get_data/book/timeslot`, selectedTime).then((res) => {
+      if (res.data.success) {
+        setBookTimeSlot(res.data.availableBookingSpots);
+      }
+    });
+  }, [selectedTime]);
 
   const findTime = () => {};
 
