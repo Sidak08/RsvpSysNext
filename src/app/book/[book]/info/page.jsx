@@ -6,6 +6,8 @@ import Cookies from "js-cookie";
 import { useRouter, useSearchParams } from "next/navigation";
 import clsx from "clsx";
 import styles from "./style.module.css";
+import emailReg from "@/app/components/regex/emailreg";
+import phoneReg from "@/app/components/regex/phoneReg";
 
 export default function Page({ params }) {
   const router = useRouter();
@@ -26,7 +28,30 @@ export default function Page({ params }) {
   console.log(time, date, id);
 
   const sendInfo = () => {
-    if (name.trim().split(" ").length === 2) {
+    let errors = [];
+    let success = true;
+
+    if (!emailReg(email.trim())) {
+      errors.push("Please Enter A Valid Email");
+      success = false;
+    }
+
+    if (!phoneReg(phone)) {
+      errors.push("Please Enter A Valid Phone Number");
+      success = false;
+    }
+
+    if (name.trim().split(" ").length !== 2) {
+      errors.push("Please Enter Your First And Last Name Separated By A Space");
+      success = false;
+    }
+
+    setError({
+      success,
+      errors: errors.join(" "),
+    });
+
+    if (success) {
       axios
         .post(`/api/get_data/book/info`, {
           url: params.book,
@@ -48,11 +73,6 @@ export default function Page({ params }) {
             setError({ success: res.data.success, errors: errorStr });
           }
         });
-    } else {
-      setError({
-        success: false,
-        errors: "Please Enter Your first and last name seprated by a space",
-      });
     }
   };
 

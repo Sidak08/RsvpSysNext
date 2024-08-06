@@ -19,7 +19,7 @@ export default function Booking() {
 
   const copyToClipboard = () => {
     navigator.clipboard
-      .writeText(url)
+      .writeText(`bestseat.study/book/${url}/timeslot`)
       .then(() => {
         alert("Link copied to clipboard!");
       })
@@ -30,7 +30,7 @@ export default function Booking() {
 
   const externalLink = () => {
     if (url !== "loading") {
-      router.push(url);
+      router.push(`/book/${url}/timeslot`);
     }
   };
 
@@ -55,11 +55,11 @@ export default function Booking() {
           </div>
           <div className="flex items-center justify-evenly mt-3 w-[60%]">
             <div className="w-[90%] max-w-[550px] h-[50px] bg-[#292929] rounded-[13px] flex items-center justify-start pl-3 text-[22px] font-light font-['Inter']">
-              {url}
+              {`bestseat.study/book/${url}/timeslot`}
             </div>
 
             <button
-              className="bg-[#292929] rounded-[13px] h-[50px] w-[50px] flex items-center justify-center"
+              className="bg-[#292929] rounded-[13px] h-[50px] w-[50px] flex items-center justify-center mx-3"
               onClick={copyToClipboard}
             >
               <Image src="/copy.svg" width={24} height={24} alt="copy button" />

@@ -103,7 +103,7 @@ export async function POST(req, res) {
 
   return NextResponse.json({
     success: false,
-    errors: ["not found"],
+    errors: ["Booking Not Available"],
   });
 }
 //222372

@@ -50,6 +50,10 @@ export default function Page({ params }) {
     });
   };
 
+  useEffect(() => {
+    findTime();
+  }, []);
+
   return (
     <div className="flex items-center justify-center w-full h-[100vh]">
       <div className="w-[90%] max-w-[750px] md:h-[500px] bg-[#1b1a1a] rounded-[13px] flex justify-evenly items-center flex-col h-[738px]">
