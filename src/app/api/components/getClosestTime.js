@@ -48,10 +48,10 @@ function getClosestTimeSlots(tables, bookingTime, bookingDate, track) {
           endTime,
           endDate,
         });
-        console.log("found");
+        // console.log("found");
         break;
       } else {
-        console.log("original", bookingTime, bookingDate, endTime, endDate);
+        // console.log("original", bookingTime, bookingDate, endTime, endDate);
 
         const newEndTimeDate = calculateEndTime(
           elementEndTime,
@@ -61,14 +61,14 @@ function getClosestTimeSlots(tables, bookingTime, bookingDate, track) {
         endTime = newEndTimeDate.endTime;
         endDate = newEndTimeDate.endDate;
 
-        console.log("calc", newEndTimeDate);
+        // console.log("calc", newEndTimeDate);
 
         const tmp = calculateEndTime(elementEndTime, elementEndDate, 1);
 
         bookingTime = tmp.endTime;
         bookingDate = tmp.endDate;
 
-        console.log("new", bookingTime, bookingDate, endTime, endDate);
+        // console.log("new", bookingTime, bookingDate, endTime, endDate);
       }
     }
   };

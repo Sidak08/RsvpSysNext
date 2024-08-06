@@ -19,14 +19,14 @@ export async function POST(req, res) {
     const index = user.dashboardData.elementsArray.findIndex(
       (item) => item.id == data.id,
     );
-    console.log(6, index);
+    // console.log(6, index);
     // console.log(data, tables);
     const { endTime: endTime, endDate: endDate } = calculateEndTime(
       data.time,
       data.date,
       120,
     );
-    console.log(endTime, endDate);
+    // console.log(endTime, endDate);
     const id = genrateId(user.dashboardData.upComingReservations);
     if (
       checkAvailability(
@@ -35,10 +35,27 @@ export async function POST(req, res) {
         endTime,
         endDate,
         changeDateIntoMinutes,
-        tables,
-      )
+        tables.reservation,
+      ).opp
     ) {
-      console.log(8, user.dashboardData.elementsArray[index]);
+      console.log(
+        21,
+        data.time,
+        data.date,
+        endTime,
+        endDate,
+        changeDateIntoMinutes,
+        tables,
+        checkAvailability(
+          data.time,
+          data.date,
+          endTime,
+          endDate,
+          changeDateIntoMinutes,
+          tables.reservation,
+        ),
+      );
+      // console.log(8, user.dashboardData.elementsArray[index]);
       user.dashboardData.elementsArray[index].reservation.push({
         name: [`${data.firstName} ${data.lastName}`],
         email: [data.email],

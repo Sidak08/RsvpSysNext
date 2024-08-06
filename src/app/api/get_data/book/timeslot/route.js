@@ -23,7 +23,7 @@ export async function POST(req, res) {
         4,
       ),
     );
-    console.log(availableBookingSpots);
+    // console.log(availableBookingSpots);
     return NextResponse.json({
       success: true,
       availableBookingSpots: availableBookingSpots,
