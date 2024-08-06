@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import clientPromise from "../../../components/mongodb";
 import validateInputs from "../../../components/validateInput";
 import fixInfo from "../../../components/fixInfoSignUp";
+import generateRandomUrlSegment from "../../components/genRanSeg";
 
 export async function POST(req, res) {
   const data = fixInfo(await req.json());
@@ -27,6 +28,7 @@ export async function POST(req, res) {
         product: "free",
         interval: "free",
       };
+      data.booking_URL = generateRandomUrlSegment(12);
       const result = await db.collection("users").insertOne(data);
       return NextResponse.json({ success: true });
     }

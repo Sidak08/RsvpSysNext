@@ -1,12 +1,15 @@
-const orderRsvp = ({ upComingReservations }) => {
+const orderRsvp = (upComingReservations) => {
+  console.log(1, upComingReservations);
   if (upComingReservations.length > 1) {
     const activeReservation = upComingReservations;
     const lastReservationIndex = activeReservation.length - 1;
     const lastReservation = activeReservation[lastReservationIndex];
+    console.log(2, lastReservation);
     const lastReservationStartTime =
       parseInt(lastReservation.startTime.split(":")[0]) * 60 +
       parseInt(lastReservation.startTime.split(":")[1]);
     const lastReservationStartDate = new Date(lastReservation.startDate);
+    console.log(3);
 
     for (let i = 0; i < lastReservationIndex; i++) {
       const currentReservationStartTime =
@@ -33,3 +36,4 @@ const orderRsvp = ({ upComingReservations }) => {
   }
   return upComingReservations;
 };
+export default orderRsvp;

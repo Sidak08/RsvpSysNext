@@ -4,7 +4,7 @@ import checkAvailability from "@/app/api/components/checkAval";
 import clientPromise from "@/app/components/mongodb";
 import { NextResponse } from "next/server";
 import genrateId from "@/app/api/components/generateId";
-
+import orderRsvp from "@/app/api/components/orderRsvp";
 export async function POST(req, res) {
   const data = await req.json();
   const client = await clientPromise;
@@ -16,8 +16,17 @@ export async function POST(req, res) {
     const tables = user.dashboardData.elementsArray.find(
       (item) => item.id == data.id,
     );
-    console.log(data, tables);
-    const { endTime, endDate } = calculateEndTime(data.time, data.date);
+    const index = user.dashboardData.elementsArray.findIndex(
+      (item) => item.id == data.id,
+    );
+    console.log(6, index);
+    // console.log(data, tables);
+    const { endTime: endTime, endDate: endDate } = calculateEndTime(
+      data.time,
+      data.date,
+      120,
+    );
+    console.log(endTime, endDate);
     const id = genrateId(user.dashboardData.upComingReservations);
     if (
       checkAvailability(
@@ -29,7 +38,8 @@ export async function POST(req, res) {
         tables,
       )
     ) {
-      user.dashboardData.elementsArray.push({
+      console.log(8, user.dashboardData.elementsArray[index]);
+      user.dashboardData.elementsArray[index].reservation.push({
         name: [`${data.firstName} ${data.lastName}`],
         email: [data.email],
         phone: [data.phone],
@@ -58,12 +68,15 @@ export async function POST(req, res) {
       user.dashboardData.upComingReservations = orderRsvp(
         user.dashboardData.upComingReservations,
       );
+
       const works = await db
         .collection("users")
         .updateOne(
           { booking_URL: data.url },
           { $set: { dashboardData: user.dashboardData } },
         );
+
+      // console.log(4, works, user.dashboardData);
       return NextResponse.json({
         success: works,
         errors: [],
