@@ -238,7 +238,6 @@ const BookSpot = ({
       );
       elementsArray[activeElement].reservation.push({
         name: Array.from(name),
-        number: Array.from(phone),
         email: Array.from(email),
         phone: Array.from(phone),
         notes: Array.from(notes),
@@ -252,7 +251,6 @@ const BookSpot = ({
       });
       upComingReservations.push({
         name: Array.from(name),
-        number: Array.from(phone),
         email: Array.from(email),
         phone: Array.from(phone),
         notes: Array.from(notes),
