@@ -32,17 +32,19 @@ export default function Page({ params }) {
     let success = true;
 
     if (!emailReg(email.trim())) {
-      errors.push("Please Enter A Valid Email");
+      errors.push("Please Enter A Valid Emai.");
       success = false;
     }
 
     if (!phoneReg(phone)) {
-      errors.push("Please Enter A Valid Phone Number");
+      errors.push("Please Enter A Valid Phone Number.");
       success = false;
     }
 
     if (name.trim().split(" ").length !== 2) {
-      errors.push("Please Enter Your First And Last Name Separated By A Space");
+      errors.push(
+        "Please Enter Your First And Last Name Separated By A Space.",
+      );
       success = false;
     }
 
