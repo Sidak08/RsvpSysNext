@@ -29,6 +29,11 @@ export async function POST(req, res) {
         interval: "free",
       };
       data.booking_URL = generateRandomUrlSegment(12);
+      data.dashboardData = {
+        elementsArray: [],
+        linesArray: [[{ x: false, y: false }]],
+        upComingReservations: [],
+      };
       const result = await db.collection("users").insertOne(data);
       return NextResponse.json({ success: true });
     }

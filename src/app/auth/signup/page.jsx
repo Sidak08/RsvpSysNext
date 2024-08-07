@@ -46,7 +46,7 @@ export default function Page() {
             });
             router.push("/dashboard");
           }
-          if (Object.keys(res.data.errors).length > 0) {
+          if (!res.data.success) {
             const errorStr = Object.keys(res.data.errors)
               .map((key) => {
                 return `${res.data.errors[key]}`;

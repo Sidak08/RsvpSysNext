@@ -89,9 +89,11 @@ const Draw = ({ children }) => {
 
   useEffect(() => {
     axios.post("/api/get_data/dashboard", {}).then((res) => {
-      setElementsArray(fixElementsArray(res.data.elementsArray));
-      setLinesArray(res.data.linesArray);
-      setUpComingReservation(res.data.upComingReservations);
+      if (res.data.success) {
+        setElementsArray(fixElementsArray(res.data.elementsArray));
+        setLinesArray(res.data.linesArray);
+        setUpComingReservation(res.data.upComingReservations);
+      }
 
       setTimeout(() => {
         setForceUpdate((prev) => {

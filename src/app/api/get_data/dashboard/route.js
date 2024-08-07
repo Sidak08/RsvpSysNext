@@ -40,5 +40,10 @@ export async function POST(req, res) {
     }
   }
 
-  return NextResponse.json({ success: false });
+  return NextResponse.json({
+    success: false,
+    elementsArray: false,
+    linesArray: false,
+    upComingReservations: false,
+  });
 }
