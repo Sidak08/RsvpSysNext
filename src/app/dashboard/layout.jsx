@@ -1,6 +1,6 @@
 "use client";
 import Navbar from "./components/navbar/navbar";
-import React, { Children, useEffect, useRef, useState } from "react";
+import React, { Children, Suspense, useEffect, useRef, useState } from "react";
 import "./draw.css";
 // import inActiveDot from "../assets/inActiveDot.svg";
 // import activeDot from "../assets/activeDot.svg";
@@ -17,6 +17,7 @@ import InfoBox from "./components/infoBox/infoBox";
 import HomeReserve from "./reserve/main/homeReserve";
 import InfoBoxLines from "./components/infoBoxLines/infoBoxLines";
 import axios from "axios";
+import Loading from "./loading";
 
 const inActiveDot = "/inActiveDot.svg";
 const activeDot = "/activeDot.svg";
@@ -251,429 +252,435 @@ const CanvasComponent = ({
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const context = canvas.getContext("2d");
-    context.fillStyle = "#0D0D0D";
-    context.fillRect(0, 0, canvas.width, canvas.height);
+    if (canvas) {
+      const context = canvas.getContext("2d");
 
-    for (let j = 0; j < linesArray.length; j++) {
-      for (let i = 1; i < linesArray[j].length - 1; i++) {
-        context.strokeStyle = "white";
-        context.lineWidth = 1.5;
-        context.beginPath();
-        context.moveTo(
-          linesArray[j][i].x + offset.x,
-          linesArray[j][i].y + offset.y,
-        );
-        context.lineTo(
-          linesArray[j][i + 1].x + offset.x,
-          linesArray[j][i + 1].y + offset.y,
-        );
-        context.stroke();
-        context.drawImage(
-          inActiveDotImage,
-          linesArray[j][i].x + offset.x - 7,
-          linesArray[j][i].y + offset.y - 7,
-          14,
-          14,
-        );
-        if (linesArray[j].length === i + 2) {
-          context.drawImage(
-            inActiveDotImage,
-            linesArray[j][i + 1].x + offset.x - 7,
-            linesArray[j][i + 1].y + offset.y - 7,
-            14,
-            14,
-          );
-        }
-      }
-    }
-    for (let i = 0; i < elementsArray.length; i++) {
-      context.drawImage(
-        elementsArray[i].image,
-        elementsArray[i].x + offset.x,
-        elementsArray[i].y + offset.y,
-        elementsArray[i].width,
-        elementsArray[i].height,
-      );
-    }
-    if (active == "home") {
-      setCursorStyle("grab");
-      for (let i = 0; i < elementsArray.length; i++) {
-        if (
-          isNearObject(mousePosition, elementsArray[i], 20) ||
-          elementsArray[i].selected
-        ) {
-          context.strokeStyle = "#3F12D7";
-          context.lineWidth = 2;
+      context.fillStyle = "#0D0D0D";
+      context.fillRect(0, 0, canvas.width, canvas.height);
+
+      for (let j = 0; j < linesArray.length; j++) {
+        for (let i = 1; i < linesArray[j].length - 1; i++) {
+          context.strokeStyle = "white";
+          context.lineWidth = 1.5;
           context.beginPath();
           context.moveTo(
-            elementsArray[i].x + offset.x,
-            elementsArray[i].y + offset.y,
+            linesArray[j][i].x + offset.x,
+            linesArray[j][i].y + offset.y,
           );
           context.lineTo(
-            elementsArray[i].x + offset.x + elementsArray[i].width,
-            elementsArray[i].y + offset.y,
-          );
-          context.lineTo(
-            elementsArray[i].x + offset.x + elementsArray[i].width,
-            elementsArray[i].y + offset.y + elementsArray[i].height,
-          );
-          context.lineTo(
-            elementsArray[i].x + offset.x,
-            elementsArray[i].y + offset.y + elementsArray[i].height,
-          );
-          context.lineTo(
-            elementsArray[i].x + offset.x,
-            elementsArray[i].y + offset.y,
-          );
-          context.stroke();
-          setPanning(false);
-        }
-      }
-    }
-    if (active === "edit") {
-      if (cursorStyle !== "grab") {
-        setCursorStyle("grab");
-      }
-      if (selectedElement != false) {
-        const infoChart = {
-          roundTable: { height: 50, width: 50 },
-          squareTable: { height: 50, width: 50 },
-          rectangleTable: { height: 50, width: 70 },
-          chair: { height: 20, width: 30 },
-          highChair: { height: 25, width: 25 },
-          sofa: { height: 30, width: 70 },
-        };
-        switch (selectedElement) {
-          case "Round Table":
-            HoverEditImage.src = roundTable;
-            hoverImage.width = infoChart.roundTable.width;
-            hoverImage.height = infoChart.roundTable.height;
-            hoverImage.title = "Round Table";
-            break;
-          case "Square Table":
-            HoverEditImage.src = squareTable;
-            hoverImage.width = infoChart.squareTable.width;
-            hoverImage.height = infoChart.squareTable.height;
-            hoverImage.title = "Sqaure Table";
-            break;
-          case "Rectangle Table":
-            HoverEditImage.src = rectangleTable;
-            hoverImage.width = infoChart.rectangleTable.width;
-            hoverImage.height = infoChart.rectangleTable.height;
-            hoverImage.title = "Rectangle Table";
-            break;
-          case "Chair":
-            HoverEditImage.src = chair;
-            hoverImage.width = infoChart.chair.width;
-            hoverImage.height = infoChart.chair.height;
-            hoverImage.title = "Chair";
-            break;
-          case "High Chair":
-            HoverEditImage.src = highChair;
-            hoverImage.width = infoChart.highChair.width;
-            hoverImage.height = infoChart.highChair.height;
-            hoverImage.title = "High Chair";
-            break;
-          case "Sofa":
-            HoverEditImage.src = sofa;
-            hoverImage.width = infoChart.sofa.width;
-            hoverImage.height = infoChart.sofa.height;
-            hoverImage.title = "Sofa";
-            break;
-        }
-        context.drawImage(
-          HoverEditImage,
-          mousePosition.x - hoverImage.width / 2,
-          mousePosition.y - hoverImage.height / 2,
-          hoverImage.width,
-          hoverImage.height,
-        );
-      }
-      for (let i = 0; i < elementsArray.length; i++) {
-        if (
-          isNearObject(mousePosition, elementsArray[i], 20) ||
-          elementsArray[i].selected
-        ) {
-          context.strokeStyle = "#3F12D7";
-          context.lineWidth = 2;
-          context.beginPath();
-          context.moveTo(
-            elementsArray[i].x + offset.x,
-            elementsArray[i].y + offset.y,
-          );
-          context.lineTo(
-            elementsArray[i].x + offset.x + elementsArray[i].width,
-            elementsArray[i].y + offset.y,
-          );
-          context.lineTo(
-            elementsArray[i].x + offset.x + elementsArray[i].width,
-            elementsArray[i].y + offset.y + elementsArray[i].height,
-          );
-          context.lineTo(
-            elementsArray[i].x + offset.x,
-            elementsArray[i].y + offset.y + elementsArray[i].height,
-          );
-          context.lineTo(
-            elementsArray[i].x + offset.x,
-            elementsArray[i].y + offset.y,
+            linesArray[j][i + 1].x + offset.x,
+            linesArray[j][i + 1].y + offset.y,
           );
           context.stroke();
           context.drawImage(
             inActiveDotImage,
-            elementsArray[i].x + offset.x - 7,
-            elementsArray[i].y + offset.y - 7,
+            linesArray[j][i].x + offset.x - 7,
+            linesArray[j][i].y + offset.y - 7,
             14,
             14,
           );
-          context.drawImage(
-            inActiveDotImage,
-            elementsArray[i].x + offset.x - 7 + elementsArray[i].width,
-            elementsArray[i].y + offset.y - 7,
-            14,
-            14,
-          );
-          context.drawImage(
-            inActiveDotImage,
-            elementsArray[i].x + offset.x - 7 + elementsArray[i].width,
-            elementsArray[i].y + offset.y - 7 + elementsArray[i].height,
-            14,
-            14,
-          );
-          context.drawImage(
-            inActiveDotImage,
-            elementsArray[i].x + offset.x - 7,
-            elementsArray[i].y + offset.y - 7 + elementsArray[i].height,
-            14,
-            14,
-          );
-          setPanning(false);
-        }
-        //the wierd cursor for resizing
-        if (
-          mousePosition.x - 6 <= elementsArray[i].x + offset.x &&
-          mousePosition.x + 6 >= elementsArray[i].x + offset.x &&
-          mousePosition.y - 6 <= elementsArray[i].y + offset.y &&
-          mousePosition.y + 6 >= elementsArray[i].y + offset.y
-        ) {
-          elementsArray[i].reSize = "nw";
-          setCursorStyle("nw-resize");
-        } else if (
-          mousePosition.x - 6 <=
-            elementsArray[i].x + offset.x + elementsArray[i].width &&
-          mousePosition.x + 6 >=
-            elementsArray[i].x + offset.x + elementsArray[i].width &&
-          mousePosition.y - 6 <= elementsArray[i].y + offset.y &&
-          mousePosition.y + 6 >= elementsArray[i].y + offset.y
-        ) {
-          setCursorStyle("ne-resize");
-          elementsArray[i].reSize = "ne";
-        } else if (
-          mousePosition.x - 6 <=
-            elementsArray[i].x + offset.x + elementsArray[i].width &&
-          mousePosition.x + 6 >=
-            elementsArray[i].x + offset.x + elementsArray[i].width &&
-          mousePosition.y - 6 <=
-            elementsArray[i].y + offset.y + elementsArray[i].height &&
-          mousePosition.y + 6 >=
-            elementsArray[i].y + offset.y + elementsArray[i].height
-        ) {
-          setCursorStyle("se-resize");
-          elementsArray[i].reSize = "se";
-        } else if (
-          mousePosition.x - 6 <= elementsArray[i].x + offset.x &&
-          mousePosition.x + 6 >= elementsArray[i].x + offset.x &&
-          mousePosition.y - 6 <=
-            elementsArray[i].y + offset.y + elementsArray[i].height &&
-          mousePosition.y + 6 >=
-            elementsArray[i].y + offset.y + elementsArray[i].height
-        ) {
-          setCursorStyle("sw-resize");
-          elementsArray[i].reSize = "sw";
-        } else if (
-          mousePosition.x - 6 <= elementsArray[i].x + offset.x &&
-          mousePosition.x + 6 >= elementsArray[i].x + offset.x &&
-          mousePosition.y >= elementsArray[i].y + offset.y &&
-          mousePosition.y <=
-            elementsArray[i].y + offset.y + elementsArray[i].height
-        ) {
-          setCursorStyle("w-resize");
-          elementsArray[i].reSize = "w";
-        } else if (
-          mousePosition.x - 6 <=
-            elementsArray[i].x + offset.x + elementsArray[i].width &&
-          mousePosition.x + 6 >=
-            elementsArray[i].x + offset.x + elementsArray[i].width &&
-          mousePosition.y >= elementsArray[i].y + offset.y &&
-          mousePosition.y <=
-            elementsArray[i].y + offset.y + elementsArray[i].height
-        ) {
-          setCursorStyle("e-resize");
-          elementsArray[i].reSize = "e";
-        } else if (
-          mousePosition.x >= elementsArray[i].x + offset.x &&
-          mousePosition.x <=
-            elementsArray[i].x + offset.x + elementsArray[i].width &&
-          mousePosition.y - 6 <= elementsArray[i].y + offset.y &&
-          mousePosition.y + 6 >= elementsArray[i].y + offset.y
-        ) {
-          setCursorStyle("n-resize");
-          elementsArray[i].reSize = "n";
-        } else if (
-          mousePosition.x >= elementsArray[i].x + offset.x &&
-          mousePosition.x <=
-            elementsArray[i].x + offset.x + elementsArray[i].width &&
-          mousePosition.y - 6 <=
-            elementsArray[i].y + offset.y + elementsArray[i].height &&
-          mousePosition.y + 6 >=
-            elementsArray[i].y + offset.y + elementsArray[i].height
-        ) {
-          setCursorStyle("s-resize");
-          elementsArray[i].reSize = "s";
-        } else {
-          elementsArray[i].reSize = false;
-        }
-      }
-      for (let i = 0; i < linesArray.length; i++) {
-        for (let j = 0; j < linesArray[i].length; j++) {
-          if (
-            isNearPoint(mousePosition, linesArray[i][j], 15) &&
-            movingObject === false
-          ) {
-            if (isMouseDown) {
-              setMovingLinesArrayPoint({ i: i, j: j });
-              setPanning(false);
-            }
-            //changeTheImage
+          if (linesArray[j].length === i + 2) {
             context.drawImage(
-              activeDotImage,
-              linesArray[i][j].x + offset.x - 7,
-              linesArray[i][j].y + offset.y - 7,
+              inActiveDotImage,
+              linesArray[j][i + 1].x + offset.x - 7,
+              linesArray[j][i + 1].y + offset.y - 7,
               14,
               14,
             );
           }
         }
       }
-      if (movingLinesArrayPoint !== false) {
+      for (let i = 0; i < elementsArray.length; i++) {
+        context.drawImage(
+          elementsArray[i].image,
+          elementsArray[i].x + offset.x,
+          elementsArray[i].y + offset.y,
+          elementsArray[i].width,
+          elementsArray[i].height,
+        );
+      }
+      if (active == "home") {
+        setCursorStyle("grab");
+        for (let i = 0; i < elementsArray.length; i++) {
+          if (
+            isNearObject(mousePosition, elementsArray[i], 20) ||
+            elementsArray[i].selected
+          ) {
+            context.strokeStyle = "#3F12D7";
+            context.lineWidth = 2;
+            context.beginPath();
+            context.moveTo(
+              elementsArray[i].x + offset.x,
+              elementsArray[i].y + offset.y,
+            );
+            context.lineTo(
+              elementsArray[i].x + offset.x + elementsArray[i].width,
+              elementsArray[i].y + offset.y,
+            );
+            context.lineTo(
+              elementsArray[i].x + offset.x + elementsArray[i].width,
+              elementsArray[i].y + offset.y + elementsArray[i].height,
+            );
+            context.lineTo(
+              elementsArray[i].x + offset.x,
+              elementsArray[i].y + offset.y + elementsArray[i].height,
+            );
+            context.lineTo(
+              elementsArray[i].x + offset.x,
+              elementsArray[i].y + offset.y,
+            );
+            context.stroke();
+            setPanning(false);
+          }
+        }
+      }
+      if (active === "edit") {
+        if (cursorStyle !== "grab") {
+          setCursorStyle("grab");
+        }
+        if (selectedElement != false) {
+          const infoChart = {
+            roundTable: { height: 50, width: 50 },
+            squareTable: { height: 50, width: 50 },
+            rectangleTable: { height: 50, width: 70 },
+            chair: { height: 20, width: 30 },
+            highChair: { height: 25, width: 25 },
+            sofa: { height: 30, width: 70 },
+          };
+          switch (selectedElement) {
+            case "Round Table":
+              HoverEditImage.src = roundTable;
+              hoverImage.width = infoChart.roundTable.width;
+              hoverImage.height = infoChart.roundTable.height;
+              hoverImage.title = "Round Table";
+              break;
+            case "Square Table":
+              HoverEditImage.src = squareTable;
+              hoverImage.width = infoChart.squareTable.width;
+              hoverImage.height = infoChart.squareTable.height;
+              hoverImage.title = "Sqaure Table";
+              break;
+            case "Rectangle Table":
+              HoverEditImage.src = rectangleTable;
+              hoverImage.width = infoChart.rectangleTable.width;
+              hoverImage.height = infoChart.rectangleTable.height;
+              hoverImage.title = "Rectangle Table";
+              break;
+            case "Chair":
+              HoverEditImage.src = chair;
+              hoverImage.width = infoChart.chair.width;
+              hoverImage.height = infoChart.chair.height;
+              hoverImage.title = "Chair";
+              break;
+            case "High Chair":
+              HoverEditImage.src = highChair;
+              hoverImage.width = infoChart.highChair.width;
+              hoverImage.height = infoChart.highChair.height;
+              hoverImage.title = "High Chair";
+              break;
+            case "Sofa":
+              HoverEditImage.src = sofa;
+              hoverImage.width = infoChart.sofa.width;
+              hoverImage.height = infoChart.sofa.height;
+              hoverImage.title = "Sofa";
+              break;
+          }
+          context.drawImage(
+            HoverEditImage,
+            mousePosition.x - hoverImage.width / 2,
+            mousePosition.y - hoverImage.height / 2,
+            hoverImage.width,
+            hoverImage.height,
+          );
+        }
+        for (let i = 0; i < elementsArray.length; i++) {
+          if (
+            isNearObject(mousePosition, elementsArray[i], 20) ||
+            elementsArray[i].selected
+          ) {
+            context.strokeStyle = "#3F12D7";
+            context.lineWidth = 2;
+            context.beginPath();
+            context.moveTo(
+              elementsArray[i].x + offset.x,
+              elementsArray[i].y + offset.y,
+            );
+            context.lineTo(
+              elementsArray[i].x + offset.x + elementsArray[i].width,
+              elementsArray[i].y + offset.y,
+            );
+            context.lineTo(
+              elementsArray[i].x + offset.x + elementsArray[i].width,
+              elementsArray[i].y + offset.y + elementsArray[i].height,
+            );
+            context.lineTo(
+              elementsArray[i].x + offset.x,
+              elementsArray[i].y + offset.y + elementsArray[i].height,
+            );
+            context.lineTo(
+              elementsArray[i].x + offset.x,
+              elementsArray[i].y + offset.y,
+            );
+            context.stroke();
+            context.drawImage(
+              inActiveDotImage,
+              elementsArray[i].x + offset.x - 7,
+              elementsArray[i].y + offset.y - 7,
+              14,
+              14,
+            );
+            context.drawImage(
+              inActiveDotImage,
+              elementsArray[i].x + offset.x - 7 + elementsArray[i].width,
+              elementsArray[i].y + offset.y - 7,
+              14,
+              14,
+            );
+            context.drawImage(
+              inActiveDotImage,
+              elementsArray[i].x + offset.x - 7 + elementsArray[i].width,
+              elementsArray[i].y + offset.y - 7 + elementsArray[i].height,
+              14,
+              14,
+            );
+            context.drawImage(
+              inActiveDotImage,
+              elementsArray[i].x + offset.x - 7,
+              elementsArray[i].y + offset.y - 7 + elementsArray[i].height,
+              14,
+              14,
+            );
+            setPanning(false);
+          }
+          //the wierd cursor for resizing
+          if (
+            mousePosition.x - 6 <= elementsArray[i].x + offset.x &&
+            mousePosition.x + 6 >= elementsArray[i].x + offset.x &&
+            mousePosition.y - 6 <= elementsArray[i].y + offset.y &&
+            mousePosition.y + 6 >= elementsArray[i].y + offset.y
+          ) {
+            elementsArray[i].reSize = "nw";
+            setCursorStyle("nw-resize");
+          } else if (
+            mousePosition.x - 6 <=
+              elementsArray[i].x + offset.x + elementsArray[i].width &&
+            mousePosition.x + 6 >=
+              elementsArray[i].x + offset.x + elementsArray[i].width &&
+            mousePosition.y - 6 <= elementsArray[i].y + offset.y &&
+            mousePosition.y + 6 >= elementsArray[i].y + offset.y
+          ) {
+            setCursorStyle("ne-resize");
+            elementsArray[i].reSize = "ne";
+          } else if (
+            mousePosition.x - 6 <=
+              elementsArray[i].x + offset.x + elementsArray[i].width &&
+            mousePosition.x + 6 >=
+              elementsArray[i].x + offset.x + elementsArray[i].width &&
+            mousePosition.y - 6 <=
+              elementsArray[i].y + offset.y + elementsArray[i].height &&
+            mousePosition.y + 6 >=
+              elementsArray[i].y + offset.y + elementsArray[i].height
+          ) {
+            setCursorStyle("se-resize");
+            elementsArray[i].reSize = "se";
+          } else if (
+            mousePosition.x - 6 <= elementsArray[i].x + offset.x &&
+            mousePosition.x + 6 >= elementsArray[i].x + offset.x &&
+            mousePosition.y - 6 <=
+              elementsArray[i].y + offset.y + elementsArray[i].height &&
+            mousePosition.y + 6 >=
+              elementsArray[i].y + offset.y + elementsArray[i].height
+          ) {
+            setCursorStyle("sw-resize");
+            elementsArray[i].reSize = "sw";
+          } else if (
+            mousePosition.x - 6 <= elementsArray[i].x + offset.x &&
+            mousePosition.x + 6 >= elementsArray[i].x + offset.x &&
+            mousePosition.y >= elementsArray[i].y + offset.y &&
+            mousePosition.y <=
+              elementsArray[i].y + offset.y + elementsArray[i].height
+          ) {
+            setCursorStyle("w-resize");
+            elementsArray[i].reSize = "w";
+          } else if (
+            mousePosition.x - 6 <=
+              elementsArray[i].x + offset.x + elementsArray[i].width &&
+            mousePosition.x + 6 >=
+              elementsArray[i].x + offset.x + elementsArray[i].width &&
+            mousePosition.y >= elementsArray[i].y + offset.y &&
+            mousePosition.y <=
+              elementsArray[i].y + offset.y + elementsArray[i].height
+          ) {
+            setCursorStyle("e-resize");
+            elementsArray[i].reSize = "e";
+          } else if (
+            mousePosition.x >= elementsArray[i].x + offset.x &&
+            mousePosition.x <=
+              elementsArray[i].x + offset.x + elementsArray[i].width &&
+            mousePosition.y - 6 <= elementsArray[i].y + offset.y &&
+            mousePosition.y + 6 >= elementsArray[i].y + offset.y
+          ) {
+            setCursorStyle("n-resize");
+            elementsArray[i].reSize = "n";
+          } else if (
+            mousePosition.x >= elementsArray[i].x + offset.x &&
+            mousePosition.x <=
+              elementsArray[i].x + offset.x + elementsArray[i].width &&
+            mousePosition.y - 6 <=
+              elementsArray[i].y + offset.y + elementsArray[i].height &&
+            mousePosition.y + 6 >=
+              elementsArray[i].y + offset.y + elementsArray[i].height
+          ) {
+            setCursorStyle("s-resize");
+            elementsArray[i].reSize = "s";
+          } else {
+            elementsArray[i].reSize = false;
+          }
+        }
+        for (let i = 0; i < linesArray.length; i++) {
+          for (let j = 0; j < linesArray[i].length; j++) {
+            if (
+              isNearPoint(mousePosition, linesArray[i][j], 15) &&
+              movingObject === false
+            ) {
+              if (isMouseDown) {
+                setMovingLinesArrayPoint({ i: i, j: j });
+                setPanning(false);
+              }
+              //changeTheImage
+              context.drawImage(
+                activeDotImage,
+                linesArray[i][j].x + offset.x - 7,
+                linesArray[i][j].y + offset.y - 7,
+                14,
+                14,
+              );
+            }
+          }
+        }
+        if (movingLinesArrayPoint !== false) {
+          context.drawImage(
+            activeDotImage,
+            linesArray[movingLinesArrayPoint.i][movingLinesArrayPoint.j].x +
+              offset.x -
+              7,
+            linesArray[movingLinesArrayPoint.i][movingLinesArrayPoint.j].y +
+              offset.y -
+              7,
+            14,
+            14,
+          );
+        }
+      }
+      if (active === "draw") {
+        if (cursorStyle !== "default") {
+          setCursorStyle("default");
+        }
+
+        if (keyPress.value === "Escape") {
+          setActive("home");
+          setLastClick({ x: false, y: false });
+          if (
+            linesArray[linesArray.length - 1][
+              linesArray[linesArray.length - 1].length - 1
+            ].x != false
+          ) {
+            linesArray.push([{ x: false, y: false }]);
+          }
+          setColor({
+            home: { backgroundColor: "white", color: "#3B3939" },
+            edit: { backgroundColor: "#3B3939", color: "white" },
+            draw: { backgroundColor: "#3B3939", color: "white" },
+            booking: { backgroundColor: "#3B3939", color: "white" },
+            setting: { backgroundColor: "#3B3939", color: "white" },
+            back: { backgroundColor: "#3B3939", color: "white" },
+          });
+          setKeyPress({ value: false });
+        }
+
+        if (keyPress.value === "Enter") {
+          setColor({
+            home: { backgroundColor: "white", color: "#3B3939" },
+            edit: { backgroundColor: "#3B3939", color: "white" },
+            draw: { backgroundColor: "#3B3939", color: "white" },
+            booking: { backgroundColor: "#3B3939", color: "white" },
+            setting: { backgroundColor: "#3B3939", color: "white" },
+            back: { backgroundColor: "#3B3939", color: "white" },
+          });
+          handleMouseDown({
+            clientX: mousePosition.x,
+            clientY: mousePosition.y,
+          });
+          handleMouseUp();
+          setKeyPress({ value: false });
+          setLastClick({ x: false, y: false });
+          setActive("home");
+          if (
+            linesArray[linesArray.length - 1][
+              linesArray[linesArray.length - 1].length - 1
+            ].x != false
+          ) {
+            linesArray.push([{ x: false, y: false }]);
+          }
+        }
+
+        context.strokeStyle = "#1681FF";
+        context.lineWidth = 1.5;
+        if (lastClick.x !== false) {
+          context.beginPath();
+          context.moveTo(lastClick.x + offset.x, lastClick.y + offset.y);
+          if (
+            lastClick.x + offset.x - 10 <= mousePosition.x &&
+            lastClick.x + offset.x + 10 >= mousePosition.x
+          ) {
+            context.strokeStyle = "red";
+            mousePosition.x = lastClick.x + offset.x;
+          } else if (
+            lastClick.y + offset.y - 10 <= mousePosition.y &&
+            lastClick.y + offset.y + 10 >= mousePosition.y
+          ) {
+            context.strokeStyle = "red";
+            mousePosition.y = lastClick.y + offset.y;
+          } else {
+            for (let i = 0; i < linesArray.length; i++) {
+              for (let j = 0; j < linesArray[i].length; j++) {
+                if (
+                  linesArray[i][j].x !== false &&
+                  isNearPoint(mousePosition, linesArray[i][j], 10)
+                ) {
+                  if (
+                    mousePosition.x !== linesArray[i][j].x + offset.x &&
+                    mousePosition.y !== linesArray[i][j].y + offset.y
+                  ) {
+                    setMousePosition({
+                      x: linesArray[i][j].x + offset.x,
+                      y: linesArray[i][j].y + offset.y,
+                    });
+                  }
+                  context.strokeStyle = "red";
+                }
+              }
+            }
+          }
+          context.lineTo(mousePosition.x, mousePosition.y);
+          context.stroke();
+        }
+
+        //draw the active dot
         context.drawImage(
           activeDotImage,
-          linesArray[movingLinesArrayPoint.i][movingLinesArrayPoint.j].x +
-            offset.x -
-            7,
-          linesArray[movingLinesArrayPoint.i][movingLinesArrayPoint.j].y +
-            offset.y -
-            7,
+          mousePosition.x - 7,
+          mousePosition.y - 7,
           14,
           14,
         );
       }
-    }
-    if (active === "draw") {
-      if (cursorStyle !== "default") {
-        setCursorStyle("default");
-      }
-
-      if (keyPress.value === "Escape") {
-        setActive("home");
-        setLastClick({ x: false, y: false });
-        if (
-          linesArray[linesArray.length - 1][
-            linesArray[linesArray.length - 1].length - 1
-          ].x != false
-        ) {
-          linesArray.push([{ x: false, y: false }]);
-        }
-        setColor({
-          home: { backgroundColor: "white", color: "#3B3939" },
-          edit: { backgroundColor: "#3B3939", color: "white" },
-          draw: { backgroundColor: "#3B3939", color: "white" },
-          booking: { backgroundColor: "#3B3939", color: "white" },
-          setting: { backgroundColor: "#3B3939", color: "white" },
-          back: { backgroundColor: "#3B3939", color: "white" },
-        });
+      if (keyPress.value !== false) {
         setKeyPress({ value: false });
       }
 
-      if (keyPress.value === "Enter") {
-        setColor({
-          home: { backgroundColor: "white", color: "#3B3939" },
-          edit: { backgroundColor: "#3B3939", color: "white" },
-          draw: { backgroundColor: "#3B3939", color: "white" },
-          booking: { backgroundColor: "#3B3939", color: "white" },
-          setting: { backgroundColor: "#3B3939", color: "white" },
-          back: { backgroundColor: "#3B3939", color: "white" },
-        });
-        handleMouseDown({ clientX: mousePosition.x, clientY: mousePosition.y });
-        handleMouseUp();
-        setKeyPress({ value: false });
-        setLastClick({ x: false, y: false });
-        setActive("home");
-        if (
-          linesArray[linesArray.length - 1][
-            linesArray[linesArray.length - 1].length - 1
-          ].x != false
-        ) {
-          linesArray.push([{ x: false, y: false }]);
-        }
-      }
-
-      context.strokeStyle = "#1681FF";
-      context.lineWidth = 1.5;
-      if (lastClick.x !== false) {
-        context.beginPath();
-        context.moveTo(lastClick.x + offset.x, lastClick.y + offset.y);
-        if (
-          lastClick.x + offset.x - 10 <= mousePosition.x &&
-          lastClick.x + offset.x + 10 >= mousePosition.x
-        ) {
-          context.strokeStyle = "red";
-          mousePosition.x = lastClick.x + offset.x;
-        } else if (
-          lastClick.y + offset.y - 10 <= mousePosition.y &&
-          lastClick.y + offset.y + 10 >= mousePosition.y
-        ) {
-          context.strokeStyle = "red";
-          mousePosition.y = lastClick.y + offset.y;
-        } else {
-          for (let i = 0; i < linesArray.length; i++) {
-            for (let j = 0; j < linesArray[i].length; j++) {
-              if (
-                linesArray[i][j].x !== false &&
-                isNearPoint(mousePosition, linesArray[i][j], 10)
-              ) {
-                if (
-                  mousePosition.x !== linesArray[i][j].x + offset.x &&
-                  mousePosition.y !== linesArray[i][j].y + offset.y
-                ) {
-                  setMousePosition({
-                    x: linesArray[i][j].x + offset.x,
-                    y: linesArray[i][j].y + offset.y,
-                  });
-                }
-                context.strokeStyle = "red";
-              }
-            }
-          }
-        }
-        context.lineTo(mousePosition.x, mousePosition.y);
-        context.stroke();
-      }
-
-      //draw the active dot
-      context.drawImage(
-        activeDotImage,
-        mousePosition.x - 7,
-        mousePosition.y - 7,
-        14,
-        14,
-      );
+      console.log(elementsArray, upComingReservation);
     }
-    if (keyPress.value !== false) {
-      setKeyPress({ value: false });
-    }
-
-    console.log(elementsArray, upComingReservation);
   }, [
     mousePosition,
     active,
@@ -991,6 +998,7 @@ const CanvasComponent = ({
 
   return (
     <>
+      {/* <Suspense fallback={<Loading />}> */}
       <canvas
         ref={canvasRef}
         onMouseMove={handleMouseMove}
@@ -1005,6 +1013,7 @@ const CanvasComponent = ({
         }}
       />
       {children}
+      {/* </Suspense> */}
     </>
   );
 };

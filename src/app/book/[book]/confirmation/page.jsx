@@ -30,6 +30,7 @@ export default function Page({ params }) {
         rsvpId: rsvpId,
       })
       .then((res) => {
+        console.log(res.data);
         setInfo(res.data.info);
       });
   }, []);
@@ -69,7 +70,7 @@ export default function Page({ params }) {
         run={runConfetti}
         className={`${!runConfetti ? "hidden" : ""}`}
       />
-      <div className="w-full h-[100vh] flex items-center justify-center">
+      <div className="w-full h-[100vh] flex items-center justify-center bg-[#0D0D0D]">
         <div className="bg-[#1b1a1a] md:w-[90%] lg:max-w-[600px] min-h-[400px] rounded-xl m-5 flex flex-col items-center justify-evenly">
           <div className="md:w-[70%] lg:w-[425px] flex items-center  md:justify-evenly">
             <div className="flex items-center justify-center p-3 bg-[#212121] rounded-3xl mr-3 ">

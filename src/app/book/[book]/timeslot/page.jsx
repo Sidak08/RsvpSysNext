@@ -56,7 +56,7 @@ export default function Page({ params }) {
   }, []);
 
   return (
-    <div className="flex items-center justify-center w-full h-[100vh]">
+    <div className="flex items-center justify-center w-full h-[100vh] bg-[#0D0D0D]">
       <div className="w-[90%] max-w-[750px] md:h-[500px] bg-[#1b1a1a] rounded-[13px] flex justify-evenly items-center flex-col h-[738px]">
         <div className="flex flex-col justify-evenly items-start w-[90%] ml-[1.5%]">
           <div className="text-white text-[46px] font-medium font-['Inter']">
@@ -103,7 +103,7 @@ export default function Page({ params }) {
             <div className="w-[90%] h-[38px] bg-[#313131]">
               <input
                 type="date"
-                className={`w-[50%] h-full bg-[#313131] px-3 ${styles.dateTimeInput}`}
+                className={`w-[50%] h-full bg-[#313131] px-3 ${styles.dateTimeInput} text-white`}
                 value={selectedTime.bookingDate}
                 onChange={(e) => {
                   changeDate(e.target.value);
@@ -111,7 +111,7 @@ export default function Page({ params }) {
               />
               <input
                 type="time"
-                className={`w-[50%] h-full bg-[#313131] px-3 ${styles.dateTimeInput}`}
+                className={`w-[50%] h-full bg-[#313131] px-3 ${styles.dateTimeInput} text-white`}
                 value={selectedTime.bookingTime}
                 onChange={(e) => {
                   changeTime(e.target.value);

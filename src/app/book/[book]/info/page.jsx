@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 import { useRouter, useSearchParams } from "next/navigation";
 import clsx from "clsx";
 import styles from "./style.module.css";
-import emailReg from "@/app/components/regex/emailreg";
+import emailReg from "@/app/components/regex/emailReg";
 import phoneReg from "@/app/components/regex/phoneReg";
 
 export default function Page({ params }) {
@@ -93,7 +93,7 @@ export default function Page({ params }) {
         </div>
         <div className="w-[90%] h-[395px] flex flex-col justify-between items-end mb-[10px]">
           <div className="h-[90px] w-full">
-            <h2 className="text-2xl mb-2">Full Name</h2>
+            <h2 className="text-2xl mb-2 text-white">Full Name</h2>
             <input
               type="text"
               className="h-[50px] w-full border border-[#464444] bg-[#212121] rounded-lg text-white pl-2 focus:outline-none"
@@ -103,7 +103,7 @@ export default function Page({ params }) {
             />
           </div>
           <div className="h-[90px] w-full mt-2">
-            <h2 className="text-2xl mb-2">Phone Number</h2>
+            <h2 className="text-2xl mb-2 text-white">Phone Number</h2>
             <input
               type="tel"
               className="h-[50px] w-full border border-[#464444] bg-[#212121] rounded-lg text-white pl-2 focus:outline-none"
@@ -113,7 +113,7 @@ export default function Page({ params }) {
             />
           </div>
           <div className="h-[90px] w-full">
-            <h2 className="text-2xl mb-2">Email</h2>
+            <h2 className="text-2xl mb-2 text-white">Email</h2>
             <input
               type="email"
               className="h-[50px] w-full border border-[#464444] bg-[#212121] rounded-lg text-white pl-2 focus:outline-none"
@@ -125,12 +125,12 @@ export default function Page({ params }) {
           <div className="h-[50px] w-full mt-2 bg-[#313131] border border-[#464444] rounded-lg">
             <input
               type="date"
-              className={`w-[50%] h-full bg-[#313131] px-5 text-xl font-medium ${styles.dateTimeInput} focus:outline-none`}
+              className={`text-white w-[50%] h-full bg-[#313131] px-5 text-xl font-medium ${styles.dateTimeInput} focus:outline-none`}
               value={date}
             />
             <input
               type="time"
-              className={`w-[50%] h-full bg-[#313131] px-5 text-xl font-medium ${styles.dateTimeInput} focus:outline-none`}
+              className={`text-white w-[50%] h-full bg-[#313131] px-5 text-xl font-medium ${styles.dateTimeInput} focus:outline-none`}
               value={time}
             />
           </div>

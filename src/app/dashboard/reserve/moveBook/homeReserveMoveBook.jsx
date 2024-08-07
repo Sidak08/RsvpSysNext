@@ -134,7 +134,10 @@ const ChangeBookInfo = ({
       <BookInfoInputBox info={info} heading="Phone" setInfo={setInfo} />
       <BookInfoInputBox info={info} heading="Notes" setInfo={setInfo} />
       <div id="homeReserveBookInfoPeopleInput">
-        <button className="homeReserveChangeTimeBtn" onClick={handleChangeTime}>
+        <button
+          className="homeReserveChangeTimeBtn pb-1 mb-2"
+          onClick={handleChangeTime}
+        >
           Change Time
         </button>
         <h4> Number Of People </h4>
