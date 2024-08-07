@@ -19,7 +19,7 @@ const CharityBanner = ({}) => {
           </div>
         </div>
         <Image
-          src="/charityEventBanner.png"
+          src="/CharityEventBanner.png"
           width={381}
           height={228}
           alt="Background eco image"
