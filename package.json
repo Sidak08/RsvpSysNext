@@ -19,8 +19,10 @@
     "next-auth": "^4.24.7",
     "next-client-cookies": "^1.1.1",
     "react": "^18",
+    "react-confetti": "^6.1.0",
     "react-dom": "^18",
     "react-responsive": "^10.0.0",
+    "react-use": "^17.5.1",
     "stripe": "^16.2.0"
   },
   "devDependencies": {
