@@ -34,7 +34,7 @@ export async function POST(req, res) {
       user.dashboardData.elementsArray[elementIndex].reservation[rsvpIndex],
     );
 
-    if (elementIndex && rsvpIndex) {
+    if (elementIndex !== -1 && rsvpIndex !== -1) {
       const userData =
         user.dashboardData.elementsArray[elementIndex].reservation[rsvpIndex];
       return NextResponse.json({
