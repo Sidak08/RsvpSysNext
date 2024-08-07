@@ -95,6 +95,8 @@ export async function POST(req, res) {
 
       // console.log(4, works, user.dashboardData);
       return NextResponse.json({
+        tableId: data.id,
+        rsvpId: id,
         success: works,
         errors: [],
       });

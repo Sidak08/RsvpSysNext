@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./style.module.css";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Page({ params }) {
   const getCurrTime = () => {
@@ -142,18 +143,14 @@ const BookTime = ({ time, setBookTime, url }) => {
           {time.bookingTime} | {time.bookingDate}
         </div>
       </div>
-      <button
+      <Link
         className="h-[50%] w-full bg-[#3f12d7] rounded-[10px] flex items-center justify-center"
-        onClick={() => {
-          router.push(
-            `/book/${url}/info/?time=${encodeURIComponent(time.bookingTime)}&date=${encodeURIComponent(time.bookingDate)}&id=${encodeURIComponent(time.tableId)}`,
-          );
-        }}
+        href={`/book/${url}/info/?time=${encodeURIComponent(time.bookingTime)}&date=${encodeURIComponent(time.bookingDate)}&id=${encodeURIComponent(time.tableId)}`}
       >
         <div className="text-white text-xl font-bold font-['Inika'] text-center">
           Book
         </div>
-      </button>
+      </Link>
     </div>
   );
 };

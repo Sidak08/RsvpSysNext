@@ -74,6 +74,11 @@ export default function Page({ params }) {
               .join(" ");
             setError({ success: res.data.success, errors: errorStr });
           }
+          if (!success && error.success) {
+            router.push(
+              `confirmation/?url=${encodeURIComponent(params.book)}&tableId=${encodeURIComponent(res.data.tableId)}&rsvpId=${encodeURIComponent(res.data.rsvpId)}`,
+            );
+          }
         });
     }
   };
