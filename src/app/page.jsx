@@ -34,7 +34,7 @@ export default function Home() {
 
   // Render content only if the component has been mounted
   return (
-    <main className="flex flex-col justify-between items-center overflow-x-clip scrollbar-hide">
+    <main className="flex flex-col justify-between items-center overflow-x-clip scrollbar-hide bg-[#0D0D0D]">
       <Navbar />
       {isMounted && !isMobile ? <CharityBanner /> : <></>}
       {isMounted && isMobile ? <MobCharityBanner /> : <></>}

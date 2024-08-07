@@ -244,19 +244,115 @@ function Back({ backgroundColor, color }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
+      width="56"
+      height="56"
+      fill="none"
+      viewBox="0 0 56 56"
+    >
+      <circle cx="28" cy="28" r="28" fill={backgroundColor}></circle>
+      <path
+        stroke={color}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M35 28H21M28 35l-7-7 7-7"
+      ></path>
+    </svg>
+  );
+}
+
+function Booking({ backgroundColor, color }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="56"
+      height="56"
+      fill="none"
+      viewBox="0 0 56 56"
+    >
+      <circle cx="28" cy="28" r="28" fill={backgroundColor}></circle>
+      <path
+        stroke={color}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M33 18H21a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V20a2 2 0 00-2-2zM27 34h.01"
+      ></path>
+    </svg>
+  );
+}
+
+function ToggleOn() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="40"
+      height="40"
+      fill="none"
+      viewBox="0 0 40 40"
+    >
+      <path
+        stroke="#84FF00"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M26.667 8.333H13.333C6.89 8.333 1.667 13.557 1.667 20S6.89 31.667 13.333 31.667h13.334c6.443 0 11.666-5.224 11.666-11.667S33.11 8.333 26.667 8.333z"
+      ></path>
+      <path
+        stroke="#84FF00"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M26.667 25a5 5 0 100-10 5 5 0 000 10z"
+      ></path>
+    </svg>
+  );
+}
+
+function ToogleOff() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="40"
+      height="40"
+      fill="none"
+      viewBox="0 0 40 40"
+    >
+      <path
+        stroke="red"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M26.667 8.333H13.333C6.89 8.333 1.667 13.557 1.667 20S6.89 31.667 13.333 31.667h13.334c6.443 0 11.666-5.224 11.666-11.667S33.11 8.333 26.667 8.333z"
+      ></path>
+      <path
+        stroke="red"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M13.333 25a5 5 0 100-10 5 5 0 000 10z"
+      ></path>
+    </svg>
+  );
+}
+
+function ExternalUrl() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
-      fill="currentColor"
-      stroke="color"
+      fill="none"
+      stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="2"
-      className="feather feather-arrow-left"
+      className="feather feather-external-link"
       viewBox="0 0 24 24"
     >
-      <circle cx="28" cy="28" r="28" fill={backgroundColor}></circle>;
-      <path d="M19 12L5 12"></path>
-      <path d="M12 19L5 12 12 5"></path>
+      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+      <path d="M15 3L21 3 21 9"></path>
+      <path d="M10 14L21 3"></path>
     </svg>
   );
 }
@@ -275,4 +371,8 @@ export {
   Sofa,
   CloseSvg,
   Back,
+  Booking,
+  ToggleOn,
+  ToogleOff,
+  ExternalUrl,
 };

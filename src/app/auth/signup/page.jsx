@@ -46,7 +46,7 @@ export default function Page() {
             });
             router.push("/dashboard");
           }
-          if (Object.keys(res.data.errors).length > 0) {
+          if (!res.data.success) {
             const errorStr = Object.keys(res.data.errors)
               .map((key) => {
                 return `${res.data.errors[key]}`;
@@ -71,7 +71,7 @@ export default function Page() {
       </div>
       <div id={styles.inputBoxs}>
         <div className={styles.inputBox}>
-          <h2> Full Name </h2>
+          <h2 className="text-white"> Full Name </h2>
           <input
             type="text"
             className={styles.input}
@@ -82,7 +82,7 @@ export default function Page() {
         </div>
 
         <div className={styles.inputBox}>
-          <h2> Phone Number </h2>
+          <h2 className="text-white"> Phone Number </h2>
           <input
             type="tel"
             className={styles.input}
@@ -93,7 +93,7 @@ export default function Page() {
         </div>
 
         <div className={styles.inputBox}>
-          <h2> Email </h2>
+          <h2 className="text-white"> Email </h2>
           <input
             type="email"
             className={styles.input}
@@ -104,7 +104,7 @@ export default function Page() {
         </div>
 
         <div className={styles.inputBox}>
-          <h2>Password</h2>
+          <h2 className="text-white">Password</h2>
           <input
             type="password"
             className={styles.input}

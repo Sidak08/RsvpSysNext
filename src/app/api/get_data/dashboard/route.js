@@ -29,7 +29,7 @@ export async function POST(req, res) {
       user = await db
         .collection("users")
         .findOne({ email: cookieValue.email.toLowerCase().trim() });
-      console.log(user);
+      // console.log(user);
 
       return NextResponse.json({
         success: true,
@@ -40,5 +40,10 @@ export async function POST(req, res) {
     }
   }
 
-  return NextResponse.json({ success: false });
+  return NextResponse.json({
+    success: false,
+    elementsArray: false,
+    linesArray: false,
+    upComingReservations: false,
+  });
 }

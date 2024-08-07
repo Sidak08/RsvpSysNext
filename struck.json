@@ -1,0 +1,16 @@
+{
+  "_id": { "$oid": "66b2d033bd71b967f3aac94f" },
+  "email": "test@gmail.com",
+  "password": "Pass@123",
+  "id": { "$numberInt": "689352909" },
+  "firstName": "sdcs",
+  "lastName": "wed",
+  "phone": "214124",
+  "subscription": { "plan": "free", "product": "free", "interval": "free" },
+  "booking_URL": "T4NL8co3UhmI",
+  "dashboardData": {
+    "elementsArray": [],
+    "linesArray": [[{ "x": false, "y": false }]],
+    "upComingReservations": []
+  }
+}

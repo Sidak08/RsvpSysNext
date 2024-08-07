@@ -147,13 +147,14 @@ input:focus {
 .homeReserveChangeTimeBtn {
     margin-left: 20px;
     margin-right: 10px;
-    width: 30%;
+    min-width: 30%;
     background-color: #f48809;
     height: 30px;
     border-radius: 5px;
     color: white;
     font-size: 16px;
     text-align: center;
+    padding: 6px;
 }
 .homeReserveChangeTimeBtn:active {
     background-color: #a45900;

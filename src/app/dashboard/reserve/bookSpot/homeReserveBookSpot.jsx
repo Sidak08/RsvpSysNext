@@ -60,7 +60,9 @@ const BookSpot = ({
 
       if (
         (bookTime >= elementStartTime && bookTime <= elementEndTime) ||
-        (bookEndTime >= elementStartTime && bookEndTime <= elementEndTime)
+        (bookEndTime >= elementStartTime && bookEndTime <= elementEndTime) ||
+        (bookTime <= elementStartTime && bookEndTime >= elementEndTime) ||
+        (bookTime >= elementStartTime && bookEndTime <= elementEndTime)
       ) {
         return false;
       }
@@ -236,7 +238,6 @@ const BookSpot = ({
       );
       elementsArray[activeElement].reservation.push({
         name: Array.from(name),
-        number: Array.from(phone),
         email: Array.from(email),
         phone: Array.from(phone),
         notes: Array.from(notes),
@@ -250,7 +251,6 @@ const BookSpot = ({
       });
       upComingReservations.push({
         name: Array.from(name),
-        number: Array.from(phone),
         email: Array.from(email),
         phone: Array.from(phone),
         notes: Array.from(notes),

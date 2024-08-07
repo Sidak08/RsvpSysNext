@@ -15,21 +15,44 @@ function LoginPageContent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState({ success: true, error: "" });
+  const [succes, setSucces] = useState(false);
 
-  const onSubmit = () => {
-    axios.post(`/api/auth/login`, { email, password }).then((res) => {
-      if (res.data.success) {
-        Cookies.set("loginInfo", JSON.stringify({ email, password }), {
-          expires: 30,
-        });
-        if (redirect && link) {
-          router.push(decodeURIComponent(link));
+  const onSubmit = async () => {
+    const maxRetries = 3;
+    let attempts = 0;
+
+    const attemptLogin = async () => {
+      try {
+        const res = await axios.post(`/api/auth/login`, { email, password });
+        if (res.data.success) {
+          Cookies.set("loginInfo", JSON.stringify({ email, password }), {
+            expires: 30,
+          });
+          if (redirect && link) {
+            router.push(decodeURIComponent(link));
+          } else {
+            setSucces(true);
+            router.push("/dashboard");
+          }
+          setError(res.data);
+          setSucces(true);
         } else {
-          router.push("/dashboard");
+          setError(res.data);
         }
-        setError(res.data);
+      } catch (error) {
+        console.error("Login error:", error);
+        setError({ success: false, error: "An error occurred during login" });
+        if (attempts < maxRetries) {
+          attempts++;
+          console.log(`Retrying login attempt ${attempts}...`);
+          setTimeout(attemptLogin, 1000); // Retry after 1 second
+        } else {
+          console.error("Max retry attempts reached.");
+        }
       }
-    });
+    };
+
+    attemptLogin();
   };
 
   return (
@@ -40,7 +63,7 @@ function LoginPageContent() {
       </div>
       <div id={styles.inputBoxs}>
         <div className={styles.inputBox}>
-          <h2> Email </h2>
+          <h2 className="text-white"> Email </h2>
           <input
             type="email"
             className={styles.input}
@@ -51,7 +74,7 @@ function LoginPageContent() {
         </div>
 
         <div className={styles.inputBox}>
-          <h2>Password</h2>
+          <h2 className="text-white">Password</h2>
           <input
             type="password"
             className={styles.input}
@@ -75,11 +98,23 @@ function LoginPageContent() {
         Login
       </button>
 
-      <div id={styles.btmText}>
+      <div id={styles.tmpTopText}>
         <h5 className={styles.secondaryLink}>
           Do Not Have An Account{" "}
           <Link href="/auth/signup" className={styles.underline}>
             Sign Up
+          </Link>
+        </h5>
+      </div>
+
+      <div
+        id={styles.btmText}
+        className={`${succes ? "" : styles.hidden}`} // Ensure to have a hidden class in your CSS to hide the element
+      >
+        <h5 className={styles.secondaryLink}>
+          Manuel{" "}
+          <Link href="/dashboard" className={styles.underline}>
+            Dashboard Redirect
           </Link>
         </h5>
       </div>

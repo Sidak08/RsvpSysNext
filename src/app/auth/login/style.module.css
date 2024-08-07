@@ -70,6 +70,11 @@
     display: flex;
     justify-content: flex-end;
 }
+#tmpTopText {
+    width: 90%;
+    display: flex;
+    justify-content: flex-end;
+}
 #errorBox {
     width: 90%;
     display: flex;
