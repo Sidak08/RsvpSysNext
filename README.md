@@ -43,7 +43,7 @@ Consider using the paid plan if you want ;)
 ### Go to login
 ![login](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%205.16.48%20PM.png?raw=true)
 
-#### If you are not automatically redirected to the dashboard, click on the manuel link or just navigate to ./dashboard
+#### If you are not automatically redirected to the dashboard, click on the manuel link or just navigate to /dashboard
 
 ### You should end up here
 ![dashboard](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%205.17.57%20PM.png?raw=true)
@@ -56,19 +56,48 @@ Consider using the paid plan if you want ;)
 #### These tables are resizable and can be deleted
 ![edit tab](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%205.21.00%20PM.png?raw=true)
 
-### Resize: click and of the 4 corners and drag
-![element image](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%205.21.14%20PM.png?raw=true)
+### Resize: click the 4 corners and drag
+![resize](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%205.21.14%20PM.png?raw=true)
 
 ### Change properties and delete: these commands can be done with the info box at the bottom right
-![element image](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%205.21.28%20PM.png?raw=true)
+![properties box](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%205.21.28%20PM.png?raw=true)
 
 ### Go back to home
-#### You can now click on a table to make a reservation for it look
-#### The top right corner has contains info about just the table including the current and future status
+#### You can now click on a table to make a reservation for it
+#### The top right corner contains info about just the table including the current and future status
 #### The bottom right corner shows the upcoming reservations from all the tables
-![element image](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%205.21.48%20PM.png?raw=true)
+![home page](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%205.21.48%20PM.png?raw=true)
 
 ### Make an rersevation
 #### If the dot is green with the selected time and date you can click book
 #### Which pulls up a info box about the guest
-![element image](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%205.22.18%20PM.png?raw=true)
+#### fill out if you can or leave it blank
+![making a reservation](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%205.22.18%20PM.png?raw=true)
+
+### Status box
+#### This shows you all of the reservatiuons for the table and lets you make make a reserveration for that specfic table
+#### Selecting a serveration pull up the info box
+![status box](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%205.22.54%20PM.png?raw=true)
+
+### Upcoming reservations
+#### This contains all the upcoming reservations for all the tables
+#### You can click on them to see the info box
+![upcoming reservation box](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%205.23.25%20PM.png?raw=true)
+
+### Info box
+#### When you click on a reservation you get this box the reservation is also highlighted for easy of use
+#### You can edit or delete or view the reservation here
+![info box](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%205.23.38%20PM.png?raw=true)
+
+### Change Info
+#### this is what pops up when you click change on a rerservation
+#### can click plus to add more info in any column
+#### leaving a row blank will delete it
+#### can click change time to change the time
+![change info](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%205.24.12%20PM.png?raw=true)
+
+### Change Time
+#### This pulls up a calender and time picker
+#### the green dot indicates if the reservation is valid
+#### the changes are automaticly saved if reservation is valid
+![change Time](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%205.24.33%20PM.png?raw=true)
