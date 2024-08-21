@@ -129,3 +129,5 @@ Consider using the paid plan if you want!
 ![home page](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%206.48.26%20PM.png?raw=true)
 
 ---
+## License
+This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License. See the [LICENSE](./LICENSE) file for details.
