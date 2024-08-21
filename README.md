@@ -1,10 +1,19 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## A Bit About This Project
+This project, which I've dedicated significant time to, is a comprehensive reservation system designed for any business. It allows you to begin by defining the layout of your establishment through an intuitive drawing tool, complete with snapping features for precision. You can easily create and modify the perimeter of your space and later refine it if needed.
 
-## Getting Started
+In the editing phase, you can place and customize objects like tables and seats, adjusting dimensions or removing them as desired. Once your layout is finalized, you can move to the reservation tab, where you can manage bookings by inputting details such as the name, phone number, time, email, and notes for customer preferences.
 
-First, run the development server:
+For those who prefer a more hands-off approach, the system generates a dynamic URL that allows customers to select a reservation time that best suits them. After securing a reservation, they can save the page for future reference. The reservation will then appear on your dashboard, where you can easily manage it, including the option to cancel or edit as necessary.
+
+## How TO Get Started
+
+Open terminl
 
 ```bash
+git clone https://github.com/Sidak08/RsvpSysNext.git
+cd ./RsvpSysNext
+npm install
+
 npm run dev
 # or
 yarn dev
@@ -14,23 +23,8 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## How To Use
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Click Go to dashboard
