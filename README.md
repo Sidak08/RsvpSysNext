@@ -32,6 +32,7 @@ For those who prefer a more hands-off approach, the system generates a dynamic U
 3. **Open [http://localhost:3000](http://localhost:3000)**
 
 # How To Use
+## Video Demo - <a href="https://youtu.be/Pe1ZZ0MUnGo" target="_blank">Demo</a>
 
 ### Click "Go to Dashboard"
 Consider using the paid plan if you want!
