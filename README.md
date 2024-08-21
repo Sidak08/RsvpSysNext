@@ -100,4 +100,30 @@ Consider using the paid plan if you want ;)
 #### This pulls up a calender and time picker
 #### the green dot indicates if the reservation is valid
 #### the changes are automaticly saved if reservation is valid
-![change Time](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%205.24.33%20PM.png?raw=true)
+![change time](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%205.24.33%20PM.png?raw=true)
+
+### Guest booking Tab
+#### Navigate to the guest booking page
+#### Copy the url and paste it in a new tab
+
+### Guest booking page
+#### This is what the guest sees
+#### The defualt booking time is the current time and date but they can choose there own
+#### Once they click find time it return the 3 closest time slots
+#### They can click on the time slot to book it
+![guest booking page](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%206.47.14%20PM.png?raw=true)
+
+### Guest booking Info
+#### once they click book they get this info box
+#### they have to enter there name, phone number and email
+![guest booking page](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%206.47.14%20PM.png?raw=true)
+
+### Guest booking confirmation
+#### once they enter the info and the server confirms the reservation they get this page
+#### this page can be saved by just copying the url as it is dynamicly generated
+![guest booking page](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%206.48.03%20PM.png?raw=true)
+
+### see the reservation
+#### you can go back to your home page and referesh to see the reservation
+#### in the future you would not have to refresh
+![home page](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%206.48.26%20PM.png?raw=true)
