@@ -33,15 +33,42 @@ Open [http://localhost:3000](http://localhost:3000)
 
 # How To Use
 
-#### Click Go to dashboard
+### Click Go to dashboard
 Consider using the paid plan if you want ;)
 ![navbar](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%205.14.50%20PM.png?raw=true)
 
-#### Make an account if you don't have one
-fill in some details
-![signyp](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%205.16.30%20PM.png?raw=true)
+### Make an account if you don't have one
+![signup](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%205.16.30%20PM.png?raw=true)
 
-#### Go to login
-fill in your details
-![signyp](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%205.16.48%20PM.png?raw=true)
-if you are not automatically redirected to the dashboard, click on the manuel link or just navigate to ./dashboard
+### Go to login
+![login](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%205.16.48%20PM.png?raw=true)
+
+#### If you are not automatically redirected to the dashboard, click on the manuel link or just navigate to ./dashboard
+
+### You should end up here
+![dashboard](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%205.17.57%20PM.png?raw=true)
+
+### Go to the draw tab and make a basic layout
+#### You even get snapping and can edit in the edit tab
+![draw tab](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%205.20.00%20PM.png?raw=true)
+
+### Now you can go the edit tab and place tables
+#### These tables are resizable and can be deleted
+![edit tab](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%205.21.00%20PM.png?raw=true)
+
+### Resize: click and of the 4 corners and drag
+![element image](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%205.21.14%20PM.png?raw=true)
+
+### Change properties and delete: these commands can be done with the info box at the bottom right
+![element image](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%205.21.28%20PM.png?raw=true)
+
+### Go back to home
+#### You can now click on a table to make a reservation for it look
+#### The top right corner has contains info about just the table including the current and future status
+#### The bottom right corner shows the upcoming reservations from all the tables
+![element image](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%205.21.48%20PM.png?raw=true)
+
+### Make an rersevation
+#### If the dot is green with the selected time and date you can click book
+#### Which pulls up a info box about the guest
+![element image](https://github.com/Sidak08/RsvpSysNext/blob/main/readMe/Screen%20Shot%202024-08-21%20at%205.22.18%20PM.png?raw=true)
