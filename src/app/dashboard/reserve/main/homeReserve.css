@@ -1,39 +1,64 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Pixelify+Sans&display=swap");
 
 * {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     font-family: "Inter", sans-serif;
 }
 
-.homeReserveDiv {
-    width: 370px;
+:root {
+    --background-color: rgba(27, 26, 26, 0.83);
+    --border-color: rgba(27, 26, 26, 0.88);
+    --blur: blur(5.9px);
+    --white: #fff;
+    --gray-dark: #313131;
+    --gray-darker: #212121;
+    --gray-light: #3b3939;
+    --primary-color: #5200ff;
+    --primary-color-dark: #3600a8;
+    --box-width: 370px;
+    --box-height: 40px;
+    --transition: all 0.5s ease-in-out;
+}
+
+.homeReserveDiv,
+.upComingReserveDiv {
+    width: var(--box-width);
     position: absolute;
-    top: calc((8% - 45px) / 2);
-    right: 11px;
     border-radius: 10px;
-    background: rgba(27, 26, 26, 0.83);
-    backdrop-filter: blur(5.9px);
-    -webkit-backdrop-filter: blur(5.9px);
-    border: 1px solid rgba(27, 26, 26, 0.88);
+    background: var(--background-color);
+    backdrop-filter: var(--blur);
+    -webkit-backdrop-filter: var(--blur);
     opacity: 0;
-    transition: all 0.5s ease-in-out;
+    transition: var(--transition);
     transform: translateX(390px);
 }
 
-.homeReserveDiv.animate {
-    width: 370px;
+.homeReserveDiv {
+    top: calc((8% - 45px) / 2);
+    right: 11px;
+    border: 1px solid var(--border-color);
+}
+
+.homeReserveDiv.animate,
+.upComingReserveDiv.animate {
     opacity: 1;
-    transform: translateX(0px);
+    transform: translateX(0);
+}
+
+.homeReserveDiv h1,
+#homeReserveStatusDiv > h4,
+#bookSpotDiv > h1,
+.upComingReserveDiv > h4 {
+    color: var(--white);
+    font-weight: 600;
 }
 
 .homeReserveDiv h1 {
     font-size: 35px;
-    color: #fff;
-    font-weight: 400;
-    margin-top: 10px;
-    margin-left: 20px;
+    margin: 10px 0 0 20px;
 }
+
 #homeReserveStatusDiv {
     width: 100%;
     display: flex;
@@ -42,73 +67,100 @@
     align-items: center;
     margin-top: 20px;
 }
-#homeReserveStatusDiv > h4 {
-    font-weight: 600;
-    color: white;
+
+#homeReserveStatusDiv > h4,
+#bookSpotDiv > h1 {
     font-size: 24px;
+}
+
+#homeReserveStatusDiv > h4 {
     margin-left: -55%;
 }
-.homeReserveLine {
+
+.homeReserveLine,
+#bookSpotDiv > .homeReserveLine {
     width: 90%;
     height: 6px;
-    background: white;
-    margin: 10px 0px 10px 0px;
+    background: var(--white);
+    margin: 10px 0;
     border-radius: 3px;
 }
-.homeReserveTimeSlotDivBox {
-    margin: 0px -10px -10px -10px;
+
+.homeReserveTimeSlotDivBox,
+.upComingRervationDiv {
+    margin: 0 -10px -10px -10px;
     max-height: 150px;
     overflow: auto;
     scrollbar-width: 10px;
     scroll-padding: 20px;
     width: 100%;
 }
-.homeReserveTimeSlotDivBox > div:nth-child(1) {
-    margin-top: 0px;
+
+.homeReserveTimeSlotDivBox > div:nth-child(1),
+.upComingRervationDiv > div:nth-child(1) {
+    margin-top: 0;
 }
-/* Define scrollbar styles */
-.homeReserveTimeSlotDivBox::-webkit-scrollbar {
-    width: 10px; /* Set scrollbar width */
-    background-color: #212121;
+
+.homeReserveTimeSlotDivBox::-webkit-scrollbar,
+.upComingRervationDiv::-webkit-scrollbar {
+    width: 10px;
+    background-color: var(--gray-darker);
     border-radius: 10px;
 }
 
-/* Define scrollbar thumb styles */
-.homeReserveTimeSlotDivBox::-webkit-scrollbar-thumb {
-    background-color: #3b3939; /* Set thumb color */
+.homeReserveTimeSlotDivBox::-webkit-scrollbar-thumb,
+.upComingRervationDiv::-webkit-scrollbar-thumb {
+    background-color: var(--gray-light);
     border-radius: 10px;
 }
 
-.timeSlotDiv {
+.timeSlotDiv,
+#bookSpotTimeSlotDiv {
     width: 332px;
-    height: 40px;
+    height: var(--box-height);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #313131;
-    color: white;
-    margin: 10px 0px 10px calc((100% - 332px) / 2);
+    background-color: var(--gray-dark);
+    color: var(--white);
+    margin: 10px 0 10px calc((100% - 332px) / 2);
     border-radius: 5px;
 }
-.timeSlotDiv > * {
-    padding: 0px 10px 0px 10px;
+
+.timeSlotDiv > *,
+#bookSpotTimeSlotDiv > input {
+    padding: 0 10px;
     font-weight: 400;
     font-size: 16px;
+    background-color: var(--gray-dark);
+    border: none;
+    color: var(--white);
 }
+
 .timeSlotDiv > div {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .timeSlotDiv > div > h4 {
     padding-left: 10px;
     font-weight: 400;
 }
-.timeSlotDivCircle {
+
+.timeSlotDivCircle,
+#avalibility {
     width: 20px;
     height: 20px;
     border-radius: 50%;
 }
+
+#avalibility {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+}
+
 #bookSpotDiv {
     width: 100%;
     height: 180px;
@@ -118,131 +170,56 @@
     align-items: center;
     margin-top: 10px;
 }
-#bookSpotDiv > h1 {
-    font-weight: 600;
-    color: white;
-    font-size: 24px;
-    margin-left: -45%;
-}
-#bookSpotDiv > .homeReserveLine {
-    margin: 0px;
-}
 
-#bookSpotTimeSlotDiv {
-    width: 90%;
-    height: 40px;
-    background-color: #313131;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-}
-#bookSpotTimeSlotDiv > input {
-    background-color: #313131;
-    border: none;
-    color: white;
-    font-size: 16px;
-    margin: 10px;
-}
-#bookSpotTimeSlotDiv > input:active {
-    background-color: #313131;
-    border: none;
-    color: white;
-    margin: 10px;
-    border: none;
-}
 #bookSpotDiv > button {
     width: 90%;
-    height: 40px;
-    background-color: #5200ff;
-    color: white;
+    height: var(--box-height);
+    background-color: var(--primary-color);
+    color: var(--white);
     border-radius: 5px;
     font-size: 20px;
     font-weight: 400;
     border: none;
 }
+
 #bookSpotDiv > button:active {
-    border: #3600a8 2px solid;
+    border: 2px solid var(--primary-color-dark);
 }
-input[type="date"]::-webkit-calendar-picker-indicator {
-    filter: invert(1);
-    margin-left: -20px;
-}
+
+input[type="date"]::-webkit-calendar-picker-indicator,
 input[type="time"]::-webkit-calendar-picker-indicator {
     filter: invert(1);
-    margin-left: 0px;
 }
-#avalibility {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    margin-right: 10px;
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    margin-left: -20px;
 }
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+    margin-left: 0;
+}
+
 .red {
     background-color: red;
 }
+
 .green {
     background-color: green;
 }
-.upComingReserveDiv {
-    width: 370px;
-    position: absolute;
-    bottom: calc(45px + 2%);
-    max-height: calc(40% - 50px);
-    right: 11px;
-    border-radius: 10px;
-    background: rgba(27, 26, 26, 0.83);
-    backdrop-filter: blur(5.9px);
-    -webkit-backdrop-filter: blur(5.9px);
-    border: none !important;
-    opacity: 0;
-    transition: all 0.5s ease-in-out;
-    transform: translateX(390px);
-    display: flex;
-    flex-direction: column;
-    /* justify-content: space-evenly; */
-    align-items: center;
-}
 
-.upComingReserveDiv.animate {
-    border: 1px solid rgba(27, 26, 26, 0.88);
-    width: 370px;
-    opacity: 1;
-    transform: translateX(0px);
-}
-.upComingReserveDiv > h4 {
-    font-weight: 600;
-    color: white;
-    font-size: 24px;
-    margin: 10px 0px 0px 0px;
-}
-.upComingRervationDiv {
-    margin: 5px -10px 10px -10px;
-    overflow: auto;
-    scrollbar-width: 10px;
-    scroll-padding: 20px;
-    width: 100%;
-    /* padding-bottom: 2%; */
-}
-.upComingRervationDiv > div:nth-child(1) {
-    margin-top: 0px;
-}
-
-/* Define scrollbar styles */
-.upComingRervationDiv::-webkit-scrollbar {
-    width: 10px; /* Set scrollbar width */
-    background-color: #212121;
-    border-radius: 10px;
-}
-
-/* Define scrollbar thumb styles */
-.upComingRervationDiv::-webkit-scrollbar-thumb {
-    background-color: #3b3939; /* Set thumb color */
-    border-radius: 10px;
-}
 button {
     border: none;
 }
+
 .selectedBorder {
     border: 2px solid #3f12d7;
+}
+
+.upComingReserveDiv {
+    bottom: calc(45px + 2%);
+    max-height: calc(40% - 50px);
+    right: 11px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

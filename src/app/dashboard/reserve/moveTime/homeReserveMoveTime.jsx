@@ -1,6 +1,7 @@
+"use client";
 import { useEffect, useState } from "react";
 import "./homeReserveMoveTime.css";
-import { CloseSvg } from "../.././components/images/svg.jsx";
+import { CloseSvg } from "../../components/images/svg.jsx";
 
 const ChangeTime = ({
   activeNav,
@@ -24,64 +25,54 @@ const ChangeTime = ({
 
   const stayLength = 120;
 
+  useEffect(() => {
+    renderChangeTime !== false && activeNav === "home"
+      ? setAnimate(true)
+      : setAnimate(false);
+  }, [renderChangeTime, activeNav]);
+
+  useEffect(() => {
+    const { endTime, endDate } = calculateEndTime(bookTime, bookDate, stayLength);
+
+    if (checkAvailability(bookTime, bookDate, endTime, endDate)) {
+      setSpotAval(true);
+      fixTimeDate(bookTime, bookDate, endTime, endDate);
+    } else {
+      setSpotAval(false);
+    }
+  }, [bookDate, bookTime]);
+
   const changeDateIntoMinutes = (date) => {
-    const year = parseInt(date.split("-")[0] * 365 * 24 * 60);
-    const month = parseInt(date.split("-")[1] * 30 * 24 * 60);
-    const day = parseInt(date.split("-")[2] * 24 * 60);
+    const year = parseInt(date.split("-")[0]) * 365 * 24 * 60;
+    const month = parseInt(date.split("-")[1]) * 30 * 24 * 60;
+    const day = parseInt(date.split("-")[2]) * 24 * 60;
     return year + month + day;
   };
+
   const checkAvailability = (bookTime, bookDate, bookEndTime, bookEndDate) => {
-    bookTime =
-      parseInt(bookTime.split(":")[0]) * 60 +
-      parseInt(bookTime.split(":")[1]) +
-      changeDateIntoMinutes(bookDate);
-    bookEndTime =
-      parseInt(bookEndTime.split(":")[0]) * 60 +
-      parseInt(bookEndTime.split(":")[1]) +
-      changeDateIntoMinutes(bookEndDate);
+    const startTimeInMinutes = convertToMinutes(bookTime, bookDate);
+    const endTimeInMinutes = convertToMinutes(bookEndTime, bookEndDate);
 
-    const tmpRsvpList = [];
+    const tmpRsvpList = elementsArray.find(element => element.id === renderChangeTime.tableId)?.reservation || [];
 
-    for (let i = 0; i < elementsArray.length; i++) {
-      if (elementsArray[i].id === renderChangeTime.tableId) {
-        tmpRsvpList.push(...elementsArray[i].reservation);
-        break;
-      }
-    }
+    const filteredRsvpList = tmpRsvpList.filter(rsvp => rsvp.id !== renderChangeTime.id);
 
-    for (let i = 0; i < tmpRsvpList.length; i++) {
-      if (tmpRsvpList[i].id === renderChangeTime.id) {
-        tmpRsvpList.splice(i, 1);
-        break;
-      }
-    }
+    return !filteredRsvpList.some(rsvp => {
+      const rsvpStartTime = convertToMinutes(rsvp.startTime, rsvp.startDate);
+      const rsvpEndTime = convertToMinutes(rsvp.endTime, rsvp.endDate);
+      return (startTimeInMinutes >= rsvpStartTime && startTimeInMinutes <= rsvpEndTime) ||
+             (endTimeInMinutes >= rsvpStartTime && endTimeInMinutes <= rsvpEndTime);
+    });
+  };
 
-    for (let i = 0; i < tmpRsvpList.length; i++) {
-      const element = tmpRsvpList[i];
-      const elementStartTime =
-        parseInt(element.startTime.split(":")[0]) * 60 +
-        parseInt(element.startTime.split(":")[1]) +
-        changeDateIntoMinutes(element.startDate);
-      const elementEndTime =
-        parseInt(element.endTime.split(":")[0]) * 60 +
-        parseInt(element.endTime.split(":")[1]) +
-        changeDateIntoMinutes(element.endDate);
-      if (
-        (bookTime >= elementStartTime && bookTime <= elementEndTime) ||
-        (bookEndTime >= elementStartTime && bookEndTime <= elementEndTime)
-      ) {
-        return false;
-      }
-    }
-    return true;
+  const convertToMinutes = (time, date) => {
+    const [hours, minutes] = time.split(":").map(Number);
+    return hours * 60 + minutes + changeDateIntoMinutes(date);
   };
 
   const calculateEndTime = (startTime, startDate, stayLength) => {
-    startTime =
-      parseInt(startTime.split(":")[0]) * 60 +
-      parseInt(startTime.split(":")[1]);
-
-    const totalMinutes = startTime + stayLength;
+    const startTimeInMinutes = convertToMinutes(startTime, startDate);
+    const totalMinutes = startTimeInMinutes + stayLength;
 
     if (totalMinutes <= 1440) {
       const hour = String(Math.floor(totalMinutes / 60)).padStart(2, "0");
@@ -96,7 +87,7 @@ const ChangeTime = ({
       const minute = String(excessMinutes % 60).padStart(2, "0");
       return {
         endTime: `${hour}:${minute}`,
-        endDate: String(endDate.toISOString().slice(0, 10)),
+        endDate: endDate.toISOString().slice(0, 10),
       };
     }
   };
@@ -104,17 +95,18 @@ const ChangeTime = ({
   const handleDateChange = (e) => {
     setBookDate(e.target.value);
   };
+
   const handleTimeChange = (e) => {
     setBookTime(e.target.value);
   };
+
   const handleClose = () => {
     setRenderChangeTime(false);
   };
 
   const fixTimeDate = (bookTime, bookDate, endTime, endDate) => {
-    // Update elementsArray using setState
     setElementsArray((prevElementsArray) => {
-      const updatedElementsArray = prevElementsArray.map((element) => {
+      return prevElementsArray.map((element) => {
         if (element.id === renderChangeTime.tableId) {
           const updatedReservation = element.reservation.map((reservation) => {
             if (reservation.id === renderChangeTime.id) {
@@ -135,49 +127,23 @@ const ChangeTime = ({
         }
         return element;
       });
-      return updatedElementsArray;
     });
 
-    // Update upComingReservations using setState
     setUpComingReservations((prevUpComingReservations) => {
-      const updatedUpComingReservations = prevUpComingReservations.map(
-        (reservation) => {
-          if (reservation.id === renderChangeTime.id) {
-            return {
-              ...reservation,
-              startTime: bookTime,
-              startDate: bookDate,
-              endTime: endTime,
-              endDate: endDate,
-            };
-          }
-          return reservation;
-        },
-      );
-      return updatedUpComingReservations;
+      return prevUpComingReservations.map((reservation) => {
+        if (reservation.id === renderChangeTime.id) {
+          return {
+            ...reservation,
+            startTime: bookTime,
+            startDate: bookDate,
+            endTime: endTime,
+            endDate: endDate,
+          };
+        }
+        return reservation;
+      });
     });
   };
-
-  useEffect(() => {
-    renderChangeTime !== false && activeNav === "home"
-      ? setAnimate(true)
-      : setAnimate(false);
-  }, [renderChangeTime, activeNav]);
-
-  useEffect(() => {
-    const { endTime, endDate } = calculateEndTime(
-      bookTime,
-      bookDate,
-      stayLength,
-    );
-
-    if (checkAvailability(bookTime, bookDate, endTime, endDate)) {
-      setSpotAval(true);
-      fixTimeDate(bookTime, bookDate, endTime, endDate);
-    } else {
-      setSpotAval(false);
-    }
-  }, [bookDate, bookTime]);
 
   return (
     <div className={`homeReserveChangeTime ${animate ? "animate" : ""}`}>

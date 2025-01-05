@@ -1,14 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Pixelify+Sans&display=swap");
+
+:root {
+    --background-color: rgba(27, 26, 26, 0.83);
+    --border-color: rgba(27, 26, 26, 0.88);
+    --blur: blur(5.9px);
+    --white: #fff;
+    --gray-dark: #313131;
+    --red: red;
+    --primary-color: #5200ff;
+    --primary-color-dark: #3600a8;
+    --transition: all 0.3s ease-in-out;
+    --font-family: "Inter", sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-family);
+}
+
 .homeReserveChangeTime {
     height: 130px;
     width: 350px;
     position: absolute;
     border-radius: 10px;
-    background: rgba(27, 26, 26, 0.83);
-    backdrop-filter: blur(5.9px);
-    -webkit-backdrop-filter: blur(5.9px);
-    border: 1px solid rgba(27, 26, 26, 0.88);
+    background: var(--background-color);
+    backdrop-filter: var(--blur);
+    -webkit-backdrop-filter: var(--blur);
+    border: 1px solid var(--border-color);
     opacity: 0;
-    transition: all 0.3s ease-in-out;
+    transition: var(--transition);
     transform: translateY(-390px);
     display: flex;
     flex-direction: column;
@@ -17,18 +38,21 @@
     top: -900px;
     right: 400px;
 }
+
 .homeReserveChangeTime.animate {
     top: calc((8% - 35px) / 2);
     right: 400px;
     opacity: 1;
     transform: translateX(0);
 }
+
 .homeReserveChangeTime h4 {
     font-size: 22px;
     font-weight: 400;
-    color: white;
-    margin: 5px 40% -5px 0px;
+    color: var(--white);
+    margin: 5px 40% -5px 0;
 }
+
 #homeReserve_bookSpotDiv {
     width: 100%;
     height: 180px;
@@ -36,79 +60,85 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    /* margin-top: 10px; */
 }
+
 #homeReserve_bookSpotDiv > h1 {
     font-weight: 600;
-    color: white;
+    color: var(--white);
     font-size: 24px;
     margin-left: -45%;
 }
+
 #homeReserve_bookSpotDiv > .homeReserveLine {
-    margin: 0px;
+    margin: 0;
 }
 
 #homeReserve_bookSpotTimeSlotDiv {
     width: 90%;
     height: 40px;
-    background-color: #313131;
+    background-color: var(--gray-dark);
     border-radius: 5px;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
 }
+
 #homeReserve_bookSpotTimeSlotDiv > input {
-    background-color: #313131;
+    background-color: var(--gray-dark);
     border: none;
-    color: white;
+    color: var(--white);
     font-size: 16px;
     margin: 10px;
 }
-#homeReserve_bookSpotTimeSlotDiv > input:active {
-    background-color: #313131;
-    border: none;
-    color: white;
-    margin: 10px;
-    border: none;
-}
+
 #homeReserve_bookSpotDiv > button {
     width: 90%;
     height: 40px;
-    background-color: #5200ff;
-    color: white;
+    background-color: var(--primary-color);
+    color: var(--white);
     border-radius: 5px;
     font-size: 20px;
     font-weight: 400;
     border: none;
 }
+
 #homeReserve_bookSpotDiv > button:active {
-    border: #3600a8 2px solid;
+    border: 2px solid var(--primary-color-dark);
 }
-input[type="date"]::-webkit-calendar-picker-indicator {
-    filter: invert(1);
-    margin-left: -20px;
-}
+
+input[type="date"]::-webkit-calendar-picker-indicator,
 input[type="time"]::-webkit-calendar-picker-indicator {
     filter: invert(1);
-    margin-left: 0px;
 }
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    margin-left: -20px;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+    margin-left: 0;
+}
+
 #homeReserve_avalibility {
     width: 25px;
     height: 25px;
     border-radius: 50%;
     margin-right: 10px;
 }
+
 .homeReserve_red {
-    background-color: red;
+    background-color: var(--red);
 }
+
 .homeReserve_green {
     background-color: green;
 }
+
 .homeReserveMoveTimeClose {
     position: absolute;
     top: -25px;
     right: -25px;
-    background-color: red;
+    background-color: var(--red);
     border: 10px solid #0d0d0d;
     border-radius: 50%;
     height: 70px;
@@ -117,5 +147,5 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    color: white;
+    color: var(--white);
 }

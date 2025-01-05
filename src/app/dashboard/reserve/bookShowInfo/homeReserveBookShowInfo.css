@@ -1,27 +1,52 @@
+:root {
+    --width: 400px;
+    --border-radius: 10px;
+    --background-color: rgba(27, 26, 26, 0.83);
+    --backdrop-filter: blur(5.9px);
+    --border: 1px solid rgba(27, 26, 26, 0.88);
+    --transition: all 0.3s ease-in-out;
+    --color-white: white;
+    --font-size-h1: 26px;
+    --font-size-h4: 18px;
+    --font-weight-h1: 400;
+    --font-weight-h4: 300;
+    --background-color-hover: #4b4b4b;
+    --background-color-text: #313131;
+    --button-height: 30px;
+    --button-width: 45%;
+    --button-border-radius: 5px;
+    --button-font-size: 16px;
+    --button-bg-color-1: #f48809;
+    --button-bg-color-1-active: #a45900;
+    --button-bg-color-2: #ff0000;
+    --button-bg-color-2-active: #9f0101;
+}
+
 .bookShowInfo {
-    /* min-height: 350px; */
-    width: 400px;
+    width: var(--width);
     position: absolute;
     top: -410px;
-    right: 400px;
-    border-radius: 10px;
-    background: rgba(27, 26, 26, 0.83);
-    backdrop-filter: blur(5.9px);
-    -webkit-backdrop-filter: blur(5.9px);
-    border: 1px solid rgba(27, 26, 26, 0.88);
+    right: var(--width);
+    border-radius: var(--border-radius);
+    background: var(--background-color);
+    backdrop-filter: var(--backdrop-filter);
+    -webkit-backdrop-filter: var(--backdrop-filter);
+    border: var(--border);
     opacity: 0;
-    transition: all 0.3s ease-in-out;
+    transition: var(--transition);
     transform: translateY(0px);
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: white;
+    color: var(--color-white);
     padding-bottom: 15px;
 }
+
 .bookShowInfo.animate {
     opacity: 1;
     transform: translateY(430px);
 }
+
 .bookShowInfoHeader {
     display: flex;
     justify-content: space-evenly;
@@ -30,11 +55,13 @@
     flex-direction: row;
     align-items: center;
 }
+
 .bookShowInfoHeader h1 {
-    font-size: 26px;
-    font-weight: 400;
+    font-size: var(--font-size-h1);
+    font-weight: var(--font-weight-h1);
     margin-left: -55px;
 }
+
 .bookShowInfoHeader > div {
     width: 250px;
     display: flex;
@@ -44,10 +71,12 @@
     margin-right: -55px;
     padding-top: 8px;
 }
+
 .bookShowInfoHeader h4 {
-    font-size: 18px;
-    font-weight: 300;
+    font-size: var(--font-size-h4);
+    font-weight: var(--font-weight-h4);
 }
+
 .showBookInfoClose {
     position: absolute;
     top: -25px;
@@ -61,40 +90,47 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    color: white;
+    color: var(--color-white);
 }
+
 .homeReserveShowInfoThinLine {
     height: 3px;
-    color: white;
+    color: var(--color-white);
     border-radius: 3px;
     width: 100%;
-    background-color: white;
+    background-color: var(--color-white);
 }
+
 .bookShowInfoBoxDiv {
     width: 80%;
     margin-bottom: 8px;
 }
+
 .bookShowInfoBoxDiv > h4 {
     margin-left: -15px;
     margin-bottom: 8px;
-    font-size: 18px;
+    font-size: var(--font-size-h4);
 }
+
 .bookShowInfoBoxText {
-    background-color: #313131;
+    background-color: var(--background-color-text);
     min-width: fit-content;
     padding: 5px;
     margin: 2.5px;
     border-radius: 3px;
 }
+
 .bookShowInfoBoxText:hover {
-    background-color: #4b4b4b;
-    transition: all 0.2s ease-in-out;
+    background-color: var(--background-color-hover);
+    transition: var(--transition);
 }
+
 .bookShowInfoFlexItemBox {
     margin-top: 2.5px;
     display: flex;
     flex-wrap: wrap;
 }
+
 .bookShowInfoNumPeopleDivFlex {
     display: flex;
     justify-content: flex-end;
@@ -102,6 +138,7 @@
     align-items: center;
     margin-top: -7px;
 }
+
 .bookShowInfoNumPeopleDiv {
     display: flex;
     align-items: center;
@@ -109,11 +146,13 @@
     margin-right: 8px;
     justify-content: center;
 }
+
 .bookShowInfoNumPeopleDiv > h4 {
     margin: 8px;
 }
+
 .bookShowInfoNumPeopleDiv > h4:nth-child(2) {
-    background-color: #313131;
+    background-color: var(--background-color-text);
     min-width: 20px;
     padding: 5px;
     margin: 2.5px;
@@ -121,30 +160,36 @@
     font-weight: 400;
     text-align: center;
 }
+
 .bookShowInfoBtnDiv {
-    width: 400px;
-    height: 30px;
+    width: var(--width);
+    height: var(--button-height);
     display: flex;
     justify-content: space-evenly;
     padding-bottom: 10px;
 }
+
 .bookShowInfoBtnDiv button {
-    height: 30px;
-    width: 45%;
-    border-radius: 5px;
-    color: white;
-    font-size: 16px;
+    height: var(--button-height);
+    width: var(--button-width);
+    border-radius: var(--button-border-radius);
+    color: var(--color-white);
+    font-size: var(--button-font-size);
     text-align: center;
 }
+
 .bookShowInfoBtnDiv > button:nth-child(1) {
-    background-color: #f48809;
+    background-color: var(--button-bg-color-1);
 }
+
 .bookShowInfoBtnDiv > button:nth-child(1):active {
-    background-color: #a45900;
+    background-color: var(--button-bg-color-1-active);
 }
+
 .bookShowInfoBtnDiv > button:nth-child(2) {
-    background-color: #ff0000;
+    background-color: var(--button-bg-color-2);
 }
+
 .bookShowInfoBtnDiv > button:nth-child(2):active {
-    background-color: #9f0101;
+    background-color: var(--button-bg-color-2-active);
 }

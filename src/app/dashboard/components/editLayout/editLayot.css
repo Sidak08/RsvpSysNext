@@ -1,20 +1,44 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Pixelify+Sans&display=swap");
 
+:root {
+    --main-bg-color: #1b1a1a;
+    --secondary-bg-color: #212121;
+    --white-color: #ffffff;
+    --highlight-color: #5200ff;
+    --font-family: "Inter", sans-serif;
+    --font-color: white;
+    --font-color-secondary: #8b8b8b;
+    --font-size-title: 43px;
+    --font-weight-title: 400;
+    --font-weight-subtitle: 250;
+    --font-weight-tables: 300;
+    --padding-top-title: 30px;
+    --margin-left-right: 20px;
+    --margin-top-subtitle: 5px;
+    --margin-top-tables: 20px;
+    --margin-bottom-tables: 8px;
+    --border-radius: 2px;
+    --object-button-height: 80px;
+    --object-button-width: 313px;
+    --line-height: 6px;
+    --animation-duration: 0.3s;
+}
+
 * {
     margin: 0px;
     padding: 0px;
-    font-family: "Inter", sans-serif;
+    font-family: var(--font-family);
 }
 
 #editLayoutDiv {
     top: 0px;
     left: 80px;
-    width: 313px;
+    width: var(--object-button-width);
     height: 100%;
-    background-color: #1b1a1a;
+    background-color: var(--main-bg-color);
     position: absolute;
-    transform: translateX(-313px);
-    animation: fadeInOut 0.3s ease-in-out forwards;
+    transform: translateX(-var(--object-button-width));
+    animation: fadeInOut var(--animation-duration) ease-in-out forwards;
 }
 
 @keyframes fadeInOut {
@@ -25,57 +49,64 @@
 
 #title {
     text-align: center;
-    padding-top: 30px;
-    color: white;
-    font-size: 43px;
-    font-weight: 400;
+    padding-top: var(--padding-top-title);
+    color: var(--font-color);
+    font-size: var(--font-size-title);
+    font-weight: var(--font-weight-title);
 }
+
 .objectButton {
     width: 100%;
-    height: 80px;
+    height: var(--object-button-height);
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
-    background: #1b1a1a;
+    background: var(--main-bg-color);
     border: none;
 }
+
 .darkLine {
     width: 90%;
-    height: 6px;
-    background-color: #212121;
+    height: var(--line-height);
+    background-color: var(--secondary-bg-color);
 }
+
 .whiteLine {
     width: 100%;
-    height: 6px;
-    background-color: #ffffff;
-    border-radius: 2px;
+    height: var(--line-height);
+    background-color: var(--white-color);
+    border-radius: var(--border-radius);
 }
 
 .objectButtonMainBox {
     display: flex;
-    width: 313px;
+    width: var(--object-button-width);
     justify-content: space-between;
     align-items: center;
-    height: 80px;
-    color: white;
+    height: var(--object-button-height);
+    color: var(--font-color);
 }
+
 .objectButtonMainBox > * {
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: var(--margin-left-right);
+    margin-right: var(--margin-left-right);
 }
+
 .objectButtonMainBox > :first-child {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
 }
+
 .objectButtonMainBox > :first-child h4 {
-    font-weight: 250;
-    margin-top: 5px;
-    color: #8b8b8b;
+    font-weight: var(--font-weight-subtitle);
+    margin-top: var(--margin-top-subtitle);
+    color: var(--font-color-secondary);
     margin-left: 15px;
 }
+
 #TablesDivTitle {
     width: 90%;
     display: flex;
@@ -84,13 +115,15 @@
     align-items: flex-start;
     margin-left: 5%;
 }
+
 #TablesDivTitle h1 {
-    color: white;
-    margin-bottom: 8px;
-    margin-top: 20px;
-    font-weight: 300;
+    color: var(--font-color);
+    margin-bottom: var(--margin-bottom-tables);
+    margin-top: var(--margin-top-tables);
+    font-weight: var(--font-weight-tables);
 }
+
 .active {
-    margin-top: 5px;
-    border: 2px solid #5200ff !important;
+    margin-top: var(--margin-top-subtitle);
+    border: 2px solid var(--highlight-color) !important;
 }

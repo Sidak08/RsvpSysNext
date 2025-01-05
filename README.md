@@ -1,6 +1,6 @@
 # A Bit About This Project
 
-This project, to which I've dedicated significant time, is a comprehensive reservation system designed for any business. It allows you to begin by defining the layout of your establishment through an intuitive drawing tool, complete with snapping features for precision. You can easily create and modify the perimeter of your space and refine it later if needed.
+This project, to which I've dedicated significant time (134 files and 17901 lines of code ), is a comprehensive reservation system designed for any business. It allows you to begin by defining the layout of your establishment through an intuitive drawing tool, complete with snapping features for precision. You can easily create and modify the perimeter of your space and refine it later if needed.
 
 In the editing phase, you can place and customize objects like tables and seats, adjusting their dimensions or removing them as desired. Once your layout is finalized, you can move to the reservation tab, where you can manage bookings by inputting details such as the name, phone number, time, email, and notes for customer preferences.
 
@@ -17,7 +17,7 @@ For those who prefer a more hands-off approach, the system generates a dynamic U
    touch .env.local
    ```
 
-2. **Set Keys for `MONGODB_URI`, `BASE_URL`, `NODE_ENV`, and, if desired, `STRIPE` and `STRIPE_WEBHOOK_SECRET`.**
+2. **Set Keys for `MONGODB_URI`, `BASE_URL`, `NODE_ENV`, `STRIPE` and `STRIPE_WEBHOOK_SECRET`.**
 
    ```bash
    npm run dev
@@ -32,7 +32,8 @@ For those who prefer a more hands-off approach, the system generates a dynamic U
 3. **Open [http://localhost:3000](http://localhost:3000)**
 
 # How To Use
-## Video Demo - <a href="https://youtu.be/Pe1ZZ0MUnGo" target="_blank">Demo</a>
+[![Video Demo](https://img.youtube.com/vi/Cdt1e-P3qYs/0.jpg)](https://youtu.be/Cdt1e-P3qYs)
+[Watch the Demo](https://youtu.be/Cdt1e-P3qYs)
 
 ### Click "Go to Dashboard"
 Consider using the paid plan if you want!

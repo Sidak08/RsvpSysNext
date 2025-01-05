@@ -136,6 +136,7 @@ const HomeReserve = ({
             setActiveRsvp={setActiveRsvp}
           />
         </div>
+        
         <BookInfo
           renderBookInfo={renderBookInfo}
           setRenderBookInfo={setRenderBookInfo}
@@ -186,6 +187,7 @@ const HomeReserve = ({
   } else {
     return (
       <>
+        
         <div className={`homeReserveDiv ${animationActive ? "animate" : ""}`}>
           <h1>{lastActiveElementInfo.title}</h1>
         </div>
@@ -225,6 +227,7 @@ const HomeReserve = ({
           changeRsvp={changeRsvp}
           setChangeRsvp={setChangeRsvp}
         />
+        
         <ChangeBookInfo
           activeNav={activeNav}
           changeRsvp={changeRsvp}

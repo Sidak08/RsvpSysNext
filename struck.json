@@ -10,7 +10,7 @@
   "booking_URL": "T4NL8co3UhmI",
   "dashboardData": {
     "elementsArray": [],
-    "linesArray": [[{ "x": false, "y": false }]],
+    "linesArray": [[{ "x": false, "y": true }]],
     "upComingReservations": []
   }
 }

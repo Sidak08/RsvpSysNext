@@ -1,39 +1,60 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Pixelify+Sans&display=swap");
 
+:root {
+    --main-bg-color: rgba(27, 26, 26, 0.83);
+    --main-border-color: rgba(27, 26, 26, 0.88);
+    --main-font-color: white;
+    --main-font-family: "Inter", sans-serif;
+    --main-transition: all 0.5s ease-in-out;
+    --main-blur: blur(5.9px);
+    --main-width: 370px;
+    --main-radius: 10px;
+    --main-margin: 10px;
+    --main-padding: 10px;
+    --main-font-size: 24px;
+    --main-font-weight: 400;
+    --main-bg-dark: #313131;
+    --main-bg-darker: #212121;
+    --main-bg-thumb: #3b3939;
+    --main-btn-bg: #5200ff;
+    --main-btn-border: #3600a8;
+}
+
 * {
     margin: 0px;
     padding: 0px;
-    font-family: "Inter", sans-serif;
+    font-family: var(--main-font-family);
 }
 
 .homeReserveDiv {
-    width: 370px;
+    width: var(--main-width);
     position: absolute;
     top: calc((8% - 45px) / 2);
     right: 11px;
-    border-radius: 10px;
-    background: rgba(27, 26, 26, 0.83);
-    backdrop-filter: blur(5.9px);
-    -webkit-backdrop-filter: blur(5.9px);
-    border: 1px solid rgba(27, 26, 26, 0.88);
+    border-radius: var(--main-radius);
+    background: var(--main-bg-color);
+    backdrop-filter: var(--main-blur);
+    -webkit-backdrop-filter: var(--main-blur);
+    border: 1px solid var(--main-border-color);
     opacity: 0;
-    transition: all 0.5s ease-in-out;
+    transition: var(--main-transition);
     transform: translateX(390px);
 }
 
 .homeReserveDiv.animate {
-    width: 370px;
+    width: var(--main-width);
     opacity: 1;
     transform: translateX(0px);
 }
 
 .homeReserveDiv h1 {
     font-size: 35px;
-    color: #fff;
-    font-weight: 400;
-    margin-top: 10px;
+    color: var(--main-font-color);
+    font-weight: var(--main-font-weight);
+    margin-top: var(--main-margin);
     margin-left: 20px;
 }
+
 #homeReserveStatusDiv {
     width: 100%;
     display: flex;
@@ -42,19 +63,22 @@
     align-items: center;
     margin-top: 20px;
 }
+
 #homeReserveStatusDiv > h4 {
     font-weight: 600;
-    color: white;
-    font-size: 24px;
+    color: var(--main-font-color);
+    font-size: var(--main-font-size);
     margin-left: -55%;
 }
+
 .homeReserveLine {
     width: 90%;
     height: 6px;
-    background: white;
-    margin: 10px 0px 10px 0px;
+    background: var(--main-font-color);
+    margin: var(--main-margin) 0px;
     border-radius: 3px;
 }
+
 .homeReserveTimeSlotDivBox {
     margin: 0px -10px -10px -10px;
     max-height: 150px;
@@ -63,19 +87,19 @@
     scroll-padding: 20px;
     width: 100%;
 }
+
 .homeReserveTimeSlotDivBox > div:nth-child(1) {
     margin-top: 0px;
 }
-/* Define scrollbar styles */
+
 .homeReserveTimeSlotDivBox::-webkit-scrollbar {
-    width: 10px; /* Set scrollbar width */
-    background-color: #212121;
+    width: 10px;
+    background-color: var(--main-bg-darker);
     border-radius: 10px;
 }
 
-/* Define scrollbar thumb styles */
 .homeReserveTimeSlotDivBox::-webkit-scrollbar-thumb {
-    background-color: #3b3939; /* Set thumb color */
+    background-color: var(--main-bg-thumb);
     border-radius: 10px;
 }
 
@@ -85,30 +109,35 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #313131;
-    color: white;
-    margin: 10px 0px 10px calc((100% - 332px) / 2);
+    background-color: var(--main-bg-dark);
+    color: var(--main-font-color);
+    margin: var(--main-margin) 0px var(--main-margin) calc((100% - 332px) / 2);
     border-radius: 5px;
 }
+
 .timeSlotDiv > * {
-    padding: 0px 10px 0px 10px;
-    font-weight: 400;
+    padding: 0px var(--main-padding);
+    font-weight: var(--main-font-weight);
     font-size: 16px;
 }
+
 .timeSlotDiv > div {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .timeSlotDiv > div > h4 {
-    padding-left: 10px;
-    font-weight: 400;
+    padding-left: var(--main-padding);
+    font-weight: var(--main-font-weight);
 }
+
 .timeSlotDivCircle {
     width: 20px;
     height: 20px;
     border-radius: 50%;
 }
+
 #bookSpotDiv {
     width: 100%;
     height: 180px;
@@ -116,14 +145,16 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    margin-top: 10px;
+    margin-top: var(--main-margin);
 }
+
 #bookSpotDiv > h1 {
     font-weight: 600;
-    color: white;
-    font-size: 24px;
+    color: var(--main-font-color);
+    font-size: var(--main-font-size);
     margin-left: -45%;
 }
+
 #bookSpotDiv > .homeReserveLine {
     margin: 0px;
 }
@@ -131,112 +162,121 @@
 #bookSpotTimeSlotDiv {
     width: 90%;
     height: 40px;
-    background-color: #313131;
+    background-color: var(--main-bg-dark);
     border-radius: 5px;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
 }
+
 #bookSpotTimeSlotDiv > input {
-    background-color: #313131;
+    background-color: var(--main-bg-dark);
     border: none;
-    color: white;
+    color: var(--main-font-color);
     font-size: 16px;
-    margin: 10px;
+    margin: var(--main-margin);
 }
+
 #bookSpotTimeSlotDiv > input:active {
-    background-color: #313131;
+    background-color: var(--main-bg-dark);
     border: none;
-    color: white;
-    margin: 10px;
+    color: var(--main-font-color);
+    margin: var(--main-margin);
     border: none;
 }
+
 #bookSpotDiv > button {
     width: 90%;
     height: 40px;
-    background-color: #5200ff;
-    color: white;
+    background-color: var(--main-btn-bg);
+    color: var(--main-font-color);
     border-radius: 5px;
     font-size: 20px;
-    font-weight: 400;
+    font-weight: var(--main-font-weight);
     border: none;
 }
+
 #bookSpotDiv > button:active {
-    border: #3600a8 2px solid;
+    border: var(--main-btn-border) 2px solid;
 }
+
 input[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(1);
     margin-left: -20px;
 }
+
 input[type="time"]::-webkit-calendar-picker-indicator {
     filter: invert(1);
     margin-left: 0px;
 }
+
 #avalibility {
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    margin-right: 10px;
+    margin-right: var(--main-margin);
 }
+
 .red {
     background-color: red;
 }
+
 .green {
     background-color: green;
 }
+
 .upComingReserveDiv {
-    width: 370px;
+    width: var(--main-width);
     position: absolute;
     bottom: calc(45px + 2%);
     max-height: calc(40% - 50px);
     right: 11px;
-    border-radius: 10px;
-    background: rgba(27, 26, 26, 0.83);
-    backdrop-filter: blur(5.9px);
-    -webkit-backdrop-filter: blur(5.9px);
+    border-radius: var(--main-radius);
+    background: var(--main-bg-color);
+    backdrop-filter: var(--main-blur);
+    -webkit-backdrop-filter: var(--main-blur);
     border: none !important;
     opacity: 0;
-    transition: all 0.5s ease-in-out;
+    transition: var(--main-transition);
     transform: translateX(390px);
     display: flex;
     flex-direction: column;
-    /* justify-content: space-evenly; */
     align-items: center;
 }
 
 .upComingReserveDiv.animate {
-    border: 1px solid rgba(27, 26, 26, 0.88);
-    width: 370px;
+    border: 1px solid var(--main-border-color);
+    width: var(--main-width);
     opacity: 1;
     transform: translateX(0px);
 }
+
 .upComingReserveDiv > h4 {
     font-weight: 600;
-    color: white;
-    font-size: 24px;
-    margin: 10px 0px 0px 0px;
+    color: var(--main-font-color);
+    font-size: var(--main-font-size);
+    margin: var(--main-margin) 0px 0px 0px;
 }
+
 .upComingRervationDiv {
     margin: 5px -10px 10px -10px;
     overflow: auto;
     scrollbar-width: 10px;
     scroll-padding: 20px;
     width: 100%;
-    /* padding-bottom: 2%; */
 }
+
 .upComingRervationDiv > div:nth-child(1) {
     margin-top: 0px;
 }
 
-/* Define scrollbar styles */
 .upComingRervationDiv::-webkit-scrollbar {
-    width: 10px; /* Set scrollbar width */
-    background-color: #212121;
+    width: 10px;
+    background-color: var(--main-bg-darker);
     border-radius: 10px;
 }
 
-/* Define scrollbar thumb styles */
 .upComingRervationDiv::-webkit-scrollbar-thumb {
-    background-color: #3b3939; /* Set thumb color */
+    background-color: var(--main-bg-thumb);
     border-radius: 10px;
 }

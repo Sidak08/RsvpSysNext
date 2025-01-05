@@ -1,5 +1,13 @@
-/* Add a semicolon to the end of the font import */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Pixelify+Sans&display=swap");
+:root {
+    --background-color: #1b1a1a;
+    --text-color: #fff;
+    --font-family: "Inter", sans-serif;
+    --box-width: 230px;
+    --box-height: 50px;
+    --transition-duration: 0.5s;
+    --transition-ease: ease-in-out;
+}
 
 .btm {
     position: absolute;
@@ -15,7 +23,7 @@
 }
 
 .btmBox {
-    background-color: #1b1a1a;
+    background-color: var(--background-color);
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -24,10 +32,11 @@
     padding-left: 10px;
     opacity: 0;
     transform: translateX(200px);
-    transition: all 0.5s ease-in-out;
-    width: 230px;
-    height: 50px;
+    transition: all var(--transition-duration) var(--transition-ease);
+    width: var(--box-width);
+    height: var(--box-height);
 }
+
 .btmBox.animate {
     opacity: 1;
     transform: translateX(0);
@@ -47,11 +56,8 @@
 
 .text {
     font-size: 18px;
-    color: #fff;
-    font-family: "Inter", sans-serif;
+    color: var(--text-color);
+    font-family: var(--font-family);
     font-weight: 350;
-}
-
-.text {
     margin: 0;
 }
